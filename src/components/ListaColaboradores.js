@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, ptBR } from '@mui/x-data-grid';
 import axios from 'axios';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 
 
 const ListaColaboradores = () => {
     const [colaboradores, setColaboradores] = useState([]);
+   
+
     const columns = [    
         { field: "matricula", 
           headerName: "Matricula", 
@@ -17,7 +20,7 @@ const ListaColaboradores = () => {
         {
           field: "nome",
           headerName: "Nome",
-          width: 230,
+          width: 380,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
           sortable: true,
@@ -33,7 +36,7 @@ const ListaColaboradores = () => {
         {
           field: "cargo",
           headerName: "Cargo",
-          width: 190,
+          width: 230,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
           sortable: true
@@ -52,7 +55,10 @@ const ListaColaboradores = () => {
             width: 120,
             sortable: false,
             renderCell: (params) => (
+              <>
               <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} />
+              <EditRoundedIcon onClick={() => handleEdit()} sx={{cursor: 'pointer', color: '#2e7d32', margin: '0 auto'}} />
+              </>
                
             ),
           },
@@ -62,19 +68,22 @@ const ListaColaboradores = () => {
         return { ...row, id: index };
       })
 
-      const handleDeleteRow = (cpf) => {
+      const handleDeleteRow = (cpf) => {        
        axios.post('https://gabriellgomess.com/gerenciador_rh/delete.php', {cpf: cpf})
          .then((response) => {
               console.log(response.data);
-              window.location.reload();
+              window.location.reload();            
             }
             )
             .catch((error) => {
                 console.log(error);
                 }
-            )
-            
+            )            
       };
+
+      const handleEdit = () => {
+        alert('Em desenvolvimento');
+      }
     
     useEffect(() => {
         axios.get('https://gabriellgomess.com/gerenciador_rh/busca.php')
@@ -87,17 +96,21 @@ const ListaColaboradores = () => {
         })
     }, [])
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <>
+    <Box sx={{ height: 650, width: '100%' }}>
       <DataGrid
+        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         rows={updatedFunc}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
       />
-    </Box>
+    </Box>    
+    </>
+    
   );
 }
 

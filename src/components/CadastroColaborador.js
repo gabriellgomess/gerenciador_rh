@@ -8,10 +8,65 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { formatToCEP, isCEP, formatToCPFOrCNPJ, isCPFOrCNPJ, formatToPhone, isPhone } from 'brazilian-values';
 
 const CadastroColaborador = () => {  
+
+    const [cep, setCep] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [testCpfOrCnpj, setTestCpfOrCnpj] = useState(false)
+    const [testPhone, setTestPhone] = useState(false)
+    const [endereco, setEndereco] = useState('')
+
+    const handleFormatPhone = (event) => {
+        var phone = event.target.value
+        var phoneFormatado = formatToPhone(phone)
+        event.target.value = phoneFormatado
+        if(isPhone(phoneFormatado)){
+          setTestPhone(true)
+        }else{
+          setTestPhone(false)
+        }
+      }
+  
+      const handleFormatCpf = (event) => {
+        var cpf = event.target.value;
+        var cpfFormatado = formatToCPFOrCNPJ(cpf);
+        event.target.value = cpfFormatado;
+        setCpf(cpfFormatado);
+        if(isCPFOrCNPJ(cpfFormatado)){
+          setTestCpfOrCnpj(true)
+        }else{
+          setTestCpfOrCnpj(false)
+        }     
+      };
+  
+      const handleFormatCep = (event) => {
+        var cep = event.target.value
+        var cepFormatado = formatToCEP(cep)
+        event.target.value = cepFormatado
+        setCep(cepFormatado)
+        if(isCEP(cepFormatado)){
+          buscaCep(cepFormatado)
+        }
+    }
+  
+    const buscaCep = (cep) => {
+      axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => {
+        console.log(response.data)
+          setEndereco(response.data)
+          // setClientes(response.data.data)
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+    }
+
     const cargos = [  
         {label: "Enfermeiro (a)"},  {label: "Tecnico (a) de Enfermagem"},  {label: "Encarregado de Estoque"},  {label: "Farmaceutico (a)"},  {label: "Auxiliar de Higienização"},  {label: "Nutricionista"},  {label: "Diretor Executivo"},  {label: "Fisioterapeuta I"},  {label: "Aux. de Cozinha"},  {label: "Coordenador (a) de comunicação"},  {label: "Assistente Social"},  {label: "Assist. Administrativo (a)"},  {label: "Fisioterapeuta III"},  {label: "Medico Neurologista"},  {label: "Tecnico de manutenção"},  {label: "Médico Clínico"},  {label: "Auxiliar de Farmacia"},  {label: "Auxiliar de Cozinha"},  {label: "Psicologo(a)"},  {label: "Gerente de Atendimento"},  {label: "Analista Administrativo"},  {label: "Aux. de lavanderia"},  {label: "Fisioterapeuta II"},  {label: "Cozinheiro (a)"},  {label: "Encarregado de Lavanderia"},  {label: "Assistente de Relações Públicas"},  {label: "Coordenador de RH"},  {label: "Analista de Compras"},  {label: "Administrador(a) Financeiro"},  {label: "Motorista"},  {label: "Auxiliar de Dieta"},  {label: "Encarregado de Manutenção"}
     ];
@@ -36,40 +91,88 @@ const CadastroColaborador = () => {
             console.log(res);
             console.log(res.data);
         })
+        .then(res => {
+            window.location.reload();
+        })
     };
 
+    const handleFormatCurrency = (event) => {
+        var valor = event.target.value.replace(/\D/g,"");
+        valor = (valor/100).toFixed(2) + "";
+        valor = valor.replace(".", ",");
+        valor = valor.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+        valor = valor.replace(/(\d)(\d{3}),/g, "$1.$2,");
+        event.target.value = valor === "0,00" ? "" : "R$ "+valor;
+    }
+
+    const handleSetEstado = (estado) => {
+       switch (estado) {
+        case 'AC': return 'Acre'; break;
+        case 'AL': return 'Alagoas'; break;
+        case 'AP': return 'Amapá'; break;
+        case 'AM': return 'Amazonas'; break;
+        case 'BA': return 'Bahia'; break;
+        case 'CE': return 'Ceará'; break;
+        case 'DF': return 'Distrito Federal'; break;
+        case 'ES': return 'Espírito Santo'; break;
+        case 'GO': return 'Goiás'; break;
+        case 'MA': return 'Maranhão'; break;
+        case 'MT': return 'Mato Grosso'; break;
+        case 'MS': return 'Mato Grosso do Sul'; break;
+        case 'MG': return 'Minas Gerais'; break;
+        case 'PA': return 'Pará'; break;
+        case 'PB': return 'Paraíba'; break;
+        case 'PR': return 'Paraná'; break;
+        case 'PE': return 'Pernambuco'; break;
+        case 'PI': return 'Piauí'; break;
+        case 'RJ': return 'Rio de Janeiro'; break;
+        case 'RN': return 'Rio Grande do Norte'; break;
+        case 'RS': return 'Rio Grande do Sul'; break;
+        case 'RO': return 'Rondônia'; break;
+        case 'RR': return 'Roraima'; break;
+        case 'SC': return 'Santa Catarina'; break;
+        case 'SP': return 'São Paulo'; break;
+        case 'SE': return 'Sergipe'; break;
+        case 'TO': return 'Tocantins'; break;
+        default: return 'Estado'; break;
+         }
+    }
 
 
       
     return (
-        <Card sx={{background: '#e3f2fd' }}>
+        <Card >
             <form onSubmit={handleSubmit(onSubmit)}>
             <CardContent>                
-                <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>                    
-                    <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
-                        Dados Pessoais
-                    </Typography>
+                <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>   
+                    <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <Typography variant='h6' color="text.primary" gutterBottom>
+                            Dados Pessoais
+                        </Typography>
+                        <Avatar sx={{width: 100, height: 100, marginRight: '50px'}} alt="" src="/static/images/avatar/3.jpg" />
+                    </Box>           
+                    
                     <TextField {...register('matricula', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="matricula" label="Matrícula" variant="standard" />
                     <TextField {...register('nome', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="nome" label="Nome" variant="standard" />
-                    <TextField {...register('cpf', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" />
+                    <TextField {...register('cpf', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event)=>handleFormatCpf(event)} />
                     <TextField {...register('pis', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="pis" label="PIS" variant="standard" />
                     <TextField {...register('rg', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="rg" label="RG" variant="standard" />
                     <TextField {...register('nascimento', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="nascimento" label="Data de nascimento" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
-                    <TextField {...register('telefone', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="telefone" label="Telefone" variant="standard" />
-                    <TextField {...register('celular', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="celular" label="Celular" variant="standard" />
+                    <TextField {...register('telefone', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="telefone" label="Telefone" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
+                    <TextField {...register('celular', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="celular" label="Celular" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
                     <TextField {...register('email', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="email" label="E-mail" variant="standard" />
-                    <TextField {...register('cep', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cep" label="CEP" variant="standard" />
-                    <TextField {...register('rua', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="rua" label="Rua" variant="standard" />
+                    <TextField {...register('cep', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cep" label="CEP" variant="standard" onKeyUp={(event)=>handleFormatCep(event)} />
+                    <TextField {...register('rua', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="rua" label="Rua" variant="standard" value={endereco.logradouro || ''} />
                     <TextField {...register('numero', {required: true})} sx={{width: { xs: '30%', sm: '30%', md: '20%', lg: '10%', xl: '10%' } , margin: '5px'}} name="numero" label="Número" variant="standard" />
-                    <TextField {...register('bairro', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="bairro" label="Bairro" variant="standard" />
-                    <TextField {...register('cidade', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" />
-                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado" options={estadosBrasileiros} 
-                        renderInput={(params) => <TextField variant="standard" {...register('estado', {required: true})} {...params} label="Estado" />} />
+                    <TextField {...register('bairro', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="bairro" label="Bairro" variant="standard" value={endereco.bairro || ''} />
+                    <TextField {...register('cidade', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" value={endereco.localidade || ''} />
+                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado" value={endereco.uf?handleSetEstado(endereco.uf):''} options={estadosBrasileiros} 
+                        renderInput={(params) => <TextField variant="standard" {...register('estado', {required: true})} {...params} label="Estado"  />} />
                     <Divider sx={{width: '100%', margin: '10px'}} />
                     <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Dados da Contratação
                     </Typography>
-                    <TextField {...register('salario', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} name="salario" label="Salário" variant="standard" />
+                    <TextField onKeyUp={(event)=>handleFormatCurrency(event)} {...register('salario', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} name="salario" label="Salário" variant="standard" />
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '50%', xl: '50%' }}} name="cargo" options={cargos} renderInput={(params) => <TextField {...register('cargo', {required: true})} variant="standard" {...params} label="Cargo" />}
                     />
                     <TextField {...register('cbo', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cbo" label="CBO" variant="standard" />
