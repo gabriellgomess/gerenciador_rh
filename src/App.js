@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PermContactCalendarRoundedIcon from '@mui/icons-material/PermContactCalendarRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import MedicationLiquidRoundedIcon from '@mui/icons-material/MedicationLiquidRounded';
 import LocalHospitalRoundedIcon from '@mui/icons-material/LocalHospitalRounded';
@@ -34,6 +35,7 @@ import Medicamentos from './pages/Medicamentos';
 import Alimentacoes from './pages/Alimentacoes';
 import Orientacoes from './pages/Orientacoes';
 import Contatos from './pages/Contatos';
+import Login from './pages/Login';
 
 
 const drawerWidth = 240;
@@ -145,7 +147,29 @@ export default function App() {
         </DrawerHeader>
         <Divider />
         <List>
-        <Link to="/gerenciador_rh" style={{ textDecoration: 'none' }}>
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <LoginRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Login'} sx={{ opacity: open ? 1 : 0, color: 'grey' }} />
+              </ListItemButton>
+            </ListItem>
+            </Link>
+            <Link to="/gerenciador_rh" style={{ textDecoration: 'none' }}>
         <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -269,6 +293,7 @@ export default function App() {
         {/* CONTEÚDO DA PÁGINA AQUI */}
         <Routes >
           <Route path="/gerenciador_rh" element={<Colaboradores />} />
+          <Route path="/login" element={<Login />} />
           {/* <Route path="/medicamentos" element={<Medicamentos />} />
           <Route path="/alimentacoes" element={<Alimentacoes />} />
           <Route path="/orientacoes" element={<Orientacoes />} />

@@ -107,34 +107,34 @@ const CadastroColaborador = () => {
 
     const handleSetEstado = (estado) => {
        switch (estado) {
-        case 'AC': return 'Acre'; break;
-        case 'AL': return 'Alagoas'; break;
-        case 'AP': return 'Amapá'; break;
-        case 'AM': return 'Amazonas'; break;
-        case 'BA': return 'Bahia'; break;
-        case 'CE': return 'Ceará'; break;
-        case 'DF': return 'Distrito Federal'; break;
-        case 'ES': return 'Espírito Santo'; break;
-        case 'GO': return 'Goiás'; break;
-        case 'MA': return 'Maranhão'; break;
-        case 'MT': return 'Mato Grosso'; break;
-        case 'MS': return 'Mato Grosso do Sul'; break;
-        case 'MG': return 'Minas Gerais'; break;
-        case 'PA': return 'Pará'; break;
-        case 'PB': return 'Paraíba'; break;
-        case 'PR': return 'Paraná'; break;
-        case 'PE': return 'Pernambuco'; break;
-        case 'PI': return 'Piauí'; break;
-        case 'RJ': return 'Rio de Janeiro'; break;
-        case 'RN': return 'Rio Grande do Norte'; break;
-        case 'RS': return 'Rio Grande do Sul'; break;
-        case 'RO': return 'Rondônia'; break;
-        case 'RR': return 'Roraima'; break;
-        case 'SC': return 'Santa Catarina'; break;
-        case 'SP': return 'São Paulo'; break;
-        case 'SE': return 'Sergipe'; break;
-        case 'TO': return 'Tocantins'; break;
-        default: return 'Estado'; break;
+        case 'AC': return 'Acre';
+        case 'AL': return 'Alagoas';
+        case 'AP': return 'Amapá';
+        case 'AM': return 'Amazonas';
+        case 'BA': return 'Bahia';
+        case 'CE': return 'Ceará';
+        case 'DF': return 'Distrito Federal';
+        case 'ES': return 'Espírito Santo';
+        case 'GO': return 'Goiás';
+        case 'MA': return 'Maranhão';
+        case 'MT': return 'Mato Grosso';
+        case 'MS': return 'Mato Grosso do Sul';
+        case 'MG': return 'Minas Gerais';
+        case 'PA': return 'Pará';
+        case 'PB': return 'Paraíba';
+        case 'PR': return 'Paraná';
+        case 'PE': return 'Pernambuco';
+        case 'PI': return 'Piauí';
+        case 'RJ': return 'Rio de Janeiro';
+        case 'RN': return 'Rio Grande do Norte';
+        case 'RS': return 'Rio Grande do Sul';
+        case 'RO': return 'Rondônia';
+        case 'RR': return 'Roraima';
+        case 'SC': return 'Santa Catarina';
+        case 'SP': return 'São Paulo';
+        case 'SE': return 'Sergipe';
+        case 'TO': return 'Tocantins';
+        default: return 'Estado';
          }
     }
 

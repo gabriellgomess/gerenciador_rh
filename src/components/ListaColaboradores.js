@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { DataGrid, ptBR } from '@mui/x-data-grid';
 import axios from 'axios';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
@@ -50,14 +51,32 @@ const ListaColaboradores = () => {
           sortable: true
         },
         {
+          field: "situacao",
+          headerName: "Situação",
+          width: 150,
+          alignItems: 'center',
+          cellClassName: 'cell-align-center',
+          sortable: true,
+          renderCell: (params) => (
+            <>
+            {params.row.situacao == 'Ativo' ? }
+            
+            </>
+             
+          ),
+        },
+        {
             field: 'actions',
             headerName: 'Ações',
             width: 120,
             sortable: false,
             renderCell: (params) => (
               <>
-              <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} />
-              <EditRoundedIcon onClick={() => handleEdit()} sx={{cursor: 'pointer', color: '#2e7d32', margin: '0 auto'}} />
+              {/* <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} /> */}
+              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleEdit()} endIcon={<EditRoundedIcon   />}>
+                Editar
+              </Button>
+              
               </>
                
             ),
