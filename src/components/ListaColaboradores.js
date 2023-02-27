@@ -59,7 +59,7 @@ const ListaColaboradores = () => {
           sortable: true,
           renderCell: (params) => (
             <>
-            {params.row.situacao == 'Ativo' ? }
+            {/* {params.row.situacao == 'Ativo' ? } */}
             
             </>
              
