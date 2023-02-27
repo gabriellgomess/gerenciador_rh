@@ -136,10 +136,7 @@ const CadastroColaborador = () => {
         case 'TO': return 'Tocantins';
         default: return 'Estado';
          }
-    }
-
-
-      
+    }      
     return (
         <Card >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -149,63 +146,64 @@ const CadastroColaborador = () => {
                         <Typography variant='h6' color="text.primary" gutterBottom>
                             Dados Pessoais
                         </Typography>
-                        <Avatar sx={{width: 100, height: 100, marginRight: '50px'}} alt="" src="/static/images/avatar/3.jpg" />
+                        {/* <Avatar sx={{width: 100, height: 100, marginRight: '50px'}} alt="" src="/static/images/avatar/3.jpg" /> */}
                     </Box>           
                     
-                    <TextField {...register('matricula', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="matricula" label="Matrícula" variant="standard" />
-                    <TextField {...register('nome', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="nome" label="Nome" variant="standard" />
-                    <TextField {...register('cpf', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event)=>handleFormatCpf(event)} />
-                    <TextField {...register('pis', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="pis" label="PIS" variant="standard" />
-                    <TextField {...register('rg', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="rg" label="RG" variant="standard" />
-                    <TextField {...register('nascimento', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="nascimento" label="Data de nascimento" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
-                    <TextField {...register('telefone', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="telefone" label="Telefone" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
-                    <TextField {...register('celular', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="celular" label="Celular" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
-                    <TextField {...register('email', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="email" label="E-mail" variant="standard" />
-                    <TextField {...register('cep', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cep" label="CEP" variant="standard" onKeyUp={(event)=>handleFormatCep(event)} />
-                    <TextField {...register('rua', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="rua" label="Rua" variant="standard" value={endereco.logradouro || ''} />
-                    <TextField {...register('numero', {required: true})} sx={{width: { xs: '30%', sm: '30%', md: '20%', lg: '10%', xl: '10%' } , margin: '5px'}} name="numero" label="Número" variant="standard" />
-                    <TextField {...register('bairro', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="bairro" label="Bairro" variant="standard" value={endereco.bairro || ''} />
-                    <TextField {...register('cidade', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" value={endereco.localidade || ''} />
+                    <TextField {...register('matricula')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="matricula" label="Matrícula" variant="standard" />
+                    <TextField {...register('nome')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="nome" label="Nome" variant="standard" />
+                    <TextField {...register('cpf')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event)=>handleFormatCpf(event)} />
+                    <TextField {...register('pis')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="pis" label="PIS" variant="standard" />
+                    <TextField {...register('rg')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="rg" label="RG" variant="standard" />
+                    <TextField {...register('nascimento')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="nascimento" label="Data de nascimento" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
+                    <TextField {...register('telefone')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="telefone" label="Telefone" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
+                    <TextField {...register('celular')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="celular" label="Celular" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
+                    <TextField {...register('email')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="email" label="E-mail" variant="standard" />
+                    <TextField {...register('cep')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cep" label="CEP" variant="standard" onKeyUp={(event)=>handleFormatCep(event)} />
+                    <TextField {...register('rua')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="rua" label="Rua" variant="standard" value={endereco.logradouro || ''} />
+                    <TextField {...register('numero')} sx={{width: { xs: '30%', sm: '30%', md: '20%', lg: '10%', xl: '10%' } , margin: '5px'}} name="numero" label="Número" variant="standard" />
+                    <TextField {...register('bairro')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="bairro" label="Bairro" variant="standard" value={endereco.bairro || ''} />
+                    <TextField {...register('cidade')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" value={endereco.localidade || ''} />
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado" value={endereco.uf?handleSetEstado(endereco.uf):''} options={estadosBrasileiros} 
-                        renderInput={(params) => <TextField variant="standard" {...register('estado', {required: true})} {...params} label="Estado"  />} />
+                        renderInput={(params) => <TextField variant="standard" {...register('estado')} {...params} label="Estado"  />} />
                     <Divider sx={{width: '100%', margin: '10px'}} />
                     <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Dados da Contratação
                     </Typography>
-                    <TextField onKeyUp={(event)=>handleFormatCurrency(event)} {...register('salario', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} name="salario" label="Salário" variant="standard" />
-                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '50%', xl: '50%' }}} name="cargo" options={cargos} renderInput={(params) => <TextField {...register('cargo', {required: true})} variant="standard" {...params} label="Cargo" />}
+                    <TextField onKeyUp={(event)=>handleFormatCurrency(event)} {...register('salario')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} name="salario" label="Salário" variant="standard" />
+                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '50%', xl: '50%' }}} name="cargo" options={cargos} renderInput={(params) => <TextField {...register('cargo')} variant="standard" {...params} label="Cargo" />}
                     />
-                    <TextField {...register('cbo', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cbo" label="CBO" variant="standard" />
-                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' }}} name="ccusto" options={ccusto} renderInput={(params) => <TextField {...register('ccusto', {required: true})} variant="standard" {...params} label="Centro de Custo" />}
+                    <TextField {...register('cbo')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="registro" label="Registro" variant="standard" />
+                    <TextField {...register('cbo')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cbo" label="CBO" variant="standard" />
+                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' }}} name="ccusto" options={ccusto} renderInput={(params) => <TextField {...register('ccusto')} variant="standard" {...params} label="Centro de Custo" />}
                     />
-                     <TextField {...register('admissao', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="admissao" label="Data de admissão" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
+                     <TextField {...register('admissao')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="admissao" label="Data de admissão" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
                      <Divider sx={{width: '100%', margin: '10px'}} />
                      <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Dados Bancários
                     </Typography>
-                     <TextField {...register('agencia', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="agencia" label="Agência" variant="standard" />
-                     <TextField {...register('conta', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="conta" label="Conta" variant="standard" />
-                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="tipoConta" options={tipoConta} renderInput={(params) => <TextField {...register('tipoConta', {required: true})} variant="standard" {...params} label="Tipo de conta" />}
+                     <TextField {...register('agencia')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="agencia" label="Agência" variant="standard" />
+                     <TextField {...register('conta')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="conta" label="Conta" variant="standard" />
+                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="tipoConta" options={tipoConta} renderInput={(params) => <TextField {...register('tipoConta')} variant="standard" {...params} label="Tipo de conta" />}
                     />
-                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="situacao" options={situacao} renderInput={(params) => <TextField {...register('situacao', {required: true})} variant="standard" {...params} label="Situação" />}
+                    <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="situacao" options={situacao} renderInput={(params) => <TextField {...register('situacao')} variant="standard" {...params} label="Situação" />}
                     />
-                    <TextField {...register('descAgencia', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="descAgencia" label="Descrição da agência" variant="standard" />
+                    <TextField {...register('descAgencia')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="descAgencia" label="Descrição da agência" variant="standard" />
                     <Divider sx={{width: '100%', margin: '10px'}} />
                     <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Escala
                     </Typography>
-                    <TextField {...register('escala', {required: true})} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="escala" label="Escala" variant="standard" />
-                    <TextField {...register('cargaHoraria', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cargaHoraria" label="Carga Horária" variant="standard" />
+                    <TextField {...register('escala')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="escala" label="Escala" variant="standard" />
+                    <TextField {...register('cargaHoraria')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cargaHoraria" label="Carga Horária" variant="standard" />
                     <Divider sx={{width: '100%', margin: '10px'}} />
                     <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Benefícios
                     </Typography>
-                    <TextField {...register('linhaVT', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="linhaVT" label="Linha VT" variant="standard" />
-                    <TextField {...register('quantidadeVT', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="quantidadeVT" label="Quantidade VT / dia" variant="standard" />
-                    <TextField {...register('planoSaude', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoSaude" label="Plano de saúde" variant="standard" />
-                    <TextField {...register('planoOdonto', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoOdonto" label="Plano Odonto" variant="standard" />
-                    <TextField {...register('cestaBasica', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cestaBasica" label="Cesta Básica" variant="standard" />
-                    <TextField {...register('refeitorio', {required: true})} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="refeitorio" label="Refeitório" variant="standard" />                   
+                    <TextField {...register('linhaVT')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="linhaVT" label="Linha VT" variant="standard" />
+                    <TextField {...register('quantidadeVT')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="quantidadeVT" label="Quantidade VT / dia" variant="standard" />
+                    <TextField {...register('planoSaude')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoSaude" label="Plano de saúde" variant="standard" />
+                    <TextField {...register('planoOdonto')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoOdonto" label="Plano Odonto" variant="standard" />
+                    <TextField {...register('cestaBasica')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cestaBasica" label="Cesta Básica" variant="standard" />
+                    <TextField {...register('refeitorio')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="refeitorio" label="Refeitório" variant="standard" />                   
                 </Box>
                 
             </CardContent>

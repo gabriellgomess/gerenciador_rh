@@ -64,7 +64,7 @@ const Colaborador = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <ListaColaboradores />
-            </TabPanel>
+            </TabPanel>           
             {/* <TabPanel value={value} index={2}>
                 Item Three
             </TabPanel> */}

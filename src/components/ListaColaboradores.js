@@ -1,16 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import ContextAPI from '../ContextAPI/ContextAPI';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { DataGrid, ptBR } from '@mui/x-data-grid';
 import axios from 'axios';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import NotInterestedRoundedIcon from '@mui/icons-material/NotInterestedRounded';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import FormDialog from './FormDialog';
 
 
 
 const ListaColaboradores = () => {
-    const [colaboradores, setColaboradores] = useState([]);
-   
+    const {colaboradores, setColaboradores} = useContext(ContextAPI);
+
+    const [open, setOpen] = React.useState(false);
+    const [dialog, setDialog] = React.useState([]);
+    const handleClickRow = (e) => {      
+      setOpen(true);
+      setDialog(e);
+      console.log("Clicou, open = " + open);
+  }
 
     const columns = [    
         { field: "matricula", 
@@ -59,7 +70,7 @@ const ListaColaboradores = () => {
           sortable: true,
           renderCell: (params) => (
             <>
-            {/* {params.row.situacao == 'Ativo' ? } */}
+            {params.row.situacao == 'Ativo' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}
             
             </>
              
@@ -73,7 +84,7 @@ const ListaColaboradores = () => {
             renderCell: (params) => (
               <>
               {/* <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} /> */}
-              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleEdit()} endIcon={<EditRoundedIcon   />}>
+              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
                 Editar
               </Button>
               
@@ -87,33 +98,7 @@ const ListaColaboradores = () => {
         return { ...row, id: index };
       })
 
-      const handleDeleteRow = (cpf) => {        
-       axios.post('https://gabriellgomess.com/gerenciador_rh/delete.php', {cpf: cpf})
-         .then((response) => {
-              console.log(response.data);
-              window.location.reload();            
-            }
-            )
-            .catch((error) => {
-                console.log(error);
-                }
-            )            
-      };
-
-      const handleEdit = () => {
-        alert('Em desenvolvimento');
-      }
-    
-    useEffect(() => {
-        axios.get('https://gabriellgomess.com/gerenciador_rh/busca.php')
-        .then((response) => {
-            console.log(response.data);
-            setColaboradores(response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }, [])
+     
   return (
     <>
     <Box sx={{ height: 650, width: '100%' }}>
@@ -127,7 +112,8 @@ const ListaColaboradores = () => {
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
       />
-    </Box>    
+    </Box>
+    <FormDialog open={open} setOpen={setOpen} dialog={dialog} colaboradores={colaboradores} setColaboradores={setColaboradores} />    
     </>
     
   );
