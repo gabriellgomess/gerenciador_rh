@@ -13,6 +13,9 @@ import FormDialog from './FormDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 
+import PDFGenerator from './DocPdf';
+
+
 
 
 
@@ -74,10 +77,8 @@ const ListaColaboradores = () => {
           sortable: true,
           renderCell: (params) => (
             <>
-            {params.row.demissao === '0000-00-00' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}
-            
-            </>
-             
+            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}            
+            </>             
           ),
         },
         {
@@ -90,10 +91,8 @@ const ListaColaboradores = () => {
               {/* <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} /> */}
               <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
                 Editar
-              </Button>
-              
-              </>
-               
+              </Button>              
+              </>               
             ),
           },
           {
@@ -103,12 +102,10 @@ const ListaColaboradores = () => {
             sortable: false,
             renderCell: (params) => (
               <Box sx={{margin: '0 auto'}}>
-              <IconButton aria-label="upload picture" component="label">
-                <FontAwesomeIcon color="#c62828" icon={faFilePdf} />
-              </IconButton> 
-              <IconButton aria-label="upload picture" component="label">
-              <FontAwesomeIcon color="#2e7d32" icon={faFileExcel} />
-              </IconButton>                   
+                <PDFGenerator colaborador={params.row} />
+                <IconButton aria-label="upload picture" component="label">
+                  <FontAwesomeIcon color="#2e7d32" icon={faFileExcel} />
+                </IconButton>                   
               </Box>
                
             ),
@@ -117,7 +114,7 @@ const ListaColaboradores = () => {
       ];
       let updatedFunc = colaboradores.map((row, index) => {
         return { ...row, id: index };
-      })
+      }).sort((a, b) => b.matricula - a.matricula);
 
      
   return (

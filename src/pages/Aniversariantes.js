@@ -57,28 +57,33 @@ function Aniversariantes() {
   const ListaDeAniversariantes = ({ aniversariantes }) => (
     <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
       {aniversariantes.map(aniversariante => (
-        <Card sx={{padding: '10px', width: { xs: '100%', sm: '100%', md: '48%', lg: '48%', xl: '48%' }, margin: '5px', background: '#e3f2fd'}} key={aniversariante.nome}>
-          <Typography variant='h6'>{aniversariante.nome}</Typography>
+        <Card sx={{display: 'flex', flexDirection: 'column', padding: '10px', width: { xs: '100%', sm: '100%', md: '48%', lg: '48%', xl: '30%' }, margin: '5px', background: '#e3f2fd'}} key={aniversariante.nome}>
+          <Typography variant='body'>{aniversariante.nome}</Typography>
           <Typography variant='p'>{(aniversariante.nascimento).split('-').reverse().join('/')}</Typography> 
         </Card>
       ))}
     </Box>
   );
 
-  // Renderizando os aniversariantes por mês
-  const AniversariantesPorMes = () => (
-    <>
-      {Object.entries(aniversariantesPorMes)
-        .sort(([mes1], [mes2]) => mes1.localeCompare(mes2))
-        .map(([mes, aniversariantes]) => (
+// Renderizando os aniversariantes por mês
+const AniversariantesPorMes = () => (
+  <>
+    {Object.entries(aniversariantesPorMes)
+      .sort(([mes1], [mes2]) => mes1.localeCompare(mes2))
+      .map(([mes, aniversariantes]) => {
+        // Ordenando os aniversariantes por dia de nascimento
+        aniversariantes.sort((a, b) => parseInt(a.nascimento.slice(8)) - parseInt(b.nascimento.slice(8)));
+
+        return (
           <div key={mes}>
             <h2>{meses[mes]}</h2>
+            <ListaDeAniversariantes aniversariantes={aniversariantes} />
+          </div>
+        );
+      })}
+  </>
+);
 
-          <ListaDeAniversariantes aniversariantes={aniversariantes} />
-        </div>
-      ))}
-    </>
-  );
 
   return (
     <div>

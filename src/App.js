@@ -26,6 +26,7 @@ import MedicationLiquidRoundedIcon from "@mui/icons-material/MedicationLiquidRou
 import LocalHospitalRoundedIcon from "@mui/icons-material/LocalHospitalRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import CakeIcon from "@mui/icons-material/Cake";
+import Footer from "./components/Footer";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 
@@ -357,6 +358,7 @@ export default function App() {
           <Route path="/orientacoes" element={<Orientacoes />} />
           <Route path="/contatos" element={<Contatos />} /> */}
           </Routes>
+          {/* <Footer /> */}
         </Box>
       </Box>
     </ContextAPI.Provider>
