@@ -198,7 +198,7 @@ const PDFGenerator = (props) => {
 
   return (
     <IconButton onClick={generatePDF}>
-      <FontAwesomeIcon icon={faFilePdf} />
+      <FontAwesomeIcon color='#d32f2f' icon={faFilePdf} />
     </IconButton>
   );
 };
