@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import ContextAPI from '../ContextAPI/ContextAPI';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { DataGrid, ptBR } from '@mui/x-data-grid';
 import axios from 'axios';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
@@ -9,6 +10,9 @@ import NotInterestedRoundedIcon from '@mui/icons-material/NotInterestedRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import FormDialog from './FormDialog';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -62,15 +66,15 @@ const ListaColaboradores = () => {
           sortable: true
         },
         {
-          field: "situacao",
-          headerName: "Situação",
+          field: "demissao",
+          headerName: "Status Contrato",
           width: 150,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
           sortable: true,
           renderCell: (params) => (
             <>
-            {params.row.situacao == 'Ativo' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}
+            {params.row.demissao === '0000-00-00' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}
             
             </>
              
@@ -89,6 +93,23 @@ const ListaColaboradores = () => {
               </Button>
               
               </>
+               
+            ),
+          },
+          {
+            field: 'relatorio',
+            headerName: 'Relatório',
+            width: 120,
+            sortable: false,
+            renderCell: (params) => (
+              <Box sx={{margin: '0 auto'}}>
+              <IconButton aria-label="upload picture" component="label">
+                <FontAwesomeIcon color="#c62828" icon={faFilePdf} />
+              </IconButton> 
+              <IconButton aria-label="upload picture" component="label">
+              <FontAwesomeIcon color="#2e7d32" icon={faFileExcel} />
+              </IconButton>                   
+              </Box>
                
             ),
           },

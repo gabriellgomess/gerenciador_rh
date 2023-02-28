@@ -57,7 +57,7 @@ function Aniversariantes() {
   const ListaDeAniversariantes = ({ aniversariantes }) => (
     <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
       {aniversariantes.map(aniversariante => (
-        <Card sx={{padding: '10px', width: 'content', margin: '5px', background: '#4fc3f7'}} key={aniversariante.nome}>
+        <Card sx={{padding: '10px', width: { xs: '100%', sm: '100%', md: '48%', lg: '48%', xl: '48%' }, margin: '5px', background: '#e3f2fd'}} key={aniversariante.nome}>
           <Typography variant='h6'>{aniversariante.nome}</Typography>
           <Typography variant='p'>{(aniversariante.nascimento).split('-').reverse().join('/')}</Typography> 
         </Card>

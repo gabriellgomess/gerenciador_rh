@@ -61,6 +61,7 @@ const CadastroColaborador = () => {
         console.log(response.data)
           setEndereco(response.data)
           // setClientes(response.data.data)
+          console.log(endereco)
       })
       .catch((error) => {
           console.log(error);
@@ -77,7 +78,7 @@ const CadastroColaborador = () => {
         {label: 'Clinica'},{label: 'Administrativo'},{label: 'Geral-Obra'}
     ]
     const tipoConta = [
-        {label: 'Corrente'},{label: 'Salário'}, {label: 'Poupança'},
+        {label: 'Conta Corrente'},{label: 'Conta Salário'}, {label: 'Conta Poupança'},
     ]
     const situacao = [
         {label: 'Ativo'}, {label: 'Inativo'}, {label: 'Pendente'},
@@ -85,14 +86,18 @@ const CadastroColaborador = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data);
+        data.rua = endereco.logradouro || '';
+        data.bairro = endereco.bairro || '';
+        data.cidade = endereco.localidade || '';
+        data.estado = endereco.uf ? handleSetEstado(endereco.uf) : '';
+        console.log("Indo: ",data);
         axios.post('https://gabriellgomess.com/gerenciador_rh/insere.php', data)
         .then(res => {
             console.log(res);
-            console.log(res.data);
+            console.log("Retorno: ",res.data);
         })
         .then(res => {
-            window.location.reload();
+            // window.location.reload();
         })
     };
 
