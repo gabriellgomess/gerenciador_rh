@@ -193,7 +193,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Link to="/add_colaborador" style={{ textDecoration: "none" }}>
+            <Link to="/gerenciador_rh/add_colaborador" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -218,7 +218,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Link to="/colaboradores" style={{ textDecoration: "none" }}>
+            <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -243,7 +243,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Link to="/aniversariantes" style={{ textDecoration: "none" }}>
+            <Link to="/gerenciador_rh/aniversariantes" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -276,9 +276,9 @@ export default function App() {
           {/* CONTEÚDO DA PÁGINA AQUI */}
           <Routes>
             <Route path="/gerenciador_rh" element={<Login />} />
-            <Route path="/add_colaborador" element={<Colaboradores />} />
-            <Route path="/colaboradores" element={<ListaColaboradores /> } />            
-            <Route path="/aniversariantes" element={<Aniversariantes />} />           
+            <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} />
+            <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores /> } />            
+            <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />           
           </Routes>
           {/* <Footer /> */}
         </Box>
