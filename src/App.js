@@ -19,15 +19,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import PermContactCalendarRoundedIcon from "@mui/icons-material/PermContactCalendarRounded";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
-import VaccinesRoundedIcon from "@mui/icons-material/VaccinesRounded";
-import MedicationLiquidRoundedIcon from "@mui/icons-material/MedicationLiquidRounded";
-import LocalHospitalRoundedIcon from "@mui/icons-material/LocalHospitalRounded";
-import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import CakeIcon from "@mui/icons-material/Cake";
-import Footer from "./components/Footer";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import BadgeIcon from "@mui/icons-material/Badge";
 
@@ -35,12 +30,10 @@ import { Routes, Route, Link } from "react-router-dom";
 
 // pages
 import Colaboradores from "./pages/Colaboradores";
-import Medicamentos from "./pages/Medicamentos";
-import Alimentacoes from "./pages/Alimentacoes";
-import Orientacoes from "./pages/Orientacoes";
-import Contatos from "./pages/Contatos";
 import Login from "./pages/Login";
 import Aniversariantes from "./pages/Aniversariantes";
+import FormColaborador from "./pages/FormColaborador";
+import ListaColaboradores from "./pages/ListaColaboradores";
 
 const drawerWidth = 240;
 
@@ -136,7 +129,7 @@ export default function App() {
 
   return (
     <ContextAPI.Provider value={{ colaboradores, setColaboradores }}>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", height: '100%' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
           <Toolbar>
@@ -175,7 +168,7 @@ export default function App() {
           </DrawerHeader>
           <Divider />
           <List>
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link to="/gerenciador_rh" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -200,7 +193,32 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Link to="/gerenciador_rh" style={{ textDecoration: "none" }}>
+            <Link to="/add_colaborador" style={{ textDecoration: "none" }}>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <PersonAddIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={"Add Colaborador"}
+                    sx={{ opacity: open ? 1 : 0, color: "grey" }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link to="/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -251,113 +269,16 @@ export default function App() {
               </ListItem>
             </Link>
           </List>
-          <Divider />
-          {/* <List>
-          
-          <Link to="/medicamentos" style={{ textDecoration: 'none' }}>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <VaccinesRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Medicamentos'} sx={{ opacity: open ? 1 : 0, color: 'grey' }} />
-            </ListItemButton>
-          </ListItem>
-          </Link>
-         
-          <Link to="/alimentacoes" style={{ textDecoration: 'none' }}>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <MedicationLiquidRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Alimentações'} sx={{ opacity: open ? 1 : 0, color: 'grey' }} />
-            </ListItemButton>
-          </ListItem>
-          </Link>
-          
-          <Link to="/orientacoes" style={{ textDecoration: 'none' }}>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <MenuBookRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Orientações'} sx={{ opacity: open ? 1 : 0, color: 'grey' }} />
-            </ListItemButton>
-          </ListItem>
-          </Link>
-          
-          <Link to="/contatos" style={{ textDecoration: 'none' }}>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <PermContactCalendarRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Contatos'} sx={{ opacity: open ? 1 : 0, color: 'grey' }} />
-            </ListItemButton>
-          </ListItem>
-          </Link>
-        </List> */}
+          <Divider />  
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, height: '100%' }}>
           <DrawerHeader />
           {/* CONTEÚDO DA PÁGINA AQUI */}
           <Routes>
-            <Route path="/gerenciador_rh" element={<Colaboradores />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/aniversariantes" element={<Aniversariantes />} />
-            {/* <Route path="/medicamentos" element={<Medicamentos />} />
-          <Route path="/alimentacoes" element={<Alimentacoes />} />
-          <Route path="/orientacoes" element={<Orientacoes />} />
-          <Route path="/contatos" element={<Contatos />} /> */}
+            <Route path="/gerenciador_rh" element={<Login />} />
+            <Route path="/add_colaborador" element={<Colaboradores />} />
+            <Route path="/colaboradores" element={<ListaColaboradores /> } />            
+            <Route path="/aniversariantes" element={<Aniversariantes />} />           
           </Routes>
           {/* <Footer /> */}
         </Box>

@@ -28,7 +28,7 @@ useEffect(() => {
         cargaHoraria: props.dialog.cargaHoraria,
         cargo: props.dialog.cargo,
         cbo: props.dialog.cbo,
-        cccusto: props.dialog.cccusto,
+        ccusto: props.dialog.ccusto,
         celular: props.dialog.celular,
         cep: props.dialog.cep,
         cestaBrasica: props.dialog.cestaBrasica,
@@ -83,7 +83,7 @@ const handleChangeValues = (values) => {
         cargaHoraria: editValues.cargaHoraria,
         cargo: editValues.cargo,
         cbo: editValues.cbo,
-        cccusto: editValues.cccusto,
+        ccusto: editValues.ccusto,
         celular: editValues.celular,
         cep: editValues.cep,
         cestaBrasica: editValues.cestaBrasica,
@@ -125,7 +125,7 @@ const handleChangeValues = (values) => {
                 cargaHoraria: editValues.cargaHoraria,
                 cargo: editValues.cargo,
                 cbo: editValues.cbo,
-                cccusto: editValues.cccusto,
+                ccusto: editValues.ccusto,
                 celular: editValues.celular,
                 cep: editValues.cep,
                 cestaBrasica: editValues.cestaBrasica,
@@ -230,7 +230,7 @@ console.log(props.dialog)
             <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="conta" label="Conta" variant="standard" defaultValue={props.dialog.conta} onChange={handleChangeValues}/>
             <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="tipoConta" value={props.dialog.tipoConta} options={tipoConta} 
                         renderInput={(params) => <TextField variant="standard" {...params} label="Tipo de Conta"  />} />
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="situacao" value={props.dialog.situacai} options={situacao} 
+            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="situacao" value={props.dialog.situacao} options={situacao} 
                         renderInput={(params) => <TextField variant="standard" {...params} label="Situação"  />} />
             <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} id="descAgencia" label="Descrição da Agência" variant="standard" defaultValue={props.dialog.descAgencia} onChange={handleChangeValues}/>
             <Divider sx={{width: '100%', margin: '10px 0'}} />

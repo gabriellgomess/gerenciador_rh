@@ -13,6 +13,9 @@ import Stack from '@mui/material/Stack';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { formatToCEP, isCEP, formatToCPFOrCNPJ, isCPFOrCNPJ, formatToPhone, isPhone } from 'brazilian-values';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 const CadastroColaborador = () => {  
 
@@ -21,6 +24,40 @@ const CadastroColaborador = () => {
     const [testCpfOrCnpj, setTestCpfOrCnpj] = useState(false)
     const [testPhone, setTestPhone] = useState(false)
     const [endereco, setEndereco] = useState('')
+
+    function TabPanel(props) {
+        const { children, value, index, ...other } = props;
+      
+        return (
+          <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+          >
+            {value === index && (
+              <Box sx={{ p: 3 }}>
+                <Typography>{children}</Typography>
+              </Box>
+            )}
+          </div>
+        );
+      }
+      
+      TabPanel.propTypes = {
+        children: PropTypes.node,
+        index: PropTypes.number.isRequired,
+        value: PropTypes.number.isRequired,
+      };
+      
+      function a11yProps(index) {
+        return {
+          id: `simple-tab-${index}`,
+          'aria-controls': `simple-tabpanel-${index}`,
+        };
+      }
+      
 
     const handleFormatPhone = (event) => {
         var phone = event.target.value
@@ -141,19 +178,39 @@ const CadastroColaborador = () => {
         case 'TO': return 'Tocantins';
         default: return 'Estado';
          }
-    }      
+    }     
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+    const styles = {
+        heightForm: {
+            minHeight: '650px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+        }
+    }
     return (
-        <Card >
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <Card>
+            <form style={styles.heightForm} onSubmit={handleSubmit(onSubmit)}>
             <CardContent>                
-                <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>   
-                    <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <Typography variant='h6' color="text.primary" gutterBottom>
-                            Dados Pessoais
-                        </Typography>
-                        {/* <Avatar sx={{width: 100, height: 100, marginRight: '50px'}} alt="" src="/static/images/avatar/3.jpg" /> */}
-                    </Box>           
-                    
+                <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
+                <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tab label="Dados Pessoais" {...a11yProps(0)} />
+                    <Tab label="Dados da Contratação" {...a11yProps(1)} />
+                    <Tab label="Dados Bancários" {...a11yProps(2)} />
+                    <Tab label="Escala" {...a11yProps(3)} />
+                    <Tab label="Benefícios" {...a11yProps(4)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={value} index={0}>
+                <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
+                        Dados Pessoais
+                    </Typography>
                     <TextField {...register('matricula')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="matricula" label="Matrícula" variant="standard" />
                     <TextField {...register('nome')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="nome" label="Nome" variant="standard" />
                     <TextField {...register('cpf')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event)=>handleFormatCpf(event)} />
@@ -170,8 +227,9 @@ const CadastroColaborador = () => {
                     <TextField {...register('cidade')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" value={endereco.localidade || ''} />
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado" value={endereco.uf?handleSetEstado(endereco.uf):''} options={estadosBrasileiros} 
                         renderInput={(params) => <TextField variant="standard" {...register('estado')} {...params} label="Estado"  />} />
-                    <Divider sx={{width: '100%', margin: '10px'}} />
-                    <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Dados da Contratação
                     </Typography>
                     <TextField onKeyUp={(event)=>handleFormatCurrency(event)} {...register('salario')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} name="salario" label="Salário" variant="standard" />
@@ -182,8 +240,9 @@ const CadastroColaborador = () => {
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' }}} name="ccusto" options={ccusto} renderInput={(params) => <TextField {...register('ccusto')} variant="standard" {...params} label="Centro de Custo" />}
                     />
                      <TextField {...register('admissao')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="admissao" label="Data de admissão" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
-                     <Divider sx={{width: '100%', margin: '10px'}} />
-                     <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Dados Bancários
                     </Typography>
                      <TextField {...register('agencia')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="agencia" label="Agência" variant="standard" />
@@ -193,14 +252,16 @@ const CadastroColaborador = () => {
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="situacao" options={situacao} renderInput={(params) => <TextField {...register('situacao')} variant="standard" {...params} label="Situação" />}
                     />
                     <TextField {...register('descAgencia')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="descAgencia" label="Descrição da agência" variant="standard" />
-                    <Divider sx={{width: '100%', margin: '10px'}} />
-                    <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Escala
                     </Typography>
                     <TextField {...register('escala')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="escala" label="Escala" variant="standard" />
                     <TextField {...register('cargaHoraria')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cargaHoraria" label="Carga Horária" variant="standard" />
-                    <Divider sx={{width: '100%', margin: '10px'}} />
-                    <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
+                </TabPanel>
+                <TabPanel value={value} index={4}>
+                <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
                         Benefícios
                     </Typography>
                     <TextField {...register('linhaVT')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="linhaVT" label="Linha VT" variant="standard" />
@@ -208,7 +269,10 @@ const CadastroColaborador = () => {
                     <TextField {...register('planoSaude')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoSaude" label="Plano de saúde" variant="standard" />
                     <TextField {...register('planoOdonto')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoOdonto" label="Plano Odonto" variant="standard" />
                     <TextField {...register('cestaBasica')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cestaBasica" label="Cesta Básica" variant="standard" />
-                    <TextField {...register('refeitorio')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="refeitorio" label="Refeitório" variant="standard" />                   
+                    <TextField {...register('refeitorio')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="refeitorio" label="Refeitório" variant="standard" /> 
+                </TabPanel>
+                </Box>
+                                                      
                 </Box>
                 
             </CardContent>

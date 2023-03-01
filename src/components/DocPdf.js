@@ -20,32 +20,60 @@ const PDFGenerator = (props) => {
     ],
     styles: {
         header: {
-          fontSize: 16,
+          fontSize: 14,
           bold: true,
         },
         subheader: {
-          fontSize: 14,
+          fontSize: 12,
           bold: true
+        },        
+        subheaderTop: {
+          fontSize: 12,
+          bold: true,
+          marginTop: 20
         },
         simpleText: {
-          fontSize: 12,
-        }
+          fontSize: 10,
+        },
+        table: {
+            width: '100%',
+        },
       },
     };
     props.colaborador.forEach(colaborador => {
         documentDefinition.content.push(
-            {
-                image: Logo,
-                width: 40,
-                style: { display: 'block', margin: '0 auto', position: 'fixed', top: 10, right: 10 },
+        {
+            table: {
+                body: [
+                    [
+                        {
+                            image: Logo,
+                            width: 40,
+                            style: { display: 'block', margin: '0 auto', position: 'fixed', top: 10, right: 10 },
+                        },
+                        [
+                            {
+                                "text": "Casa do Menino Jesus de Praga",
+                                "style": "header",
+                            },
+                            {
+                                "text": "Rua: Nelson Zang, 420 - Porto Alegre - Intercap - RS - CEP 91530-350 - Telefone: (51) 2165-1911",
+                                "style": "simpleText",
+                            },
+                            ,
+                            {
+                                "text": "CNPJ: 89.621.767/0001-41",
+                                "style": "simpleText",
+                            },
+                        ],                        
+                    ],                                      
+                ]                
             },
-            {
-              text: 'Dados dos colaboradores\n\n',
-              style: 'header',
-            },
+            style: 'table',
+        },
         {
             text: 'Dados Pessoais\n\n',
-            style: 'subheader',
+            style: 'subheaderTop',
         },
         {
             text: `Matrícula: ${colaborador.matricula}`,
@@ -96,64 +124,72 @@ const PDFGenerator = (props) => {
             style: 'simpleText',
         },
         {
-            text: 'Dados Contratuais\n\n',
-            style: 'subheader',
-        },
-        {
-            text: `Salário: ${colaborador.salario}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Cargo: ${colaborador.cargo}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Registro: ${colaborador.registro}`,
-            style: 'simpleText',
-        },
-        {
-            text: `CBO: ${colaborador.cbo}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Centro de Custo: ${colaborador.ccusto}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Data da admissão: ${colaborador.admissao.split('-').reverse().join('/')}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Data da demissão: ${colaborador.demissao != null ||  colaborador.demissao === '0000-00-00'? colaborador.demissao.split('-').reverse().join('/'): ''}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Salário: ${colaborador.salario}\n\n`,
-            style: 'simpleText',
-        },
-        {
-            text: 'Dados Bancários\n\n',
-            style: 'subheader',
-        },
-        {
-            text: `Agência: ${colaborador.agencia}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Conta: ${colaborador.conta}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Tipo de conta: ${colaborador.tipoConta}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Situação: ${colaborador.situacao}`,
-            style: 'simpleText',
-        },
-        {
-            text: `Descrição da agência: ${colaborador.descAgencia}\n\n`,
-            style: 'simpleText',
+        columns: [
+            [
+                {
+                    text: 'Dados Contratuais\n\n',
+                    style: 'subheader',
+                },
+                {
+                    text: `Salário: ${colaborador.salario}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Cargo: ${colaborador.cargo}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Registro: ${colaborador.registro}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `CBO: ${colaborador.cbo}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Centro de Custo: ${colaborador.ccusto}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Data da admissão: ${colaborador.admissao.split('-').reverse().join('/')}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Data da demissão: ${colaborador.demissao != null ||  colaborador.demissao == '00000-00-00'? colaborador.demissao.split('-').reverse().join('/'): ''}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Salário: ${colaborador.salario}\n\n`,
+                    style: 'simpleText',
+                },
+            ],
+            [
+                {
+                    text: 'Dados Bancários\n\n',
+                    style: 'subheader',
+                },
+                {
+                    text: `Agência: ${colaborador.agencia}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Conta: ${colaborador.conta}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Tipo de conta: ${colaborador.tipoConta}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Situação: ${colaborador.situacao}`,
+                    style: 'simpleText',
+                },
+                {
+                    text: `Descrição da agência: ${colaborador.descAgencia}\n\n`,
+                    style: 'simpleText',
+                },
+            ]
+        ],
         },
         {
             text: 'Escala\n\n',
@@ -206,8 +242,8 @@ const PDFGenerator = (props) => {
 
   return (
     
-     <Button sx={{background: '#d32f2f'}} onClick={generatePDF} disabled={props.colaborador.length === 0? 'disabled':''}variant="contained" endIcon={<FontAwesomeIcon icon={faFilePdf} />}>
-     Relatório geral
+     <Button sx={{background: '#d32f2f', display: 'flex', alignItems: 'center'}} onClick={generatePDF} disabled={props.colaborador.length === 0? 'disabled':''}variant="contained" endIcon={<FontAwesomeIcon icon={faFilePdf} />}>
+    Cadastro dos colaboradores
  </Button> 
   );
 };

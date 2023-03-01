@@ -20,7 +20,7 @@ import PDFGenerator from './DocPdf';
 
 
 
-const ListaColaboradores = () => {
+const TabelaColaboradores = () => {
     const {colaboradores, setColaboradores} = useContext(ContextAPI);
 
     const [open, setOpen] = React.useState(false);
@@ -125,7 +125,7 @@ const ListaColaboradores = () => {
       <Box sx={{width: '100%', display: 'flex', justifyContent: 'end', marginBottom: '20px'}}>         
           <Box sx={{width: '30%', display: 'flex', justifyContent: 'space-between'}}>
             <PDFGenerator colaborador={selectedRows} />
-            <Button disabled={selectedRows.length === 0} onClick={exportExcel} sx={{background: '#2e7d32'}} variant="contained" endIcon={<FontAwesomeIcon icon={faFileExcel} />}>
+            <Button disabled={selectedRows.length === 0} onClick={exportExcel} sx={{background: '#2e7d32', display: 'flex', alignItems: 'center'}} variant="contained" endIcon={<FontAwesomeIcon icon={faFileExcel} />}>
               Relatório geral
           </Button> 
           </Box>
@@ -150,4 +150,4 @@ const ListaColaboradores = () => {
   );
 }
 
-export default ListaColaboradores;
+export default TabelaColaboradores;
