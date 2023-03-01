@@ -12,6 +12,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import FormDialog from './FormDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import * as XLSX from 'xlsx';
 
 import PDFGenerator from './DocPdf';
 
@@ -24,6 +25,7 @@ const ListaColaboradores = () => {
 
     const [open, setOpen] = React.useState(false);
     const [dialog, setDialog] = React.useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
     const handleClickRow = (e) => {      
       setOpen(true);
       setDialog(e);
@@ -94,32 +96,41 @@ const ListaColaboradores = () => {
               </Button>              
               </>               
             ),
-          },
-          {
-            field: 'relatorio',
-            headerName: 'Relatório',
-            width: 120,
-            sortable: false,
-            renderCell: (params) => (
-              <Box sx={{margin: '0 auto'}}>
-                <PDFGenerator colaborador={params.row} />
-                <IconButton aria-label="upload picture" component="label">
-                  <FontAwesomeIcon color="#2e7d32" icon={faFileExcel} />
-                </IconButton>                   
-              </Box>
-               
-            ),
-          },
+          }
         
       ];
       let updatedFunc = colaboradores.map((row, index) => {
         return { ...row, id: index };
       }).sort((a, b) => b.matricula - a.matricula);
 
+      function exportExcel() {
+        const worksheet = XLSX.utils.json_to_sheet(selectedRows);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tabela');
+        XLSX.writeFile(workbook, 'Colaboradores.xlsx');
+      }
+      
+      const handleSelectionModelChange = (selectionModel) => {
+        const selectedRows = updatedFunc.filter((row) => selectionModel.includes(row.id));
+        setSelectedRows(selectedRows);
+        console.log(selectedRows);
+      };
+      
+      
+
      
   return (
     <>
     <Box sx={{ height: 650, width: '100%' }}>
+      <Box sx={{width: '100%', display: 'flex', justifyContent: 'end', marginBottom: '20px'}}>         
+          <Box sx={{width: '30%', display: 'flex', justifyContent: 'space-between'}}>
+            <PDFGenerator colaborador={selectedRows} />
+            <Button disabled={selectedRows.length === 0} onClick={exportExcel} sx={{background: '#2e7d32'}} variant="contained" endIcon={<FontAwesomeIcon icon={faFileExcel} />}>
+              Relatório geral
+          </Button> 
+          </Box>
+      </Box>
+      
       <DataGrid
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         rows={updatedFunc}
@@ -129,8 +140,10 @@ const ListaColaboradores = () => {
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
+        onSelectionModelChange={handleSelectionModelChange}
       />
     </Box>
+    
     <FormDialog open={open} setOpen={setOpen} dialog={dialog} colaboradores={colaboradores} setColaboradores={setColaboradores} />    
     </>
     

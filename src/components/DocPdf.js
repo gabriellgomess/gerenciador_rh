@@ -6,6 +6,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import Logo from '../assets/img/logo.png';
 import { AutoAwesome } from '@mui/icons-material';
+import Button from '@mui/material/Button';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -15,15 +16,33 @@ const PDFGenerator = (props) => {
   const generatePDF = () => {
     const documentDefinition = {
       content: [
-        {
-            image: Logo,
-            width: 40,
-            style: { display: 'block', margin: '0 auto', position: 'fixed', top: 10, right: 10 },
+        
+    ],
+    styles: {
+        header: {
+          fontSize: 16,
+          bold: true,
         },
-        {
-          text: 'Dados do colaborador\n\n',
-          style: 'header',
+        subheader: {
+          fontSize: 14,
+          bold: true
         },
+        simpleText: {
+          fontSize: 12,
+        }
+      },
+    };
+    props.colaborador.forEach(colaborador => {
+        documentDefinition.content.push(
+            {
+                image: Logo,
+                width: 40,
+                style: { display: 'block', margin: '0 auto', position: 'fixed', top: 10, right: 10 },
+            },
+            {
+              text: 'Dados dos colaboradores\n\n',
+              style: 'header',
+            },
         {
             text: 'Dados Pessoais\n\n',
             style: 'subheader',
@@ -39,7 +58,7 @@ const PDFGenerator = (props) => {
         {
           text: `CPF: ${colaborador.cpf} | PIS: ${colaborador.pis} | RG: ${colaborador.rg}`,
           style: 'simpleText',
-        },       
+        },
         {
             text: `Data de Nascimento: ${colaborador.nascimento.split('-').reverse().join('/')}`,
             style: 'simpleText',
@@ -176,30 +195,20 @@ const PDFGenerator = (props) => {
             text: `Refeitório: ${colaborador.refeitorio}`,
             style: 'simpleText',
         },
-        
-      ],
-      styles: {
-        header: {
-          fontSize: 16,
-          bold: true,
-        },
-        subheader: {
-			fontSize: 14,
-			bold: true
-        },
-        simpleText: {
-            fontSize: 12,
-        }
-      },
-    };
 
+       
+        
+        );
+    });
+  
     pdfMake.createPdf(documentDefinition).open();
   };
 
   return (
-    <IconButton onClick={generatePDF}>
-      <FontAwesomeIcon color='#d32f2f' icon={faFilePdf} />
-    </IconButton>
+    
+     <Button sx={{background: '#d32f2f'}} onClick={generatePDF} disabled={props.colaborador.length === 0? 'disabled':''}variant="contained" endIcon={<FontAwesomeIcon icon={faFilePdf} />}>
+     Relatório geral
+ </Button> 
   );
 };
 
