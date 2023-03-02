@@ -7,9 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
+import UploadFile from './UploadFile';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { formatToCEP, isCEP, formatToCPFOrCNPJ, isCPFOrCNPJ, formatToPhone, isPhone } from 'brazilian-values';
@@ -202,11 +200,12 @@ const CadastroColaborador = () => {
                 <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Dados Pessoais" {...a11yProps(0)} />
-                    <Tab label="Dados da Contratação" {...a11yProps(1)} />
-                    <Tab label="Dados Bancários" {...a11yProps(2)} />
-                    <Tab label="Escala" {...a11yProps(3)} />
-                    <Tab label="Benefícios" {...a11yProps(4)} />
+                      <Tab label="Dados Pessoais" {...a11yProps(0)} />
+                      <Tab label="Dados da Contratação" {...a11yProps(1)} />
+                      <Tab label="Dados Bancários" {...a11yProps(2)} />
+                      <Tab label="Escala" {...a11yProps(3)} />
+                      <Tab label="Benefícios" {...a11yProps(4)} />
+                      <Tab label="Upload de Documentos" {...a11yProps(5)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -289,6 +288,9 @@ const CadastroColaborador = () => {
                     <TextField {...register('planoOdonto')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="planoOdonto" label="Plano Odonto" variant="standard" />
                     <TextField {...register('cestaBasica')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cestaBasica" label="Cesta Básica" variant="standard" />
                     <TextField {...register('refeitorio')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="refeitorio" label="Refeitório" variant="standard" /> 
+                </TabPanel>
+                <TabPanel value={value} index={5}>
+                  <UploadFile />
                 </TabPanel>
                 </Box>
                                                       

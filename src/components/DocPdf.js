@@ -232,8 +232,6 @@ const PDFGenerator = (props) => {
             style: 'simpleText',
         },
 
-       
-        
         );
     });
   
@@ -242,7 +240,7 @@ const PDFGenerator = (props) => {
 
   return (
     
-     <Button sx={{background: '#d32f2f', display: 'flex', alignItems: 'center'}} onClick={generatePDF} disabled={props.colaborador.length === 0? 'disabled':''}variant="contained" endIcon={<FontAwesomeIcon icon={faFilePdf} />}>
+     <Button sx={{background: '#d32f2f', display: 'flex', alignItems: 'center', margin: '5px 0 5px 0'}} onClick={generatePDF} disabled={props.colaborador.length === 0? 'disabled':''}variant="contained" endIcon={<FontAwesomeIcon icon={faFilePdf} />}>
     Cadastro dos colaboradores
  </Button> 
   );

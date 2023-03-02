@@ -12,9 +12,10 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import FormDialog from './FormDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
-import * as XLSX from 'xlsx';
+
 
 import PDFGenerator from './DocPdf';
+import DocExcel from './DocExcel';
 
 
 
@@ -32,6 +33,16 @@ const TabelaColaboradores = () => {
       console.log("Clicou, open = " + open);
   }
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isSmallScreen = windowWidth < 600; 
+
     const columns = [    
         { field: "matricula", 
           headerName: "Matricula", 
@@ -44,15 +55,15 @@ const TabelaColaboradores = () => {
           width: 380,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
-          sortable: true,
-          
+          sortable: true,          
         },    
         {
           field: "cpf",
           headerName: "CPF",
           width: 170,
           cellClassName: 'cell-align-center',
-          sortable: true
+          sortable: true,
+          hide: isSmallScreen,
         },
         {
           field: "cargo",
@@ -60,7 +71,8 @@ const TabelaColaboradores = () => {
           width: 230,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
-          sortable: true
+          sortable: true,
+          hide: isSmallScreen,
         },
         {
           field: "celular",
@@ -68,7 +80,8 @@ const TabelaColaboradores = () => {
           width: 150,
           alignItems: 'center',
           cellClassName: 'cell-align-center',
-          sortable: true
+          sortable: true,
+          hide: isSmallScreen,
         },
         {
           field: "demissao",
@@ -77,6 +90,7 @@ const TabelaColaboradores = () => {
           alignItems: 'center',
           cellClassName: 'cell-align-center',
           sortable: true,
+          hide: isSmallScreen,
           renderCell: (params) => (
             <>
             {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}            
@@ -103,12 +117,7 @@ const TabelaColaboradores = () => {
         return { ...row, id: index };
       }).sort((a, b) => b.matricula - a.matricula);
 
-      function exportExcel() {
-        const worksheet = XLSX.utils.json_to_sheet(selectedRows);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tabela');
-        XLSX.writeFile(workbook, 'Colaboradores.xlsx');
-      }
+      
       
       const handleSelectionModelChange = (selectionModel) => {
         const selectedRows = updatedFunc.filter((row) => selectionModel.includes(row.id));
@@ -123,11 +132,9 @@ const TabelaColaboradores = () => {
     <>
     <Box sx={{ height: 650, width: '100%' }}>
       <Box sx={{width: '100%', display: 'flex', justifyContent: 'end', marginBottom: '20px'}}>         
-          <Box sx={{width: '30%', display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{width: {xs: '100%', sm: '100%', md: '60%', lg: '45%', xl: '33%'}, display: 'flex', justifyContent: 'space-between', flexDirection: {xs: 'column', sm: 'column', md: 'row', lg: 'row', xl: 'row'} }}>
             <PDFGenerator colaborador={selectedRows} />
-            <Button disabled={selectedRows.length === 0} onClick={exportExcel} sx={{background: '#2e7d32', display: 'flex', alignItems: 'center'}} variant="contained" endIcon={<FontAwesomeIcon icon={faFileExcel} />}>
-              Relatório geral
-          </Button> 
+            <DocExcel selectedRows={selectedRows} />
           </Box>
       </Box>
       
