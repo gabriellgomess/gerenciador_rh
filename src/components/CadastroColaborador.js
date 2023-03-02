@@ -16,6 +16,8 @@ import { formatToCEP, isCEP, formatToCPFOrCNPJ, isCPFOrCNPJ, formatToPhone, isPh
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import {FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material/';
+
 
 const CadastroColaborador = () => {  
 
@@ -213,10 +215,26 @@ const CadastroColaborador = () => {
                     </Typography>
                     <TextField {...register('matricula')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="matricula" label="Matrícula" variant="standard" />
                     <TextField {...register('nome')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="nome" label="Nome" variant="standard" />
+                    <TextField {...register('nascimento')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="nascimento" label="Data de nascimento" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
+                    <FormControl sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} component="fieldset">
+                    <FormLabel id="sexo">Gênero</FormLabel>
+                    <RadioGroup row aria-labelledby="sexo" name="sexo">
+                        <FormControlLabel name='sexo' {...register('sexo')} value="feminino" control={<Radio />} label="Feminino" />
+                        <FormControlLabel name='sexo' {...register('sexo')} value="masculino" control={<Radio />} label="Masculino" />
+                        <FormControlLabel name='sexo' {...register('sexo')} value="outro" control={<Radio />} label="Outro" />
+                    </RadioGroup>
+                    </FormControl>
+                    <TextField {...register('nome_mae')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '35%' }, margin: '5px'}} name="nome_mae" label="Nome da mãe" variant="standard" />
+                    <TextField {...register('nome_pai')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '35%' }, margin: '5px'}} name="nome_pai" label="Nome do pai" variant="standard" />
+                    <TextField {...register('cor')}  sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cor" label="Raça / Cor" variant="standard" />
+                    <TextField {...register('estado_civil')}  sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado_civil" label="Estado Civil" variant="standard" />
+                    <TextField {...register('naturalidade')}  sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="naturalidade" label="Naturalidade" variant="standard" />
+                    <TextField {...register('escolaridade')}  sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="escolaridade" label="Escolaridade" variant="standard" />
+                    <TextField {...register('graduacao')}  sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="graduacao" label="Graduação" variant="standard" />
                     <TextField {...register('cpf')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="cpf" label="CPF" variant="standard" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event)=>handleFormatCpf(event)} />
                     <TextField {...register('pis')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="pis" label="PIS" variant="standard" />
                     <TextField {...register('rg')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="rg" label="RG" variant="standard" />
-                    <TextField {...register('nascimento')} sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} name="nascimento" label="Data de nascimento" variant="standard" type='date'  InputLabelProps={{ shrink: true }} />
+                    
                     <TextField {...register('telefone')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="telefone" label="Telefone" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
                     <TextField {...register('celular')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="celular" label="Celular" variant="standard" color={testPhone === true ? "success" : ""} onKeyUp={(event)=>handleFormatPhone(event)} />
                     <TextField {...register('email')} sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="email" label="E-mail" variant="standard" />
@@ -227,6 +245,7 @@ const CadastroColaborador = () => {
                     <TextField {...register('cidade')} sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} name="cidade" label="Cidade" variant="standard" value={endereco.localidade || ''} />
                     <Autocomplete disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} name="estado" value={endereco.uf?handleSetEstado(endereco.uf):''} options={estadosBrasileiros} 
                         renderInput={(params) => <TextField variant="standard" {...register('estado')} {...params} label="Estado"  />} />
+                    <TextField {...register('residencia_propria')} sx={{width: { xs: '30%', sm: '30%', md: '20%', lg: '10%', xl: '10%' } , margin: '5px'}} name="residencia_propria" label="Residência Própria" variant="standard" />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                 <Typography sx={{width: '100%'}} variant='h6' color="text.primary" gutterBottom>
