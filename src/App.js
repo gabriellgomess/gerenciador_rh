@@ -22,6 +22,7 @@ import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import CakeIcon from "@mui/icons-material/Cake";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import Logotipo from "./assets/img/Logotipo.png";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 
@@ -144,15 +145,9 @@ export default function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              sx={{ display: "flex", alignItems: "center" }}
-              variant="h6"
-              noWrap
-              component="div"
-            >
-              Recursos Humanos e Departamento Pessoal{" "}
-              <BadgeIcon sx={{ marginLeft: "10px" }} />
-            </Typography>
+            <Box sx={{display: 'flex', justifyContent: 'end', width: '100%', height: '100%'}}>
+              <img width='200px' src={Logotipo} alt="" />
+            </Box>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
