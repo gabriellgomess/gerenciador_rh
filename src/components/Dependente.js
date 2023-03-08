@@ -18,6 +18,7 @@ const Dependente = () => {
                 <FormControlLabel name='dependente_sexo' {...register('dependente_sexo')} value="outro" control={<Radio />} label="Outro" />
             </RadioGroup>
             </FormControl>
+            
         </Box>
     )
 }
