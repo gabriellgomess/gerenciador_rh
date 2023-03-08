@@ -56,7 +56,36 @@ useEffect(() => {
         salario: props.dialog.salario,
         situacao: props.dialog.situacao,
         telefone: props.dialog.telefone,
-        tipoConta: props.dialog.tipoConta
+        tipoConta: props.dialog.tipoConta,
+        sexo: props.dialog.sexo,
+        nome_mae: props.dialog.nome_mae,
+        nome_pai: props.dialog.nome_pai,
+        cor: props.dialog.cor,
+        estado_civil: props.dialog.estado_civil,
+        naturalidade: props.dialog.naturalidade,
+        escolaridade: props.dialog.escolaridade,
+        graduacao: props.dialog.graduacao, 
+        residencia_propria: props.dialog.residencia_propria,
+        residencia_adquirida_fgts: props.dialog.residencia_adquirida_fgts,  
+        rg_orgao_emissor: props.dialog.rg_orgao_emissor,
+        rg_data_emissao: props.dialog.rg_data_emissao,
+        aposentado: props.dialog.aposentado,
+        cnh: props.dialog.cnh,
+        cnh_categoria: props.dialog.cnh_categoria,
+        cnh_validade: props.dialog.cnh_validade,
+        cnh_emissao: props.dialog.cnh_emissao,
+        titulo_eleitoral: props.dialog.titulo_eleitoral,
+        zona_eleitoral: props.dialog.zona_eleitoral,
+        secao_eleitoral: props.dialog.secao_eleitoral,
+        reservista: props.dialog.reservista,
+        contrato_experiencia: props.dialog.contrato_experiencia, 
+        insalubridade: props.dialog.insalubridade,
+        experiencia_anterior: props.dialog.experiencia_anterior,
+        outro_emprego: props.dialog.outro_emprego,
+        nome_empresa: props.dialog.nome_empresa,
+        pcd: props.dialog.pcd,
+        necessidade_especial: props.dialog.necessidade_especial,
+        banco: props.dialog.banco,  
     });
     
 }, [props]);
@@ -75,85 +104,143 @@ const handleChangeValues = (values) => {
   const handleEditClient = () => {
     
     axios.put(`https://gabriellgomess.com/gerenciador_rh/update.php`, {
-        id: editValues.id,
-        admissao: editValues.admissao,
-        demissao: editValues.demissao,
-        agencia: editValues.agencia,
-        bairro: editValues.bairro,
-        cargaHoraria: editValues.cargaHoraria,
-        cargo: editValues.cargo,
-        cbo: editValues.cbo,
-        ccusto: editValues.ccusto,
-        celular: editValues.celular,
-        cep: editValues.cep,
-        cestaBrasica: editValues.cestaBrasica,
-        cidade: editValues.cidade,
-        conta: editValues.conta,
-        cpf: editValues.cpf,
-        data_criacao: editValues.data_criacao,
-        descAgencia: editValues.descAgencia,
-        email: editValues.email,
-        escala: editValues.escala,
-        estado: editValues.estado,
-        linhaVT: editValues.linhaVT,
-        matricula: editValues.matricula,
-        nascimento: editValues.nascimento,
-        nome: editValues.nome,
-        numero: editValues.numero,
-        pis: editValues.pis,
-        planoOdonto: editValues.planoOdonto,
-        planoSaude: editValues.planoSaude,
-        quantidadeVT: editValues.quantidadeVT,
-        refeitorio: editValues.refeitorio,
-        registro: editValues.registro,
-        rg: editValues.rg,
-        rua: editValues.rua,
-        salario: editValues.salario,
-        situacao: editValues.situacao,
-        telefone: editValues.telefone,
-        tipoConta: editValues.tipoConta
+      id: editValues.id,
+      admissao: editValues.admissao,
+      demissao: editValues.demissao,
+      agencia: editValues.agencia,
+      bairro: editValues.bairro,
+      cargaHoraria: editValues.cargaHoraria,
+      cargo: editValues.cargo,
+      cbo: editValues.cbo,
+      ccusto: editValues.ccusto,
+      celular: editValues.celular,
+      cep: editValues.cep,
+      cestaBrasica: editValues.cestaBrasica,
+      cidade: editValues.cidade,
+      conta: editValues.conta,
+      cpf: editValues.cpf,
+      data_criacao: editValues.data_criacao,
+      descAgencia: editValues.descAgencia,
+      email: editValues.email,
+      escala: editValues.escala,
+      estado: editValues.estado,
+      linhaVT: editValues.linhaVT,
+      matricula: editValues.matricula,
+      nascimento: editValues.nascimento,
+      nome: editValues.nome,
+      numero: editValues.numero,
+      pis: editValues.pis,
+      planoOdonto: editValues.planoOdonto,
+      planoSaude: editValues.planoSaude,
+      quantidadeVT: editValues.quantidadeVT,
+      refeitorio: editValues.refeitorio,
+      registro: editValues.registro,
+      rg: editValues.rg,
+      rua: editValues.rua,
+      salario: editValues.salario,
+      situacao: editValues.situacao,
+      telefone: editValues.telefone,
+      tipoConta: editValues.tipoConta,
+      sexo: editValues.sexo,
+      nome_mae: editValues.nome_mae,
+      nome_pai: editValues.nome_pai,
+      cor: editValues.cor,
+      estado_civil: editValues.estado_civil,
+      naturalidade: editValues.naturalidade,
+      escolaridade: editValues.escolaridade,
+      graduacao: editValues.graduacao, 
+      residencia_propria: editValues.residencia_propria,
+      residencia_adquirida_fgts: editValues.residencia_adquirida_fgts,  
+      rg_orgao_emissor: editValues.rg_orgao_emissor,
+      rg_data_emissao: editValues.rg_data_emissao,
+      aposentado: editValues.aposentado,
+      cnh: editValues.cnh,
+      cnh_categoria: editValues.cnh_categoria,
+      cnh_validade: editValues.cnh_validade,
+      cnh_emissao: editValues.cnh_emissao,
+      titulo_eleitoral: editValues.titulo_eleitoral,
+      zona_eleitoral: editValues.zona_eleitoral,
+      secao_eleitoral: editValues.secao_eleitoral,
+      reservista: editValues.reservista,
+      contrato_experiencia: editValues.contrato_experiencia, 
+      insalubridade: editValues.insalubridade,
+      experiencia_anterior: editValues.experiencia_anterior,
+      outro_emprego: editValues.outro_emprego,
+      nome_empresa: editValues.nome_empresa,
+      pcd: editValues.pcd,
+      necessidade_especial: editValues.necessidade_especial,
+      banco: editValues.banco,  
     }).then(() => {
       props.setColaboradores(
         props.colaboradores?.map((value) => {
           return value.id === editValues.id
             ? {
-                id: editValues.id,
-                admissao: editValues.admissao,
-                demissao: editValues.demissao,
-                agencia: editValues.agencia,
-                bairro: editValues.bairro,
-                cargaHoraria: editValues.cargaHoraria,
-                cargo: editValues.cargo,
-                cbo: editValues.cbo,
-                ccusto: editValues.ccusto,
-                celular: editValues.celular,
-                cep: editValues.cep,
-                cestaBrasica: editValues.cestaBrasica,
-                cidade: editValues.cidade,
-                conta: editValues.conta,
-                cpf: editValues.cpf,
-                data_criacao: editValues.data_criacao,
-                descAgencia: editValues.descAgencia,
-                email: editValues.email,
-                escala: editValues.escala,
-                estado: editValues.estado,
-                linhaVT: editValues.linhaVT,
-                matricula: editValues.matricula,
-                nascimento: editValues.nascimento,
-                nome: editValues.nome,
-                numero: editValues.numero,
-                pis: editValues.pis,
-                planoOdonto: editValues.planoOdonto,
-                planoSaude: editValues.planoSaude,
-                quantidadeVT: editValues.quantidadeVT,
-                refeitorio: editValues.refeitorio,
-                registro: editValues.registro,
-                rg: editValues.rg,
-                rua: editValues.rua,
-                salario: editValues.salario,
-                situacao: editValues.situacao,
-                telefone: editValues.telefone,
-                tipoConta: editValues.tipoConta
+              id: editValues.id,
+              admissao: editValues.admissao,
+              demissao: editValues.demissao,
+              agencia: editValues.agencia,
+              bairro: editValues.bairro,
+              cargaHoraria: editValues.cargaHoraria,
+              cargo: editValues.cargo,
+              cbo: editValues.cbo,
+              ccusto: editValues.ccusto,
+              celular: editValues.celular,
+              cep: editValues.cep,
+              cestaBrasica: editValues.cestaBrasica,
+              cidade: editValues.cidade,
+              conta: editValues.conta,
+              cpf: editValues.cpf,
+              data_criacao: editValues.data_criacao,
+              descAgencia: editValues.descAgencia,
+              email: editValues.email,
+              escala: editValues.escala,
+              estado: editValues.estado,
+              linhaVT: editValues.linhaVT,
+              matricula: editValues.matricula,
+              nascimento: editValues.nascimento,
+              nome: editValues.nome,
+              numero: editValues.numero,
+              pis: editValues.pis,
+              planoOdonto: editValues.planoOdonto,
+              planoSaude: editValues.planoSaude,
+              quantidadeVT: editValues.quantidadeVT,
+              refeitorio: editValues.refeitorio,
+              registro: editValues.registro,
+              rg: editValues.rg,
+              rua: editValues.rua,
+              salario: editValues.salario,
+              situacao: editValues.situacao,
+              telefone: editValues.telefone,
+              tipoConta: editValues.tipoConta,
+              sexo: editValues.sexo,
+              nome_mae: editValues.nome_mae,
+              nome_pai: editValues.nome_pai,
+              cor: editValues.cor,
+              estado_civil: editValues.estado_civil,
+              naturalidade: editValues.naturalidade,
+              escolaridade: editValues.escolaridade,
+              graduacao: editValues.graduacao, 
+              residencia_propria: editValues.residencia_propria,
+              residencia_adquirida_fgts: editValues.residencia_adquirida_fgts,  
+              rg_orgao_emissor: editValues.rg_orgao_emissor,
+              rg_data_emissao: editValues.rg_data_emissao,
+              aposentado: editValues.aposentado,
+              cnh: editValues.cnh,
+              cnh_categoria: editValues.cnh_categoria,
+              cnh_validade: editValues.cnh_validade,
+              cnh_emissao: editValues.cnh_emissao,
+              titulo_eleitoral: editValues.titulo_eleitoral,
+              zona_eleitoral: editValues.zona_eleitoral,
+              secao_eleitoral: editValues.secao_eleitoral,
+              reservista: editValues.reservista,
+              contrato_experiencia: editValues.contrato_experiencia, 
+              insalubridade: editValues.insalubridade,
+              experiencia_anterior: editValues.experiencia_anterior,
+              outro_emprego: editValues.outro_emprego,
+              nome_empresa: editValues.nome_empresa,
+              pcd: editValues.pcd,
+              necessidade_especial: editValues.necessidade_especial,
+              banco: editValues.banco, 
               }
             : value;
         })
@@ -243,6 +330,37 @@ console.log(props.dialog)
             <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="planoOdonto" label="Plano Odonto" variant="standard" defaultValue={props.dialog.planoOdonto} onChange={handleChangeValues}/>
             <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cestaBasica" label="Cesta Básica" variant="standard" defaultValue={props.dialog.cestaBasica} onChange={handleChangeValues}/>
             <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="refeitorio" label="Refeitório" variant="standard" defaultValue={props.dialog.refeitorio} onChange={handleChangeValues}/>
+            
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="sexo" label="Sexo" variant="standard" defaultValue={props.dialog.sexo} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_mae" label="Nome da Mãe" variant="standard" defaultValue={props.dialog.nome_mae} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_pai" label="Nome do Pai" variant="standard" defaultValue={props.dialog.nome_pai} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cor" label="Cor" variant="standard" defaultValue={props.dialog.cor} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="estado_civil" label="Estado Civil" variant="standard" defaultValue={props.dialog.estado_civil} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="naturalidade" label="Naturalidade" variant="standard" defaultValue={props.dialog.naturalidade} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="escolaridade" label="Escolaridade" variant="standard" defaultValue={props.dialog.escolaridade} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="graduacao" label="Graduação" variant="standard" defaultValue={props.dialog.graduacao} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="residencia_propria" label="Residência Própria" variant="standard" defaultValue={props.dialog.residencia_propria} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="residencia_adquirida_fgts" label="Adquirido FGTS" variant="standard" defaultValue={props.dialog.residencia_adquirida_fgts} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="rg_orgao_emissor" label="RG Órgão Emissor" variant="standard" defaultValue={props.dialog.rg_orgao_emissor} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="rg_data_emissao" label="RG Data Emissão" variant="standard" defaultValue={props.dialog.rg_data_emissao} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="aposentado" label="Aposentado" variant="standard" defaultValue={props.dialog.aposentado} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh" label="CNH" variant="standard" defaultValue={props.dialog.cnh} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh_categoria" label="CNH Categoria" variant="standard" defaultValue={props.dialog.cnh_categoria} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh_validade" label="CNH Validade" variant="standard" defaultValue={props.dialog.cnh_validade} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh_emissao" label="CNH Emissão" variant="standard" defaultValue={props.dialog.cnh_emissao} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="titulo_eleitoral" label="Título Eleitoral" variant="standard" defaultValue={props.dialog.titulo_eleitoral} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="zona_eleitoral" label="Zona Eleitoral" variant="standard" defaultValue={props.dialog.zona_eleitoral} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="secao_eleitoral" label="Seção Eleitoral" variant="standard" defaultValue={props.dialog.secao_eleitoral} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="reservista" label="Reservista" variant="standard" defaultValue={props.dialog.reservista} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="contrato_experiencia" label="Contrato Experiência" variant="standard" defaultValue={props.dialog.contrato_experiencia} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="insalubridade" label="Insalubridade" variant="standard" defaultValue={props.dialog.insalubridade} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="experiencia_anterior" label="Experiência Anterior" variant="standard" defaultValue={props.dialog.experiencia_anterior} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="tem_outro_emprego" label="Tem Outro Emprego" variant="standard" defaultValue={props.dialog.tem_outro_emprego} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_outra_empresa" label="Nome da outra Empresa" variant="standard" defaultValue={props.dialog.nome_outra_empresa} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="pcd" label="PCD" variant="standard" defaultValue={props.dialog.pcd} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="necessidade_especial" label="Necessidade Especial" variant="standard" defaultValue={props.dialog.necessidade_especial} onChange={handleChangeValues}/>
+            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="banco" label="Banco" variant="standard" defaultValue={props.dialog.banco} onChange={handleChangeValues}/>
+
 
         </DialogContent>
         <DialogActions>
@@ -257,6 +375,4 @@ console.log(props.dialog)
     </div>
   );
 }
-
-
 
