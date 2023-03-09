@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 // import UploadFile from './UploadFile';
-import { useForm } from "react-hook-form";
+import { useForm,useFieldArray } from "react-hook-form";
 import axios from "axios";
 import {
   formatToCEP,
@@ -29,6 +29,11 @@ import {
   Radio,
   Divider,
 } from "@mui/material/";
+
+import Grid from "@mui/material/Grid";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -197,13 +202,31 @@ const CadastroColaborador = () => {
     { label: "Inativo" },
     { label: "Pendente" },
   ];
-
+  const raca = [
+    { label: "Branca" },
+    { label: "Preta" },
+    { label: "Parda" },
+    { label: "Amarela" },
+    { label: "Indigena" },
+       
+  ]
+  const estado_civil = [
+    { label: "Solteiro(a)" },
+    { label: "Casado(a)" },
+    { label: "Divorciado(a)" },
+    { label: "Viúvo(a)" },
+    { label: "Separado(a)" },    
+  ]
+  const [dependentes, setDependentes] = useState([]);
+  
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({defaultValues: { dependentes },});
   const onSubmit = (data) => {
+    setDependentes(data.dependentes);
     data.rua = endereco.logradouro || "";
     data.bairro = endereco.bairro || "";
     data.cidade = endereco.localidade || "";
@@ -303,6 +326,15 @@ const CadastroColaborador = () => {
       justifyContent: "space-between",
     },
   };
+
+
+ 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "dependentes",
+  });
+  console.log(dependentes)
+
   return (
     <form style={styles.heightForm} onSubmit={handleSubmit(onSubmit)}>
       <Card>
@@ -330,7 +362,7 @@ const CadastroColaborador = () => {
                   <Tab label="Dependentes" {...a11yProps(5)} />
                 </Tabs>
               </Box>
-              <TabPanel value={value} index={0}>
+              <TabPanel variant="div" sx={{display: 'flex', flexWrap: 'wrap'}} value={value} index={0}>
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -405,7 +437,7 @@ const CadastroColaborador = () => {
                   }}
                   component="fieldset"
                 >
-                  <FormLabel id="sexo">Gênero</FormLabel>
+                  {/* <FormLabel id="sexo">Gênero</FormLabel> */}
                   <RadioGroup row aria-labelledby="sexo" name="sexo">
                     <FormControlLabel
                       name="sexo"
@@ -463,9 +495,10 @@ const CadastroColaborador = () => {
                   label="Nome do pai"
                   variant="outlined"
                   size="small"
-                />
-                <TextField
-                  {...register("cor")}
+                />                
+                <Autocomplete
+                  size="small"
+                  disablePortal
                   sx={{
                     width: {
                       xs: "100%",
@@ -477,12 +510,20 @@ const CadastroColaborador = () => {
                     margin: "5px",
                   }}
                   name="cor"
-                  label="Raça / Cor"
-                  variant="outlined"
+                  options={raca}
+                  renderInput={(params) => (
+                    <TextField
+                    {...register("cor")}
+                      variant="outlined"
+                      size="small"
+                      {...params}
+                      label="Raça / Cor"
+                    />
+                  )}
+                />              
+                <Autocomplete
                   size="small"
-                />
-                <TextField
-                  {...register("estado_civil")}
+                  disablePortal
                   sx={{
                     width: {
                       xs: "100%",
@@ -494,9 +535,16 @@ const CadastroColaborador = () => {
                     margin: "5px",
                   }}
                   name="estado_civil"
-                  label="Estado Civil"
-                  variant="outlined"
-                  size="small"
+                  options={estado_civil}
+                  renderInput={(params) => (
+                    <TextField
+                    {...register("estado_civil")}
+                      variant="outlined"
+                      size="small"
+                      {...params}
+                      label="Estado Civil"
+                    />
+                  )}
                 />
                 <TextField
                   {...register("naturalidade")}
@@ -1567,15 +1615,62 @@ const CadastroColaborador = () => {
                 >
                   Dependentes
                 </Typography>
+                <Box>
+                {fields.map((field, index) => (
+        <Grid key={field.id} container spacing={2}>
+          <Grid item xs={4}>
+            <TextField
+              {...register(`dependentes.${index}.nome`)}
+              label="Nome"
+              variant="outlined"
+              fullWidth
+              sx={{margin: '5px'}}
+              size='small'
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              {...register(`dependentes.${index}.idade`)}
+              label="Idade"
+              variant="outlined"
+              fullWidth
+              sx={{margin: '5px'}}
+              size='small'
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              {...register(`dependentes.${index}.cpf`)}
+              label="CPF"
+              variant="outlined"
+              fullWidth
+              sx={{margin: '5px'}}
+              size='small'
+            />
+          </Grid>
+          <Grid item xs={1}>           
+            <Fab sx={{width: '40px', height: '40px'}} onClick={() => remove(index)} color="secondary" aria-label="edit">
+        <PersonRemoveAlt1Icon />
+      </Fab>
+          </Grid>
+        </Grid>
+      ))}
+     <Box sx={{width: '100%', display:'flex', justifyContent:'end'}}>
+    <Fab color="primary" aria-label="add" onClick={() => append({ nome: "", idade: "", cpf: "" })}>
+        <AddIcon />
+      </Fab>
+     </Box>
+      
+                </Box>
               </TabPanel>
             </Box>
           </Box>
         </CardContent>
-        {/* <CardActions sx={{display: 'flex', justifyContent: 'end'}}> */}
+        <CardActions sx={{display: 'flex', justifyContent: 'end'}}>
         <Button type="submit" variant="contained">
           Salvar
-        </Button>
-        {/* </CardActions> */}
+        </Button>        
+        </CardActions>
       </Card>
     </form>
   );
