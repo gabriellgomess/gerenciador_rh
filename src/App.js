@@ -22,6 +22,7 @@ import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import CakeIcon from "@mui/icons-material/Cake";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import Logotipo from "./assets/img/Logotipo.png";
 
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -34,6 +35,7 @@ import Login from "./pages/Login";
 import Aniversariantes from "./pages/Aniversariantes";
 import FormColaborador from "./pages/FormColaborador";
 import ListaColaboradores from "./pages/ListaColaboradores";
+import AddDoc from "./pages/AddDoc";
 
 const drawerWidth = 240;
 
@@ -212,6 +214,31 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            <Link to="/gerenciador_rh/add_doc" style={{ textDecoration: "none" }}>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <PostAddIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={"Adicionar documentos"}
+                    sx={{ opacity: open ? 1 : 0, color: "grey" }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
             <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -271,6 +298,7 @@ export default function App() {
           <Routes>
             <Route path="/gerenciador_rh" element={<Login />} />
             <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} />
+            <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} />
             <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores /> } />            
             <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />           
           </Routes>

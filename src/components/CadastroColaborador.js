@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 // import UploadFile from './UploadFile';
-import { useForm,useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import {
   formatToCEP,
@@ -31,9 +31,9 @@ import {
 } from "@mui/material/";
 
 import Grid from "@mui/material/Grid";
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import PersonRemoveAlt1Icon from "@mui/icons-material/PersonRemoveAlt1";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -208,23 +208,22 @@ const CadastroColaborador = () => {
     { label: "Parda" },
     { label: "Amarela" },
     { label: "Indigena" },
-       
-  ]
+  ];
   const estado_civil = [
     { label: "Solteiro(a)" },
     { label: "Casado(a)" },
     { label: "Divorciado(a)" },
     { label: "Viúvo(a)" },
-    { label: "Separado(a)" },    
-  ]
+    { label: "Separado(a)" },
+  ];
   const [dependentes, setDependentes] = useState([]);
-  
+
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({defaultValues: { dependentes },});
+  } = useForm({ defaultValues: { dependentes } });
   const onSubmit = (data) => {
     setDependentes(data.dependentes);
     data.rua = endereco.logradouro || "";
@@ -327,13 +326,11 @@ const CadastroColaborador = () => {
     },
   };
 
-
- 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "dependentes",
   });
-  console.log(dependentes)
+  console.log(dependentes);
 
   return (
     <form style={styles.heightForm} onSubmit={handleSubmit(onSubmit)}>
@@ -362,7 +359,12 @@ const CadastroColaborador = () => {
                   <Tab label="Dependentes" {...a11yProps(5)} />
                 </Tabs>
               </Box>
-              <TabPanel variant="div" sx={{display: 'flex', flexWrap: 'wrap'}} value={value} index={0}>
+              <TabPanel
+                variant="div"
+                sx={{ display: "flex", flexWrap: "wrap" }}
+                value={value}
+                index={0}
+              >
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -495,7 +497,7 @@ const CadastroColaborador = () => {
                   label="Nome do pai"
                   variant="outlined"
                   size="small"
-                />                
+                />
                 <Autocomplete
                   size="small"
                   disablePortal
@@ -513,14 +515,14 @@ const CadastroColaborador = () => {
                   options={raca}
                   renderInput={(params) => (
                     <TextField
-                    {...register("cor")}
+                      {...register("cor")}
                       variant="outlined"
                       size="small"
                       {...params}
                       label="Raça / Cor"
                     />
                   )}
-                />              
+                />
                 <Autocomplete
                   size="small"
                   disablePortal
@@ -538,7 +540,7 @@ const CadastroColaborador = () => {
                   options={estado_civil}
                   renderInput={(params) => (
                     <TextField
-                    {...register("estado_civil")}
+                      {...register("estado_civil")}
                       variant="outlined"
                       size="small"
                       {...params}
@@ -1616,60 +1618,74 @@ const CadastroColaborador = () => {
                   Dependentes
                 </Typography>
                 <Box>
-                {fields.map((field, index) => (
-        <Grid key={field.id} container spacing={2}>
-          <Grid item xs={4}>
-            <TextField
-              {...register(`dependentes.${index}.nome`)}
-              label="Nome"
-              variant="outlined"
-              fullWidth
-              sx={{margin: '5px'}}
-              size='small'
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              {...register(`dependentes.${index}.idade`)}
-              label="Idade"
-              variant="outlined"
-              fullWidth
-              sx={{margin: '5px'}}
-              size='small'
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              {...register(`dependentes.${index}.cpf`)}
-              label="CPF"
-              variant="outlined"
-              fullWidth
-              sx={{margin: '5px'}}
-              size='small'
-            />
-          </Grid>
-          <Grid item xs={1}>           
-            <Fab sx={{width: '40px', height: '40px'}} onClick={() => remove(index)} color="secondary" aria-label="edit">
-        <PersonRemoveAlt1Icon />
-      </Fab>
-          </Grid>
-        </Grid>
-      ))}
-     <Box sx={{width: '100%', display:'flex', justifyContent:'end'}}>
-    <Fab color="primary" aria-label="add" onClick={() => append({ nome: "", idade: "", cpf: "" })}>
-        <AddIcon />
-      </Fab>
-     </Box>
-      
+                  {fields.map((field, index) => (
+                    <Grid key={field.id} container spacing={2}>
+                      <Grid item xs={4}>
+                        <TextField
+                          {...register(`dependentes.${index}.nome`)}
+                          label="Nome"
+                          variant="outlined"
+                          fullWidth
+                          sx={{ margin: "5px" }}
+                          size="small"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <TextField
+                          {...register(`dependentes.${index}.idade`)}
+                          label="Idade"
+                          variant="outlined"
+                          fullWidth
+                          sx={{ margin: "5px" }}
+                          size="small"
+                        />
+                      </Grid>
+                      <Grid item xs={3}>
+                        <TextField
+                          {...register(`dependentes.${index}.cpf`)}
+                          label="CPF"
+                          variant="outlined"
+                          fullWidth
+                          sx={{ margin: "5px" }}
+                          size="small"
+                        />
+                      </Grid>
+                      <Grid item xs={1}>
+                        <Fab
+                          sx={{ width: "40px", height: "40px" }}
+                          onClick={() => remove(index)}
+                          color="secondary"
+                          aria-label="edit"
+                        >
+                          <PersonRemoveAlt1Icon />
+                        </Fab>
+                      </Grid>
+                    </Grid>
+                  ))}
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "end",
+                    }}
+                  >
+                    <Fab
+                      color="primary"
+                      aria-label="add"
+                      onClick={() => append({ nome: "", idade: "", cpf: "" })}
+                    >
+                      <AddIcon />
+                    </Fab>
+                  </Box>
                 </Box>
               </TabPanel>
             </Box>
           </Box>
         </CardContent>
-        <CardActions sx={{display: 'flex', justifyContent: 'end'}}>
-        <Button type="submit" variant="contained">
-          Salvar
-        </Button>        
+        <CardActions sx={{ display: "flex", justifyContent: "end" }}>
+          <Button type="submit" variant="contained">
+            Salvar
+          </Button>
         </CardActions>
       </Card>
     </form>
