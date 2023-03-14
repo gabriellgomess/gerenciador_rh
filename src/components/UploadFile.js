@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ContextAPI from "../ContextAPI/ContextAPI";
 import Typography from "@mui/material/Typography";
@@ -8,12 +8,16 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 import axios from "axios";
 import "./UploadFile.css";
+import { AddBox } from "@mui/icons-material";
+
 
 const UploadFile = ({ cpf }) => {
   const [files, setFiles] = useState([]);
   const { colaboradores, setColaboradores } = useContext(ContextAPI);
+  const [arquivosUser, setArquivosUser] = useState([]);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -24,7 +28,9 @@ const UploadFile = ({ cpf }) => {
     });
     setFiles(newFiles);
   };
-
+  const listarArquivos = (e) => {
+    console.log("....", e); 
+  }
   const nomes = colaboradores.map((colaborador) => `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, '')}`).sort(); 
   const handleInputChange = (event) => {
     const newFiles = [...files];
@@ -44,7 +50,17 @@ const UploadFile = ({ cpf }) => {
   console.log(files)
 
 const { register, handleSubmit } = useForm();
-
+const buscaArquivos = () => {
+  axios.post("https://gabriellgomess.com/gerenciador_rh/listar_arquivos.php", {
+    cpf: '01169425097'
+    }).then((res) => {
+      const retorno = res.data;
+      console.log(retorno);
+      setArquivosUser(retorno);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 const onSubmit = (data) => {
   const formData = new FormData();
   const nome = data.nome.split(" - ")[0];
@@ -65,17 +81,25 @@ const onSubmit = (data) => {
     // Limpar formulário
     setFiles([]);
     document.getElementById("nome").value = "";
-    
+    buscaArquivos();   
   }).catch((err) => {
     console.log(err);
   });
 };
 
+  useEffect(() => {
+    
+    buscaArquivos();
+  }, []);
+
   return (
-    <>
+    <Box sx={{display: 'flex', }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Autocomplete size="small" disablePortal sx={{width: {xs: "100%", sm: "100%", md: "50%", lg: "40%", xl: "40%", }, marginBottom: "35px", }} name="nome" options={nomes} renderInput={(params) => (
-            <TextField {...register("nome")} variant="outlined" size="small" {...params} label="Funcionário" />
+            <TextField onChange={(e) => {
+              console.log("value:", e.target.value);
+              listarArquivos(e.target.value)
+            }}  {...register("nome")} variant="outlined" size="small" {...params} label="Funcionário - CPF" />
           )}
         />
         <Typography>
@@ -89,7 +113,6 @@ const onSubmit = (data) => {
             <label className="upload-file">
               Clique para selecionar os arquivos
               <input {...register('file')} className="input-file" name="file" type="file" onChange={handleInputChange} multiple />
-
             </label>
           </div>
         </div>
@@ -100,7 +123,18 @@ const onSubmit = (data) => {
         </Stack>
         <Button type='submit' variant="contained" endIcon={<UploadFileIcon />}>Enviar Arquivos</Button>
       </form>
-    </>
+      <Box sx={{margin: 3, display: 'flex', flexWrap: 'wrap' }} >
+        {arquivosUser.map((arquivo, index) => {
+          return (
+            
+              <Chip sx={{margin: 2}} key={index} label={arquivo.nome} component="a" href={arquivo.links} clickable />              
+            
+          )
+        })
+      }
+            
+      </Box>
+    </Box>
   );
 };
 
