@@ -25,9 +25,7 @@ const UploadFile = ({ cpf }) => {
     setFiles(newFiles);
   };
 
-  const nomes = colaboradores.map((colaborador) => colaborador.nome).sort();
-
- 
+  const nomes = colaboradores.map((colaborador) => `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, '')}`).sort(); 
   const handleInputChange = (event) => {
     const newFiles = [...files];
     const uploadedFiles = Array.from(event.target.files);
@@ -49,7 +47,10 @@ const { register, handleSubmit } = useForm();
 
 const onSubmit = (data) => {
   const formData = new FormData();
-  formData.append("nome", data.nome);
+  const nome = data.nome.split(" - ")[0];
+  const cpf = (data.nome.split(" - ")[1]);
+  formData.append("nome", nome);
+  formData.append("cpf", cpf);
   const uploadedFiles = files;
   Array.from(uploadedFiles).forEach((file) => {
     formData.append("file[]", file);
@@ -61,8 +62,10 @@ const onSubmit = (data) => {
     },
   }).then((res) => {
     console.log(res);
-    console.log('Nome do funcionário:', data.nome);
-    console.log('Arquivos:', uploadedFiles);
+    // Limpar formulário
+    setFiles([]);
+    document.getElementById("nome").value = "";
+    
   }).catch((err) => {
     console.log(err);
   });
@@ -71,7 +74,7 @@ const onSubmit = (data) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Autocomplete size="small" disablePortal sx={{width: {xs: "100%", sm: "48%", md: "30%", lg: "20%", xl: "20%", }, marginBottom: "35px", }} name="nome" options={nomes} renderInput={(params) => (
+        <Autocomplete size="small" disablePortal sx={{width: {xs: "100%", sm: "100%", md: "50%", lg: "40%", xl: "40%", }, marginBottom: "35px", }} name="nome" options={nomes} renderInput={(params) => (
             <TextField {...register("nome")} variant="outlined" size="small" {...params} label="Funcionário" />
           )}
         />
