@@ -18,6 +18,8 @@ const UploadFile = ({ cpf }) => {
   const [files, setFiles] = useState([]);
   const { colaboradores, setColaboradores } = useContext(ContextAPI);
   const [arquivosUser, setArquivosUser] = useState([]);
+  const [selectedNome, setSelectedNome] = useState(null);
+
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -28,9 +30,11 @@ const UploadFile = ({ cpf }) => {
     });
     setFiles(newFiles);
   };
-  const listarArquivos = (e) => {
-    console.log("....", e); 
-  }
+  const handleNomeChange = (event, value) => {
+    
+    setSelectedNome(value); // atualizando estado com o valor selecionado
+
+  };
   const nomes = colaboradores.map((colaborador) => `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, '')}`).sort(); 
   const handleInputChange = (event) => {
     const newFiles = [...files];
@@ -47,20 +51,31 @@ const UploadFile = ({ cpf }) => {
     setFiles(newFiles);
   };
 
-  console.log(files)
+
 
 const { register, handleSubmit } = useForm();
+
 const buscaArquivos = () => {
-  axios.post("https://gabriellgomess.com/gerenciador_rh/listar_arquivos.php", {
-    cpf: '01169425097'
+  if(selectedNome) {
+    axios.post("https://gabriellgomess.com/gerenciador_rh/listar_arquivos.php", {
+
+    cpf: selectedNome.split(" - ")[1]
     }).then((res) => {
       const retorno = res.data;
       console.log(retorno);
-      setArquivosUser(retorno);
+      if(retorno !== "Nenhum arquivo encontrado"){
+        setArquivosUser(retorno);
+      }else{
+        setArquivosUser([]);
+      }
+      
     }).catch((err) => {
       console.log(err);
-    });
+    })
+  };
+  
   }
+
 const onSubmit = (data) => {
   const formData = new FormData();
   const nome = data.nome.split(" - ")[0];
@@ -71,7 +86,7 @@ const onSubmit = (data) => {
   Array.from(uploadedFiles).forEach((file) => {
     formData.append("file[]", file);
   });
-  console.log("Arquivo enviado: ", formData)
+  
   axios.post("https://gabriellgomess.com/gerenciador_rh/save_file.php", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -81,27 +96,44 @@ const onSubmit = (data) => {
     // Limpar formulário
     setFiles([]);
     document.getElementById("nome").value = "";
-    buscaArquivos();   
+    buscaArquivos();    
+    
   }).catch((err) => {
     console.log(err);
   });
 };
 
+
+
   useEffect(() => {
-    
-    buscaArquivos();
-  }, []);
+  
+      buscaArquivos();
+
+  }, [selectedNome]);
 
   return (
-    <Box sx={{display: 'flex', }}>
+    <Box sx={{display: 'flex',flexWrap: 'wrap' }}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Autocomplete size="small" disablePortal sx={{width: {xs: "100%", sm: "100%", md: "50%", lg: "40%", xl: "40%", }, marginBottom: "35px", }} name="nome" options={nomes} renderInput={(params) => (
-            <TextField onChange={(e) => {
-              console.log("value:", e.target.value);
-              listarArquivos(e.target.value)
-            }}  {...register("nome")} variant="outlined" size="small" {...params} label="Funcionário - CPF" />
-          )}
+      <Autocomplete
+      size="small"
+      disablePortal
+      sx={{
+        width: {xs: "100%", sm: "100%", md: "50%", lg: "40%", xl: "40%"},
+        marginBottom: "35px",
+      }}
+      name="nome"
+      options={nomes}
+      onChange={handleNomeChange}
+      renderInput={(params) => (
+        <TextField
+          {...register("nome")}
+          variant="outlined"
+          size="small"
+          {...params}
+          label="Funcionário - CPF"
         />
+      )}
+    />
         <Typography>
           {files.length === 0
             ? "Nenhum arquivo selecionado"
@@ -123,11 +155,10 @@ const onSubmit = (data) => {
         </Stack>
         <Button type='submit' variant="contained" endIcon={<UploadFileIcon />}>Enviar Arquivos</Button>
       </form>
-      <Box sx={{margin: 3, display: 'flex', flexWrap: 'wrap' }} >
+      <Box sx={{margin: 3, width: '50%', display: 'flex', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'start', height: 'fit-content' }} >
         {arquivosUser.map((arquivo, index) => {
-          return (
-            
-              <Chip sx={{margin: 2}} key={index} label={arquivo.nome} component="a" href={arquivo.links} clickable />              
+          return (            
+              <Chip sx={{margin: '5px'}} key={index} label={arquivo.nome} component="a" href={arquivo.links} clickable />              
             
           )
         })
