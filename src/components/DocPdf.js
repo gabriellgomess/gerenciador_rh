@@ -15,6 +15,10 @@ const PDFGenerator = (props) => {
 
   const generatePDF = () => {
     const documentDefinition = {
+        pageSize: {
+            width: '100%',
+            height: '100%'
+        },
       content: [
         
     ],

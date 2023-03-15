@@ -11,7 +11,7 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import FormDialog from './FormDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faFileExcel, faLink } from '@fortawesome/free-solid-svg-icons';
 
 
 import PDFGenerator from './DocPdf';
@@ -109,6 +109,21 @@ const TabelaColaboradores = () => {
                 Editar
               </Button>              
               </>               
+            ),
+          },
+          {
+            field: "link",
+            headerName: "Link",
+            width: 350,
+            alignItems: 'center',
+            cellClassName: 'cell-align-center',
+            sortable: true,
+            renderCell: (params) => (
+              <a style={{textDecoration: 'none'}} href={params.row.link} target='blank'>
+              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} endIcon={<FontAwesomeIcon icon={faLink} />}>
+                Página do Colaborador
+              </Button>              
+              </a>               
             ),
           }
         

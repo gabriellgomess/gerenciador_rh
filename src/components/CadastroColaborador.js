@@ -341,10 +341,10 @@ const CadastroColaborador = () => {
               width: "100%",
               display: "flex",
               flexWrap: "wrap",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%"}}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
                   value={value}
@@ -373,6 +373,7 @@ const CadastroColaborador = () => {
                 >
                   Dados Pessoais
                 </Typography>
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("matricula")}
                   sx={{
@@ -599,8 +600,10 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
                 {/* ****************************************************************************** */}
                 <Divider />
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("cep")}
                   sx={{
@@ -804,8 +807,10 @@ const CadastroColaborador = () => {
                   color={testPhone === true ? "success" : ""}
                   onKeyUp={(event) => handleFormatPhone(event)}
                 />
+                </Box>
                 {/* ****************************************************************************** */}
                 <Divider />
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("cpf")}
                   sx={{
@@ -1048,6 +1053,7 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <Typography
@@ -1058,6 +1064,7 @@ const CadastroColaborador = () => {
                 >
                   Dados da Contratação
                 </Typography>
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("admissao")}
                   sx={{
@@ -1319,6 +1326,7 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
               </TabPanel>
               <TabPanel
                 sx={{ display: "flex", flexWrap: "wrap" }}
@@ -1333,6 +1341,7 @@ const CadastroColaborador = () => {
                 >
                   Dados Bancários
                 </Typography>
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("banco")}
                   sx={{
@@ -1349,7 +1358,7 @@ const CadastroColaborador = () => {
                   label="Banco"
                   variant="outlined"
                   size="small"
-                />
+                />                
                 <TextField
                   {...register("agencia")}
                   sx={{
@@ -1451,6 +1460,7 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <Typography
@@ -1461,6 +1471,7 @@ const CadastroColaborador = () => {
                 >
                   Escala
                 </Typography>
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("escala")}
                   sx={{
@@ -1495,6 +1506,7 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
               </TabPanel>
               <TabPanel value={value} index={4}>
                 <Typography
@@ -1505,6 +1517,7 @@ const CadastroColaborador = () => {
                 >
                   Benefícios
                 </Typography>
+                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
                 <TextField
                   {...register("linhaVT")}
                   sx={{
@@ -1607,6 +1620,7 @@ const CadastroColaborador = () => {
                   variant="outlined"
                   size="small"
                 />
+                </Box>
               </TabPanel>
               <TabPanel value={value} index={5}>
                 <Typography
@@ -1630,7 +1644,7 @@ const CadastroColaborador = () => {
                           size="small"
                         />
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={1}>
                         <TextField
                           {...register(`dependentes.${index}.idade`)}
                           label="Idade"
@@ -1640,10 +1654,20 @@ const CadastroColaborador = () => {
                           size="small"
                         />
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item xs={2}>
                         <TextField
                           {...register(`dependentes.${index}.cpf`)}
                           label="CPF"
+                          variant="outlined"
+                          fullWidth
+                          sx={{ margin: "5px" }}
+                          size="small"
+                        />
+                      </Grid>
+                      <Grid item xs={3}>
+                        <TextField
+                          {...register(`dependentes.${index}.tipo`)}
+                          label="Tipo"
                           variant="outlined"
                           fullWidth
                           sx={{ margin: "5px" }}
@@ -1654,7 +1678,7 @@ const CadastroColaborador = () => {
                         <Fab
                           sx={{ width: "40px", height: "40px" }}
                           onClick={() => remove(index)}
-                          color="secondary"
+                          color="error"
                           aria-label="edit"
                         >
                           <PersonRemoveAlt1Icon />
