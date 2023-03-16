@@ -147,8 +147,11 @@ const UploadFile = ({ cpf }) => {
   };
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'space-evenly' }}>
-      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px'}}>
+      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#f0f0f0'}}>
         <form className="form-file" onSubmit={handleSubmit(onSubmit)}>
+          <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+            Selecione um colaborador para enviar arquivos
+          </Typography>
           <Autocomplete
             size="small"
             disablePortal
@@ -176,6 +179,8 @@ const UploadFile = ({ cpf }) => {
               />
             )}
           />
+          {selectedNome && (
+            <>
           <Typography>
             {files.length === 0 ? (
               <Typography variant="caption">
@@ -226,9 +231,12 @@ const UploadFile = ({ cpf }) => {
           >
             Enviar Arquivos
           </Button>
+          </>
+          )}
         </form>
+        
       </Card>
-      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px'}}>
+      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#f0f0f0'}}>
         <Box
           sx={{
             margin: 3,
@@ -242,6 +250,7 @@ const UploadFile = ({ cpf }) => {
             overflow: "auto"  
           }}
         >
+          <Typography variant="h5" sx={{width: '100%'}}>Documentos enviados</Typography>
           {arquivosUser.length > 0 ? (
             <>
               {arquivosUser.map((arquivo, index) => {

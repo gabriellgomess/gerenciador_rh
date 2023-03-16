@@ -15,10 +15,6 @@ const PDFGenerator = (props) => {
 
   const generatePDF = () => {
     const documentDefinition = {
-        pageSize: {
-            width: '100%',
-            height: '100%'
-        },
       content: [
         
     ],
@@ -61,7 +57,7 @@ const PDFGenerator = (props) => {
                                 "style": "header",
                             },
                             {
-                                "text": "Rua: Nelson Zang, 420 - Porto Alegre - Intercap - RS - CEP 91530-350 - Telefone: (51) 2165-1911",
+                                "text": "Rua: Nelson Zang, 420 - Intercap - Porto Alegre - RS - CEP 91530-350 - Telefone: (51) 2165-1911",
                                 "style": "simpleText",
                             },
                             ,
@@ -234,8 +230,8 @@ const PDFGenerator = (props) => {
         {
             text: `Refeitório: ${colaborador.refeitorio}`,
             style: 'simpleText',
-        },
-
+            pageBreak: 'after',             
+        }
         );
     });
   
