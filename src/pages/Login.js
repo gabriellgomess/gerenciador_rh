@@ -43,12 +43,15 @@ export default function Login() {
         axios.post('https://gabriellgomess.com/gerenciador_rh/login.php', { ...formData, password: passwordMd5 })
           .then(
             response => {
-                console.log(response.data[0].nome)
-                if(response.data[0].nome || response.data[0].nome != '' || response.data[0].nome != null || response.data[0].nome != undefined){
-                    window.location.href = '/gerenciador_rh';
-                }else{
-                    window.location.href = '/login'
+                
+                if(response.data !== "Usuário ou senha incorretos"){
+                    window.location.href = '/gerenciador_rh/colaboradores';
+                    localStorage.setItem('Authorization', response.data[0].nome);
+                    
+                }else if(response.data == "Usuário ou senha incorretos"){
+                    window.location.href = '/gerenciador_rh'
                     console.log('erro')
+                    console.log(response.data)
                 }
             }
             )

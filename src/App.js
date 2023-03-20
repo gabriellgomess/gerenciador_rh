@@ -20,6 +20,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
+import LogoutIcon from '@mui/icons-material/Logout';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import CakeIcon from "@mui/icons-material/Cake";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -33,9 +35,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import Colaboradores from "./pages/Colaboradores";
 import Login from "./pages/Login";
 import Aniversariantes from "./pages/Aniversariantes";
-import FormColaborador from "./pages/FormColaborador";
 import ListaColaboradores from "./pages/ListaColaboradores";
 import AddDoc from "./pages/AddDoc";
+import CadastrarUsuario from "./pages/CadastrarUsuario";
 
 const drawerWidth = 240;
 
@@ -108,6 +110,7 @@ export default function App() {
   const [colaboradores, setColaboradores] = useState([]);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     axios
@@ -119,6 +122,7 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
+      localStorage.getItem('Authorization') ? setAuth(true) : setAuth(false);
   }, []);
 
   const handleDrawerOpen = () => {
@@ -128,6 +132,12 @@ export default function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('Authorization');
+    setAuth(false);
+    window.location.href = '/gerenciador_rh';
+  }
 
   return (
     <ContextAPI.Provider value={{ colaboradores, setColaboradores }}>
@@ -164,6 +174,35 @@ export default function App() {
           </DrawerHeader>
           <Divider />
           <List>
+          {auth ? (
+            <>
+                     
+              <ListItem disablePadding sx={{ display: "block" }} onClick={()=>handleLogout()}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={"Sair"}
+                    sx={{ opacity: open ? 1 : 0, color: "grey" }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </>
+          ) : (
+            <>
             <Link to="/gerenciador_rh" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -189,6 +228,10 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            </>
+            
+          )}
+            {auth && (
             <Link to="/gerenciador_rh/add_colaborador" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -214,6 +257,8 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            )}
+            {auth && (
             <Link to="/gerenciador_rh/add_doc" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -239,6 +284,8 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            )}
+            {auth && (
             <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -264,6 +311,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            )}
             <Link to="/gerenciador_rh/aniversariantes" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -289,18 +337,47 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
+            <Divider />
+            {auth && (
+            <Link to="/gerenciador_rh/cardastrar_usuario" style={{ textDecoration: "none" }}>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <VpnKeyIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={"Cadastrar Usuário"}
+                    sx={{ opacity: open ? 1 : 0, color: "grey" }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            )}
           </List>
-          <Divider />  
+          
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3, height: '100%' }}>
           <DrawerHeader />
           {/* CONTEÚDO DA PÁGINA AQUI */}
           <Routes>
             <Route path="/gerenciador_rh" element={<Login />} />
-            <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} />
-            <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} />
-            <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores /> } />            
-            <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />           
+            <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />
+            {auth ? <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} /> : <Route to="/gerenciador_rh" /> }
+            {auth ? <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} /> : <Route to="/gerenciador_rh" /> }
+            {auth ? <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores />} /> : <Route to="/gerenciador_rh" /> }
+            {auth ? <Route path="/gerenciador_rh/cardastrar_usuario" element={<CadastrarUsuario />} /> : <Route to="/gerenciador_rh" /> }
           </Routes>
           {/* <Footer /> */}
         </Box>
