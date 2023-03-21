@@ -1,5 +1,12 @@
-import React from 'react';
-import { TextField, Autocomplete, Select, MenuItem, Box } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import ContextAPI from "../ContextAPI/ContextAPI";
+import { TextField, Autocomplete, Box, Typography, Switch, Button } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
+import CryptoJS from 'crypto-js';
+
 
 const names = [
   { label: 'Alice' },
@@ -8,68 +15,212 @@ const names = [
   // ...
 ];
 const accessLevels = [
-    { label: 'Gerência' },
-    { label: 'Coordenação' },
-    { label: 'Analista' },
-    { label: 'Operacional' },
+    { label: 'Gerência', value: 'gerencia' },
+    { label: 'Coordenação', value: 'coordenacao' },
+    { label: 'Analista', value: 'analista' },
+    { label: 'Operacional', value: 'operacional' },
     // ...
     ];
 
+
 export default function CadastrarUsuario() {
-  const [name, setName] = React.useState(null);
-  const [level, setLevel] = React.useState(null);
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [accessLevel, setAccessLevel] = React.useState('');
+  const [name, setName] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [username, setUsername] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [accessLevel, setAccessLevel] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const { colaboradores, setColaboradores } = useContext(ContextAPI);
+
+  const nomes = colaboradores.map((colaborador) =>`${colaborador.nome} - ${colaborador.matricula}`).sort();
+
+  function validarSenhas() {
+    if (senha.trim() !== confirmarSenha.trim()) {
+      setErro('As senhas não coincidem');
+      toast.error('As senhas não coincidem', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    if (senha.length < 8) {
+      setErro('A senha deve ter pelo menos 8 caracteres');
+      toast.error('A senha deve ter pelo menos 8 caracteres', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    if (!/[a-zA-Z]/.test(senha) || !/[0-9]/.test(senha)) {
+      setErro('A senha deve conter letras e números');
+      toast.error('A senha deve conter letras e números', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    setErro('');
+    return true;
+  }
+const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+    };
+
+  const label = { inputProps: { 'aria-label': 'Size switch demo' } };
+
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data) => {
+        const dados = data.nome.split(' - ');
+        data.nome = dados[0];
+        data.matricula = dados[1];
+        // Converte a senha para md5
+        data.senha = CryptoJS.MD5(data.senha).toString();
+        
+        
+        if (validarSenhas()) {
+          console.table(data);
+            axios.post('https://gabriellgomess.com/gerenciador_rh/insere_usuario.php', data)
+            .then((response) => {
+                console.log(response);
+                if(response.data == '1') {
+                toast.success('Usuário cadastrado com sucesso', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+                } else if(response.data == '0') {
+                    toast.error('Usuário já cadastrado', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Erro ao cadastrar usuário', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+            });
+
+        }
+    };
 
   return (
     <Box sx={{width: '100%', maxWidth: '500px', padding: '10px'}}>
-        <form style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+        <Typography variant="h4" component="h1" gutterBottom>
+            Cadastrar Usuário
+        </Typography>
+        <form style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}} onSubmit={handleSubmit(onSubmit)}>
             <Autocomplete
                 sx={{width: '100%', margin: '5px'}}
-                options={names}
-                getOptionLabel={(option) => option.label}
+                options={nomes}
                 value={name}
+                name='nome'
                 onChange={(event, newValue) => {
                 setName(newValue);
+                
                 }}
-                renderInput={(params) => <TextField {...params} label="Nome" />}
+                renderInput={(params) => <TextField {...register('nome')} {...params} label="Nome" />}
             />
             <TextField
                 sx={{width: '100%', margin: '5px'}}
-                label="Usuário"
-                value={username}
+                label="E-mail"
+                type="email"
+                defaultValue={username}
                 onChange={(event) => setUsername(event.target.value)}
+                name='email'
+                {...register('email')}
+                autoComplete="off"
             />
             <Box sx={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '5px'}}>
             <TextField
-                sx={{width: '49%'}}
-                type="password"
+                {...register('senha')}
+                sx={{ width: '49%' }}
+                name='senha'
                 label="Senha"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
-            <TextField
-                sx={{width: '49%'}}
-                type="password"
+                type={showPassword ? 'text' : 'password'}
+                onChange={(event) => setSenha(event.target.value)}
+                
+                
+                />
+                <TextField
+                sx={{ width: '49%' }}
                 label="Confirmar Senha"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
+                type={showPassword ? 'text' : 'password'}
+                value={confirmarSenha}
+                onChange={(event) => setConfirmarSenha(event.target.value)}
+                onBlur={validarSenhas}
+                />
             </Box>
-            
+            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: '5px'}}>
+            <Box sx={{width: '40%'}}><Typography variant='caption'>Mostrar Senha</Typography> <Switch {...label} size="small" onChange={()=>handleShowPassword()} /></Box>
+            <Box sx={{width: '60%'}}><Typography variant="caption">A senha deve ter pelo menos 8 caracteres e conter letras e números</Typography></Box>
+            </Box>
             <Autocomplete
                 sx={{width: '100%', margin: '5px'}}
                 options={accessLevels}
-                getOptionLabel={(option) => option.label}
-                value={accessLevels}
+                getOptionLabel={(option) => option.value}
+                value={level}
+                name='nivelAcesso'
                 onChange={(event, newValue) => {
                 setLevel(newValue);
+                
                 }}
-                renderInput={(params) => <TextField {...params} label="Nível de Acesso" />}
+                renderInput={(params) => <TextField {...register('nivelAcesso')} {...params} label="Nível de Acesso" />}
             />
+            <Button sx={{width: '100%', margin: '5px'}} variant="contained" type='submit'>Cadastrar</Button>
         </form>
-    </Box>
-    
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+    </Box>    
   );
 }
