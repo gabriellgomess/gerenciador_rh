@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Copyright(props) {
@@ -49,9 +51,19 @@ export default function Login() {
                     localStorage.setItem('Authorization', response.data[0].nome);
                     
                 }else if(response.data == "Usuário ou senha incorretos"){
-                    window.location.href = '/gerenciador_rh'
+                    // window.location.href = '/gerenciador_rh'
                     console.log('erro')
                     console.log(response.data)
+                    toast.error('Usuário ou senha incorretos', {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                      });
                 }
             }
             )
@@ -118,10 +130,10 @@ export default function Login() {
                 id="password"
                 onChange={(e)=>handleInputChange(e)}
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Lembrar senha"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -147,6 +159,18 @@ export default function Login() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
     </ThemeProvider>
   );
 }
