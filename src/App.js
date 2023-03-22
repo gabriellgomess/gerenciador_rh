@@ -118,21 +118,23 @@ export default function App() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [auth, setAuth] = useState(false);
+  const [nomeLogin, setNomeLogin] = useState('');
+  const [matriculaLogin, setMatriculaLogin] = useState('');
+  const [expiry, setExpiry] = useState('');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open2 = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // Pegar o valor de Authorization do localStorage
-  const nomeLogin = localStorage.getItem('Authorization');
-
-
 
   useEffect(() => {
+    if(auth && expiry > Date.now()){
     axios
       .get("https://gabriellgomess.com/gerenciador_rh/busca.php")
       .then((response) => {
@@ -142,7 +144,9 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
-      localStorage.getItem('Authorization') ? setAuth(true) : setAuth(false);
+    }else{
+      setAuth(false);
+    }   
   }, []);
 
   const handleDrawerOpen = () => {
@@ -160,7 +164,7 @@ export default function App() {
   }
 
   return (
-    <ContextAPI.Provider value={{ colaboradores, setColaboradores }}>
+    <ContextAPI.Provider value={{ colaboradores, setColaboradores, nomeLogin, setNomeLogin, auth, setAuth, matriculaLogin, setMatriculaLogin, expiry, setExpiry }}>
       <Box sx={{ display: "flex", height: '100%' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -178,7 +182,7 @@ export default function App() {
               <MenuIcon />
             </IconButton>
             <Box sx={{display: 'flex', justifyContent: 'end', width: '100%', height: '100%', alignItems: 'center'}}>
-              {nomeLogin && (
+              {(auth && expiry > Date.now()) && (
               <Box sx={{display: 'flex', alignItems: 'center', margin: '0 40px'}}>
                 <Typography>Olá, {nomeLogin}</Typography>
                 <Tooltip title="Alterar Senha">
@@ -203,7 +207,7 @@ export default function App() {
           </DrawerHeader>
           <Divider />
           <List>
-          {auth ? (
+          {(auth && expiry > Date.now()) ? (
             <>
                      
               <ListItem disablePadding sx={{ display: "block" }} onClick={()=>handleLogout()}>
@@ -260,7 +264,7 @@ export default function App() {
             </>
             
           )}
-            {auth && (
+            {(auth && expiry > Date.now()) && (
             <Link to="/gerenciador_rh/add_colaborador" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -287,7 +291,7 @@ export default function App() {
               </ListItem>
             </Link>
             )}
-            {auth && (
+            {(auth && expiry > Date.now()) && (
             <Link to="/gerenciador_rh/add_doc" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -314,7 +318,7 @@ export default function App() {
               </ListItem>
             </Link>
             )}
-            {auth && (
+            {(auth && expiry > Date.now()) && (
             <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -367,7 +371,7 @@ export default function App() {
               </ListItem>
             </Link>
             <Divider />
-            {auth && (
+            {(auth && expiry > Date.now()) && (
             <Link to="/gerenciador_rh/cardastrar_usuario" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -403,10 +407,10 @@ export default function App() {
           <Routes>
             <Route path="/gerenciador_rh" element={<Login />} />
             <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />
-            {auth ? <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} /> : <Route to="/gerenciador_rh" /> }
-            {auth ? <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} /> : <Route to="/gerenciador_rh" /> }
-            {auth ? <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores />} /> : <Route to="/gerenciador_rh" /> }
-            {auth ? <Route path="/gerenciador_rh/cardastrar_usuario" element={<CadastrarUsuario />} /> : <Route to="/gerenciador_rh" /> }
+            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} /> : <Route to="/gerenciador_rh" /> }
+            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} /> : <Route to="/gerenciador_rh" /> }
+            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores />} /> : <Route to="/gerenciador_rh" /> }
+            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/cardastrar_usuario" element={<CadastrarUsuario />} /> : <Route to="/gerenciador_rh" /> }
           </Routes>
           {/* <Footer /> */}
         </Box>
@@ -458,10 +462,6 @@ export default function App() {
         </Box>
        
       </Menu>
-
-
-
-
     </ContextAPI.Provider>
   );
 }

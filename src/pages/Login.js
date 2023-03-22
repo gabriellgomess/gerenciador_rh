@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import ContextAPI from "../ContextAPI/ContextAPI";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +17,7 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import jwt_decode from "jwt-decode";
 
 
 function Copyright(props) {
@@ -38,6 +40,11 @@ export default function Login() {
         email: '',
         password: '',
       });
+    const { auth, setAuth } = useContext(ContextAPI);
+    const { nomeLogin, setNomeLogin } = useContext(ContextAPI);
+    const { matriculaLogin, setMatriculaLogin } = useContext(ContextAPI);
+    const { expiry, setExpiry } = useContext(ContextAPI);
+
 
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -45,26 +52,22 @@ export default function Login() {
         axios.post('https://gabriellgomess.com/gerenciador_rh/login.php', { ...formData, password: passwordMd5 })
           .then(
             response => {
+              const token = response.data; // obtém o token de autenticação da resposta do servidor
+              localStorage.setItem('token', token); // armazena o token localmente              
+              var decoded = jwt_decode(token); // decodifica o token
+              console.log(decoded)
+              localStorage.setItem('nome', decoded.user_name); // armazena o nome do usuário localmente
+              localStorage.setItem('matricula', decoded.user_matricula); // armazena a matrícula do usuário localmente
+              localStorage.setItem('email', decoded.user_email); // armazena o email do usuário localmente
+              localStorage.setItem('expiry_time', decoded.expiry_time); // armazena o expiry_time do usuário localmente   
+              setAuth(localStorage.getItem('token'));
+              setNomeLogin(localStorage.getItem('nome'));
+              setMatriculaLogin(localStorage.getItem('matricula'));
+              setExpiry(localStorage.getItem('expiry_time'));
+              // direcionar para a página /gereciador_rh/funcionarios
+              window.location.href = "/gerenciador_rh/colaboradores";
+            
                 
-                if(response.data !== "Usuário ou senha incorretos"){
-                    window.location.href = '/gerenciador_rh/colaboradores';
-                    localStorage.setItem('Authorization', response.data[0].nome);
-                    
-                }else if(response.data == "Usuário ou senha incorretos"){
-                    // window.location.href = '/gerenciador_rh'
-                    console.log('erro')
-                    console.log(response.data)
-                    toast.error('Usuário ou senha incorretos', {
-                      position: "top-center",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                      });
-                }
             }
             )
           .catch(error => console.log(error));
