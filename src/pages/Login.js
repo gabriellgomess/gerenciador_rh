@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import ContextAPI from "../ContextAPI/ContextAPI";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -18,6 +18,7 @@ import CryptoJS from 'crypto-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
+import { useNavigate, Navigate} from "react-router-dom";
 
 
 function Copyright(props) {
@@ -36,15 +37,14 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+     const {user, setUser} = useContext(ContextAPI);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
       });
-    const { auth, setAuth } = useContext(ContextAPI);
-    const { nomeLogin, setNomeLogin } = useContext(ContextAPI);
-    const { matriculaLogin, setMatriculaLogin } = useContext(ContextAPI);
-    const { expiry, setExpiry } = useContext(ContextAPI);
 
+      const navigate = useNavigate();
+    
 
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -55,24 +55,25 @@ export default function Login() {
               const token = response.data; // obtém o token de autenticação da resposta do servidor
               localStorage.setItem('token', token); // armazena o token localmente              
               var decoded = jwt_decode(token); // decodifica o token
-              console.log(decoded)
               localStorage.setItem('nome', decoded.user_name); // armazena o nome do usuário localmente
               localStorage.setItem('matricula', decoded.user_matricula); // armazena a matrícula do usuário localmente
               localStorage.setItem('email', decoded.user_email); // armazena o email do usuário localmente
-              localStorage.setItem('expiry_time', decoded.expiry_time); // armazena o expiry_time do usuário localmente   
-              setAuth(localStorage.getItem('token'));
-              setNomeLogin(localStorage.getItem('nome'));
-              setMatriculaLogin(localStorage.getItem('matricula'));
-              setExpiry(localStorage.getItem('expiry_time'));
-              // direcionar para a página /gereciador_rh/funcionarios
-              window.location.href = "/gerenciador_rh/colaboradores";
-            
-                
+              localStorage.setItem('expiry_time', decoded.expiry_time); // armazena o expiry_time do usuário localmente
+              if(token){
+                setUser(true)
+              navigate('/gerenciador_rh/colaboradores');
+              }else{
+                console.log('erro')
+              }
+
+              
+               
             }
             )
           .catch(error => console.log(error));
       };
-      
+
+     
 
       const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -89,7 +90,7 @@ export default function Login() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://onnerevista.com.br/images/news/1696_IMG_3526.jpg)',
+            // backgroundImage: 'url(https://onnerevista.com.br/images/news/1696_IMG_3526.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

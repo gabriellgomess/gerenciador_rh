@@ -14,14 +14,14 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import LogoutIcon from '@mui/icons-material/Logout';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
-import LogoutIcon from '@mui/icons-material/Logout';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import CakeIcon from "@mui/icons-material/Cake";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -33,18 +33,21 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-
 import BadgeIcon from "@mui/icons-material/Badge";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 
 // pages
 import Colaboradores from "./pages/Colaboradores";
 import Login from "./pages/Login";
 import Aniversariantes from "./pages/Aniversariantes";
+import FormColaborador from "./pages/FormColaborador";
 import ListaColaboradores from "./pages/ListaColaboradores";
 import AddDoc from "./pages/AddDoc";
 import CadastrarUsuario from "./pages/CadastrarUsuario";
+
+
+import PrivateRoute from "./components/PrivateRoute";
 
 const drawerWidth = 240;
 
@@ -117,10 +120,12 @@ export default function App() {
   const [colaboradores, setColaboradores] = useState([]);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [nomeLogin, setNomeLogin] = useState('');
-  const [matriculaLogin, setMatriculaLogin] = useState('');
-  const [expiry, setExpiry] = useState('');
+  const [ user, setUser ] = useState(false)
+  
+  
+
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open2 = Boolean(anchorEl);
 
@@ -133,8 +138,9 @@ export default function App() {
   };
 
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if(auth && expiry > Date.now()){
     axios
       .get("https://gabriellgomess.com/gerenciador_rh/busca.php")
       .then((response) => {
@@ -144,9 +150,7 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
-    }else{
-      setAuth(false);
-    }   
+      setUser(localStorage.getItem('token') !== null ? true : false)
   }, []);
 
   const handleDrawerOpen = () => {
@@ -158,13 +162,18 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('Authorization');
-    setAuth(false);
-    window.location.href = '/gerenciador_rh';
+    localStorage.removeItem('token');
+    localStorage.removeItem('nome');
+    localStorage.removeItem('email');
+    localStorage.removeItem('expiry_time');
+    localStorage.removeItem('matricula');
+    setUser(false);
+    navigate('/gerenciador_rh')
   }
 
+
   return (
-    <ContextAPI.Provider value={{ colaboradores, setColaboradores, nomeLogin, setNomeLogin, auth, setAuth, matriculaLogin, setMatriculaLogin, expiry, setExpiry }}>
+    <ContextAPI.Provider value={{ colaboradores, setColaboradores, user, setUser }}>
       <Box sx={{ display: "flex", height: '100%' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -182,9 +191,9 @@ export default function App() {
               <MenuIcon />
             </IconButton>
             <Box sx={{display: 'flex', justifyContent: 'end', width: '100%', height: '100%', alignItems: 'center'}}>
-              {(auth && expiry > Date.now()) && (
+              {user && (
               <Box sx={{display: 'flex', alignItems: 'center', margin: '0 40px'}}>
-                <Typography>Olá, {nomeLogin}</Typography>
+                <Typography>Olá, {localStorage.getItem('nome')}</Typography>
                 <Tooltip title="Alterar Senha">
                   <IconButton onClick={handleClick} aria-label="fingerprint">
                     <Fingerprint />
@@ -207,7 +216,7 @@ export default function App() {
           </DrawerHeader>
           <Divider />
           <List>
-          {(auth && expiry > Date.now()) ? (
+          {user ? (
             <>
                      
               <ListItem disablePadding sx={{ display: "block" }} onClick={()=>handleLogout()}>
@@ -264,7 +273,8 @@ export default function App() {
             </>
             
           )}
-            {(auth && expiry > Date.now()) && (
+            {user && (
+            <>
             <Link to="/gerenciador_rh/add_colaborador" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -289,9 +299,7 @@ export default function App() {
                   />
                 </ListItemButton>
               </ListItem>
-            </Link>
-            )}
-            {(auth && expiry > Date.now()) && (
+            </Link>            
             <Link to="/gerenciador_rh/add_doc" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -317,8 +325,6 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            )}
-            {(auth && expiry > Date.now()) && (
             <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -344,7 +350,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            )}
+            </>)}
             <Link to="/gerenciador_rh/aniversariantes" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -370,9 +376,10 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Divider />
-            {(auth && expiry > Date.now()) && (
-            <Link to="/gerenciador_rh/cardastrar_usuario" style={{ textDecoration: "none" }}>
+          </List>
+          <Divider />
+            {user && (
+            <Link to="/gerenciador_rh/cadastrar_usuario" style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -397,25 +404,22 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            )}
-          </List>
-          
+            )} 
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3, height: '100%' }}>
           <DrawerHeader />
           {/* CONTEÚDO DA PÁGINA AQUI */}
           <Routes>
             <Route path="/gerenciador_rh" element={<Login />} />
+            <Route path="/gerenciador_rh/add_colaborador" element={<PrivateRoute><Colaboradores /></PrivateRoute>} />
+            <Route path="/gerenciador_rh/add_doc" element={<PrivateRoute><AddDoc /></PrivateRoute>} />
+            <Route path="/gerenciador_rh/colaboradores" element={<PrivateRoute><ListaColaboradores /></PrivateRoute> } />            
             <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />
-            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/add_colaborador" element={<Colaboradores />} /> : <Route to="/gerenciador_rh" /> }
-            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/add_doc" element={<AddDoc />} /> : <Route to="/gerenciador_rh" /> }
-            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/colaboradores" element={<ListaColaboradores />} /> : <Route to="/gerenciador_rh" /> }
-            {(auth && expiry > Date.now()) ? <Route path="/gerenciador_rh/cardastrar_usuario" element={<CadastrarUsuario />} /> : <Route to="/gerenciador_rh" /> }
+            <Route path="/gerenciador_rh/cadastrar_usuario" element={<PrivateRoute><CadastrarUsuario /></PrivateRoute> } />         
           </Routes>
           {/* <Footer /> */}
         </Box>
       </Box>
-
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
