@@ -64,7 +64,7 @@ const UploadFile = ({ cpf }) => {
   const buscaArquivos = () => {
     if (selectedNome) {
       axios
-        .post("https://gabriellgomess.com/gerenciador_rh/listar_arquivos.php", {
+        .post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=4`, {
           cpf: selectedNome.split(" - ")[1],
         })
         .then((res) => {
@@ -95,7 +95,7 @@ const UploadFile = ({ cpf }) => {
 
     axios
       .post(
-        "https://gabriellgomess.com/gerenciador_rh/save_file.php",
+        `${process.env.REACT_APP_URL}/api/handleClass.php?p=5`,
         formData,
         {
           headers: {
@@ -128,7 +128,7 @@ const UploadFile = ({ cpf }) => {
 
   const handleDelete = (file) => (event) => {
     axios
-      .post("https://gabriellgomess.com/gerenciador_rh/delete_file.php", {
+      .post(`${process.env.REACT_APP_URL}/delete_file.php`, {
         file: file,
         cpf: selectedNome.split(" - ")[1],
       })

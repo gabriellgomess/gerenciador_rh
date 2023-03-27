@@ -5,7 +5,7 @@ const ProtectedRoute = ({ auth, ...props }) => {
   if (auth) {
     return <Route {...props} />;
   } else {
-    return <Navigate to="/gerenciador_rh" replace={true} />;
+    return <Navigate to={`${process.env.REACT_APP_PATH}`} replace={true} />;
   }
 };
 

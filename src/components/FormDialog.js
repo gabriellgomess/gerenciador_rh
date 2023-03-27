@@ -103,7 +103,7 @@ const handleChangeValues = (values) => {
 
   const handleEditClient = () => {
     
-    axios.put(`https://gabriellgomess.com/gerenciador_rh/update.php`, {
+    axios.put(`${process.env.REACT_APP_URL}/update.php`, {
       id: editValues.id,
       admissao: editValues.admissao,
       demissao: editValues.demissao,

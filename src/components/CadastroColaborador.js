@@ -232,14 +232,14 @@ const CadastroColaborador = () => {
     data.estado = endereco.uf ? handleSetEstado(endereco.uf) : "";
     const jsonData = JSON.stringify(data);
     console.log("JSON: ", jsonData);
-    // axios.post('https://gabriellgomess.com/gerenciador_rh/insere.php', data)
-    // .then(res => {
-    //     console.log(res);
-    //     console.log("Retorno: ",res.data);
-    // })
-    // .then(res => {
-    //     // window.location.reload();
-    // })
+    axios.post(`${process.env.REACT_APP_URL}/insere.php`, data)
+    .then(res => {
+        console.log(res);
+        console.log("Retorno: ",res.data);
+    })
+    .then(res => {
+        // window.location.reload();
+    })
   };
 
   const handleFormatCurrency = (event) => {
@@ -409,7 +409,7 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                   <TextField
-                    {...register("nascimento")}
+                    {...register("data_nascimento")}
                     sx={{
                       width: {
                         xs: "100%",
@@ -420,7 +420,7 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="nascimento"
+                    name="data_nascimento"
                     label="Data de nascimento"
                     variant="outlined"
                     size="small"
@@ -567,7 +567,7 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                   <TextField
-                    {...register("escolaridade")}
+                    {...register("grau_instrucao")}
                     sx={{
                       width: {
                         xs: "100%",
@@ -578,8 +578,8 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="escolaridade"
-                    label="Escolaridade"
+                    name="grau_instrucao"
+                    label="Grau de instrução"
                     variant="outlined"
                     size="small"
                   />
@@ -847,8 +847,25 @@ const CadastroColaborador = () => {
                     variant="outlined"
                     size="small"
                   />
+                   <TextField
+                    {...register("uf_rg")}
+                    sx={{
+                      width: {
+                        xs: "20%",
+                        sm: "20%",
+                        md: "10%",
+                        lg: "5%",
+                        xl: "5%",
+                      },
+                      margin: "5px",
+                    }}
+                    name="rg_uf"
+                    label="UF RG"
+                    variant="outlined"
+                    size="small"
+                  />
                   <TextField
-                    {...register("rg_orgao_emissor")}
+                    {...register("orgao_rg")}
                     sx={{
                       width: {
                         xs: "20%",
@@ -865,7 +882,7 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                   <TextField
-                    {...register("rg_data_emissao")}
+                    {...register("data_expedicao")}
                     sx={{
                       width: {
                         xs: "100%",
@@ -876,7 +893,7 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="rg_data_emissao"
+                    name="data_expedicao"
                     label="Data da Emissão"
                     variant="outlined"
                     size="small"
@@ -1109,6 +1126,22 @@ const CadastroColaborador = () => {
                       />
                     )}
                   />
+                  <TextField                    
+                    {...register("cod_cargo")}
+                    sx={{
+                      width: {
+                        xs: "100%",
+                        sm: "100%",
+                        md: "48%",
+                        lg: "20%",
+                        xl: "20%",
+                      },
+                      margin: "5px",
+                    }}
+                    name="cod_cargo"
+                    label="Código do Cargo"
+                    variant="outlined"
+                    size="small" />
                   <TextField
                     onKeyUp={(event) => handleFormatCurrency(event)}
                     {...register("salario")}
@@ -1169,7 +1202,23 @@ const CadastroColaborador = () => {
                       />
                     )}
                   />
-
+                  <TextField
+                      {...register("cod_ccusto")}
+                      sx={{
+                        width: {
+                          xs: "100%",
+                          sm: "100%",
+                          md: "48%",
+                          lg: "20%",
+                          xl: "20%",
+                        },
+                        margin: "5px",
+                      }}
+                      name="cod_ccusto"
+                      label="Código do Centro de Custo"
+                      variant="outlined"
+                      size="small"
+                   />
                   <TextField
                     {...register("registro")}
                     sx={{
@@ -1406,11 +1455,11 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="tipoConta"
+                    name="tipo_conta"
                     options={tipoConta}
                     renderInput={(params) => (
                       <TextField
-                        {...register("tipoConta")}
+                        {...register("tipo_conta")}
                         variant="outlined"
                         size="small"
                         {...params}

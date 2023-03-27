@@ -20,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
 import { useNavigate, Navigate} from "react-router-dom";
 
+// import env from "react-dotenv";
+
 
 function Copyright(props) {
   return (
@@ -45,11 +47,11 @@ export default function Login() {
 
       const navigate = useNavigate();
     
-
+      console.log(`URL:  ${process.env.REACT_APP_URL}/api/login/login.php`);
       const handleSubmit = (event) => {
         event.preventDefault();
         const passwordMd5 = CryptoJS.MD5(formData.password).toString();
-        axios.post('https://gabriellgomess.com/gerenciador_rh/login.php', { ...formData, password: passwordMd5 })
+        axios.post(`${process.env.REACT_APP_URL}/api/login/login.php`, { ...formData, password: passwordMd5 })
           .then(
             response => {
               const token = response.data; // obtém o token de autenticação da resposta do servidor
@@ -59,15 +61,14 @@ export default function Login() {
               localStorage.setItem('matricula', decoded.user_matricula); // armazena a matrícula do usuário localmente
               localStorage.setItem('email', decoded.user_email); // armazena o email do usuário localmente
               localStorage.setItem('expiry_time', decoded.expiry_time); // armazena o expiry_time do usuário localmente
+              localStorage.setItem('nivelAcesso', decoded.user_nivelAcesso); // armazena o nivel de acesso do usuário localmente
               if(token){
                 setUser(true)
-              navigate('/gerenciador_rh/colaboradores');
+              navigate(`${process.env.REACT_APP_PATH}/colaboradores`);
               }else{
                 console.log('erro')
               }
-
-              
-               
+ 
             }
             )
           .catch(error => console.log(error));
@@ -90,7 +91,7 @@ export default function Login() {
           sm={4}
           md={7}
           sx={{
-            // backgroundImage: 'url(https://onnerevista.com.br/images/news/1696_IMG_3526.jpg)',
+            backgroundImage: 'url(https://onnerevista.com.br/images/news/1696_IMG_3526.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

@@ -49,6 +49,8 @@ import CadastrarUsuario from "./pages/CadastrarUsuario";
 
 import PrivateRoute from "./components/PrivateRoute";
 
+import env from "react-dotenv";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -142,7 +144,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("https://gabriellgomess.com/gerenciador_rh/busca.php")
+      .get(`${process.env.REACT_APP_URL}/api/handleClass.php?p=1`)
       .then((response) => {
         console.log(response.data);
         setColaboradores(response.data);
@@ -167,8 +169,9 @@ export default function App() {
     localStorage.removeItem('email');
     localStorage.removeItem('expiry_time');
     localStorage.removeItem('matricula');
+    localStorage.removeItem('nivelAcesso');
     setUser(false);
-    navigate('/gerenciador_rh')
+    navigate(`${process.env.REACT_APP_PATH}`)
   }
 
 
@@ -193,7 +196,7 @@ export default function App() {
             <Box sx={{display: 'flex', justifyContent: 'end', width: '100%', height: '100%', alignItems: 'center'}}>
               {user && (
               <Box sx={{display: 'flex', alignItems: 'center', margin: '0 40px'}}>
-                <Typography>Olá, {localStorage.getItem('nome')}</Typography>
+                <Typography>Olá, {(localStorage.getItem('nome')).split(" ")[0]}</Typography>
                 <Tooltip title="Alterar Senha">
                   <IconButton onClick={handleClick} aria-label="fingerprint">
                     <Fingerprint />
@@ -245,7 +248,7 @@ export default function App() {
             </>
           ) : (
             <>
-            <Link to="/gerenciador_rh" style={{ textDecoration: "none" }}>
+            <Link to={`${process.env.REACT_APP_PATH}`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -275,7 +278,7 @@ export default function App() {
           )}
             {user && (
             <>
-            <Link to="/gerenciador_rh/add_colaborador" style={{ textDecoration: "none" }}>
+            <Link to={`${process.env.REACT_APP_PATH}/add_colaborador`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -300,7 +303,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>            
-            <Link to="/gerenciador_rh/add_doc" style={{ textDecoration: "none" }}>
+            <Link to={`${process.env.REACT_APP_PATH}/add_doc`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -325,7 +328,7 @@ export default function App() {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Link to="/gerenciador_rh/colaboradores" style={{ textDecoration: "none" }}>
+            <Link to={`${process.env.REACT_APP_PATH}/colaboradores`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -351,7 +354,7 @@ export default function App() {
               </ListItem>
             </Link>
             </>)}
-            <Link to="/gerenciador_rh/aniversariantes" style={{ textDecoration: "none" }}>
+            <Link to={`${process.env.REACT_APP_PATH}/aniversariantes`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -377,9 +380,9 @@ export default function App() {
               </ListItem>
             </Link>
           </List>
-          <Divider />
-            {user && (
-            <Link to="/gerenciador_rh/cadastrar_usuario" style={{ textDecoration: "none" }}>
+          <Divider />          
+            {(user && localStorage.getItem('nivelAcesso') === "gerencia" ) && (
+            <Link to={`${process.env.REACT_APP_PATH}/cadastrar_usuario`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
                   sx={{
@@ -410,12 +413,12 @@ export default function App() {
           <DrawerHeader />
           {/* CONTEÚDO DA PÁGINA AQUI */}
           <Routes>
-            <Route path="/gerenciador_rh" element={<Login />} />
-            <Route path="/gerenciador_rh/add_colaborador" element={<PrivateRoute><Colaboradores /></PrivateRoute>} />
-            <Route path="/gerenciador_rh/add_doc" element={<PrivateRoute><AddDoc /></PrivateRoute>} />
-            <Route path="/gerenciador_rh/colaboradores" element={<PrivateRoute><ListaColaboradores /></PrivateRoute> } />            
-            <Route path="/gerenciador_rh/aniversariantes" element={<Aniversariantes />} />
-            <Route path="/gerenciador_rh/cadastrar_usuario" element={<PrivateRoute><CadastrarUsuario /></PrivateRoute> } />         
+            <Route path={`${process.env.REACT_APP_PATH}`} element={<Login />} />
+            <Route path={`${process.env.REACT_APP_PATH}/add_colaborador`} element={<PrivateRoute><Colaboradores /></PrivateRoute>} />
+            <Route path={`${process.env.REACT_APP_PATH}/add_doc`} element={<PrivateRoute><AddDoc /></PrivateRoute>} />
+            <Route path={`${process.env.REACT_APP_PATH}/colaboradores`} element={<PrivateRoute><ListaColaboradores /></PrivateRoute> } />            
+            <Route path={`${process.env.REACT_APP_PATH}/aniversariantes`} element={<Aniversariantes />} />
+            <Route path={`${process.env.REACT_APP_PATH}/cadastrar_usuario`} element={<PrivateRoute><CadastrarUsuario /></PrivateRoute> } />         
           </Routes>
           {/* <Footer /> */}
         </Box>

@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
     const { user, setUser } = useContext(ContextAPI);
     const logado = localStorage.getItem('token') !== null ? true : false;
     setUser(logado);   
-    return user ? children : <Navigate to="/gerenciador_rh" />;
+    return user ? children : <Navigate to={`${process.env.REACT_APP_PATH}`} />;
   };
 
 export default PrivateRoute;

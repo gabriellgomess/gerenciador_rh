@@ -88,7 +88,7 @@ const PDFGenerator = (props) => {
           style: 'simpleText',
         },
         {
-            text: `Data de Nascimento: ${colaborador.nascimento.split('-').reverse().join('/')}`,
+            text: `Data de Nascimento: ${colaborador.data_nascimento.split('-').reverse().join('/')}`,
             style: 'simpleText',
         },
         {
@@ -177,7 +177,7 @@ const PDFGenerator = (props) => {
                     style: 'simpleText',
                 },
                 {
-                    text: `Tipo de conta: ${colaborador.tipoConta}`,
+                    text: `Tipo de conta: ${colaborador.tipo_conta}`,
                     style: 'simpleText',
                 },
                 {

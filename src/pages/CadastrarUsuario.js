@@ -97,10 +97,10 @@ const handleShowPassword = () => {
         // Converte a senha para md5
         data.senha = CryptoJS.MD5(data.senha).toString();
         
-        
+       
         if (validarSenhas()) {
           console.table(data);
-            axios.post('https://gabriellgomess.com/gerenciador_rh/insere_usuario.php', data)
+            axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=3`, data)
             .then((response) => {
                 console.log(response);
                 if(response.data == '1') {

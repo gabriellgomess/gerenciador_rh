@@ -93,7 +93,7 @@ const TabelaColaboradores = () => {
           hide: isSmallScreen,
           renderCell: (params) => (
             <>
-            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}            
+            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? params.row.demissao : params.row.demissao}            
             </>             
           ),
         },
