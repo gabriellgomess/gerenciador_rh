@@ -32,8 +32,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useForm } from "react-hook-form";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import BadgeIcon from "@mui/icons-material/Badge";
+import Switch from "@mui/material/Switch";
 
 import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 
@@ -123,7 +128,12 @@ export default function App() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [ user, setUser ] = useState(false)
-  
+  const [erro, setErro] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+
+
   
 
 
@@ -173,6 +183,71 @@ export default function App() {
     setUser(false);
     navigate(`${process.env.REACT_APP_PATH}`)
   }
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => {
+    // axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=2`, data)
+    // .then((response) => {
+    //   console.log(response.data);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+    console.table(data)
+  }
+
+  function validarSenhas() {
+    if (senha.trim() !== confirmarSenha.trim()) {
+      setErro('As senhas não coincidem');
+      toast.error('As senhas não coincidem', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    if (senha.length < 8) {
+      setErro('A senha deve ter pelo menos 8 caracteres');
+      toast.error('A senha deve ter pelo menos 8 caracteres', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    if (!/[a-zA-Z]/.test(senha) || !/[0-9]/.test(senha)) {
+      setErro('A senha deve conter letras e números');
+      toast.error('A senha deve conter letras e números', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    setErro('');
+    return true;
+  }
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+    };
+  
 
 
   return (
@@ -460,13 +535,34 @@ export default function App() {
         {/* <MenuItem onClick={handleClose}>
            Profile
         </MenuItem> */}
-        <Box sx={{margin: '10px', display: 'flex', flexDirection: 'column'}}>
-            <Typography variant='h6' sx={{margin: '5px 0'}}>Alterar Senha</Typography>
-            <TextField sx={{margin: '5px 0'}} size='small' label='Senha Atual'  />
-            <TextField sx={{margin: '5px 0'}} size='small' label='Nova Senha'  />
-            <TextField sx={{margin: '5px 0'}} size='small' label='Confirmar Senha'  />
-            <Button sx={{margin: '5px 0'}} variant='contained' color='primary' size='small'>Alterar</Button>        
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box sx={{margin: '10px', display: 'flex', flexDirection: 'column'}}>
+          <Typography variant='h6' sx={{margin: '5px 0'}}>Alterar Senha</Typography>
+          
+            <input type='hidden' {...register('matricula')} name='matricula' value={localStorage.getItem('matricula')} />
+            <TextField {...register('senha_atual')} name='senha_atual' sx={{margin: '5px 0'}} size='small' label='Senha Atual' type={showPassword ? 'text' : 'password'}/>
+            <TextField {...register('nova_senha')} name='nova_senha' sx={{margin: '5px 0'}} size='small' label='Nova Senha' type={showPassword ? 'text' : 'password'}
+                onChange={(event) => setSenha(event.target.value)}   />
+            <TextField {...register('confirma_nova_senha')} name='confirma_nova_senha' sx={{margin: '5px 0'}} size='small' label='Confirmar Senha' type={showPassword ? 'text' : 'password'}
+                value={confirmarSenha}
+                onChange={(event) => setConfirmarSenha(event.target.value)}
+                onBlur={validarSenhas}  />
+            <Button type='submit' sx={{margin: '5px 0'}} variant='contained' color='primary' size='small'>Alterar</Button>   
+            <Box sx={{width: '40%'}}><Typography variant='caption'>Mostrar Senha</Typography> <Switch size="small" onChange={()=>handleShowPassword()} /></Box>
         </Box>
+        </form>
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
        
       </Menu>
     </ContextAPI.Provider>

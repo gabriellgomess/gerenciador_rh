@@ -6,6 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
 
 
 const names = [
@@ -88,7 +91,7 @@ const handleShowPassword = () => {
 
   const label = { inputProps: { 'aria-label': 'Size switch demo' } };
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = (data) => {
         const dados = data.nome.split(' - ');
@@ -103,41 +106,46 @@ const handleShowPassword = () => {
             axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=3`, data)
             .then((response) => {
                 console.log(response);
-                if(response.data == '1') {
+                if(response.data == 'Novo registro criado com sucesso') {
                 toast.success('Usuário cadastrado com sucesso', {
                     position: "top-center",
-                    autoClose: 5000,
+                    autoClose: 2500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: "light",                  
+                    onClose: () => window.location.href = `${process.env.REACT_APP_PATH}/cadastrar_usuario`,
                     });
-                } else if(response.data == '0') {
+                } else if(response.data == 'Usuário já cadastrado') {
                     toast.error('Usuário já cadastrado', {
                     position: "top-center",
-                    autoClose: 5000,
+                    autoClose: 2500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
                     theme: "light",
+                    onClose: () => window.location.href = `${process.env.REACT_APP_PATH}/cadastrar_usuario`,
                     });
                 }
+                reset();
+                
             })
             .catch((error) => {
                 console.log(error);
                 toast.error('Erro ao cadastrar usuário', {
                     position: "top-center",
-                    autoClose: 5000,
+                    autoClose: 2500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
                     theme: "light",
+                    onClose: () => window.location.href = `${process.env.REACT_APP_PATH}/cadastrar_usuario`,
                     });
             });
 
