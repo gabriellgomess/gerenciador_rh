@@ -132,6 +132,7 @@ export default function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [reloadData, setReloadData] = useState(false);
 
 
   
@@ -163,7 +164,7 @@ export default function App() {
         console.log(error);
       });
       setUser(localStorage.getItem('token') !== null ? true : false)
-  }, []);
+  }, [reloadData]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -251,7 +252,7 @@ export default function App() {
 
 
   return (
-    <ContextAPI.Provider value={{ colaboradores, setColaboradores, user, setUser }}>
+    <ContextAPI.Provider value={{ colaboradores, setColaboradores, user, setUser, reloadData, setReloadData }}>
       <Box sx={{ display: "flex", height: '100%' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>

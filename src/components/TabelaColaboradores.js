@@ -3,6 +3,7 @@ import ContextAPI from '../ContextAPI/ContextAPI';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import { DataGrid, ptBR } from '@mui/x-data-grid';
 import axios from 'axios';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
@@ -93,7 +94,7 @@ const TabelaColaboradores = () => {
           hide: isSmallScreen,
           renderCell: (params) => (
             <>
-            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/> : <NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/>}            
+            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <Tooltip title="Contrato ativo"><CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/></Tooltip> : <Tooltip title={`Contrato encerrado em ${(params.row.demissao).split('-').reverse().join('/')}`}><NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/></Tooltip>}            
             </>             
           ),
         },
@@ -104,8 +105,7 @@ const TabelaColaboradores = () => {
             sortable: false,
             renderCell: (params) => (
               <>
-              {/* <DeleteForeverRoundedIcon sx={{cursor: 'pointer', color: '#d32f2f', margin: '0 auto'}} onClick={() => handleDeleteRow(params.row.cpf)} /> */}
-              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
+              <Button disabled={localStorage.getItem('nivelAcesso') === "gerencia"?false:true} variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
                 Editar
               </Button>              
               </>               
