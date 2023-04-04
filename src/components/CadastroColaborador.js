@@ -187,6 +187,35 @@ const CadastroColaborador = () => {
     { label: "Sergipe" },
     { label: "Tocantins" },
   ];
+  const uf = [
+    { label: "AC" },
+    { label: "AL" },
+    { label: "AP" },
+    { label: "AM" },
+    { label: "BA" },
+    { label: "CE" },
+    { label: "DF" },
+    { label: "ES" },
+    { label: "GO" },
+    { label: "MA" },
+    { label: "MT" },
+    { label: "MS" },
+    { label: "MG" },
+    { label: "PA" },
+    { label: "PB" },
+    { label: "PR" },
+    { label: "PE" },
+    { label: "PI" },
+    { label: "RJ" },
+    { label: "RN" },
+    { label: "RS" },
+    { label: "RO" },
+    { label: "RR" },
+    { label: "SC" },
+    { label: "SP" },
+    { label: "SE" },
+    { label: "TO" }  
+  ]
   const ccusto = [
     { label: "Clinica" },
     { label: "Administrativo" },
@@ -345,8 +374,8 @@ const CadastroColaborador = () => {
             }}
           >
             <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
+              {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
+                {/* <Tabs
                   value={value}
                   onChange={handleChange}
                   aria-label="basic tabs example"
@@ -364,7 +393,7 @@ const CadastroColaborador = () => {
                 sx={{ display: "flex", flexWrap: "wrap" }}
                 value={value}
                 index={0}
-              >
+              > */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -847,8 +876,10 @@ const CadastroColaborador = () => {
                     variant="outlined"
                     size="small"
                   />
-                   <TextField
-                    {...register("uf_rg")}
+      
+                  <Autocomplete
+                    size="small"
+                    disablePortal
                     sx={{
                       width: {
                         xs: "20%",
@@ -859,10 +890,17 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="rg_uf"
-                    label="UF RG"
-                    variant="outlined"
-                    size="small"
+                    name="uf_rg"
+                    options={uf}
+                    renderInput={(params) => (
+                      <TextField
+                        {...register("uf_rg")}
+                        variant="outlined"
+                        size="small"
+                        {...params}
+                        label="UF RG"
+                      />
+                    )}
                   />
                   <TextField
                     {...register("orgao_rg")}
@@ -876,7 +914,7 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="rg_orgao_emissor"
+                    name="orgao_rg"
                     label="Orgão Emissor"
                     variant="outlined"
                     size="small"
@@ -984,6 +1022,8 @@ const CadastroColaborador = () => {
                     label="Validade CNH"
                     variant="outlined"
                     size="small"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
                   />
                   <TextField
                     {...register("hab_emissao")}
@@ -997,10 +1037,13 @@ const CadastroColaborador = () => {
                       },
                       margin: "5px",
                     }}
-                    name="cnh_emissao"
+                    name="hab_emissao"
                     label="Emissão CNH"
                     variant="outlined"
                     size="small"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+
                   />
                   <TextField
                     {...register("titulo_eleitoral")}
@@ -1071,8 +1114,8 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                 </Box>
-              </TabPanel>
-              <TabPanel value={value} index={1}>
+              {/* </TabPanel>
+              <TabPanel value={value} index={1}> */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -1376,12 +1419,12 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                 </Box>
-              </TabPanel>
+              {/* </TabPanel>
               <TabPanel
                 sx={{ display: "flex", flexWrap: "wrap" }}
                 value={value}
                 index={2}
-              >
+              > */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -1510,8 +1553,8 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                 </Box>
-              </TabPanel>
-              <TabPanel value={value} index={3}>
+              {/* </TabPanel>
+              <TabPanel value={value} index={3}> */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -1556,8 +1599,8 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                 </Box>
-              </TabPanel>
-              <TabPanel value={value} index={4}>
+              {/* </TabPanel>
+              <TabPanel value={value} index={4}> */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -1670,8 +1713,8 @@ const CadastroColaborador = () => {
                     size="small"
                   />
                 </Box>
-              </TabPanel>
-              <TabPanel value={value} index={5}>
+              {/* </TabPanel>
+              <TabPanel value={value} index={5}> */}
                 <Typography
                   sx={{ width: "100%" }}
                   variant="h6"
@@ -1751,7 +1794,7 @@ const CadastroColaborador = () => {
                     </Fab>
                   </Box>
                 </Box>
-              </TabPanel>
+              {/* </TabPanel> */}
             </Box>
           </Box>
         </CardContent>
