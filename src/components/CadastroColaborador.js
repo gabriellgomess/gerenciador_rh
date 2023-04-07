@@ -261,7 +261,7 @@ const CadastroColaborador = () => {
     data.estado = endereco.uf ? handleSetEstado(endereco.uf) : "";
     const jsonData = JSON.stringify(data);
     console.log("JSON: ", jsonData);
-    axios.post(`${process.env.REACT_APP_URL}/insere.php`, data)
+    axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=2`, data)
     .then(res => {
         console.log(res);
         console.log("Retorno: ",res.data);
@@ -1738,12 +1738,13 @@ const CadastroColaborador = () => {
                       </Grid>
                       <Grid item xs={1}>
                         <TextField
-                          {...register(`dependentes.${index}.idade`)}
-                          label="Idade"
+                          {...register(`dependentes.${index}.data_nascimento`)}
+                          label="Data de nascimento"
                           variant="outlined"
                           fullWidth
                           sx={{ margin: "5px" }}
                           size="small"
+                          type="date"
                         />
                       </Grid>
                       <Grid item xs={2}>
@@ -1788,7 +1789,7 @@ const CadastroColaborador = () => {
                     <Fab
                       color="primary"
                       aria-label="add"
-                      onClick={() => append({ nome: "", idade: "", cpf: "" })}
+                      onClick={() => append({ nome: "", data_nascimento: "", cpf: "", tipo: "" })}
                     >
                       <AddIcon />
                     </Fab>

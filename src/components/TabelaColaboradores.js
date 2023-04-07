@@ -105,7 +105,7 @@ const TabelaColaboradores = () => {
             sortable: false,
             renderCell: (params) => (
               <>
-              <Button disabled={localStorage.getItem('nivelAcesso') === "gerencia"?false:true} variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
+              <Button disabled={sessionStorage.getItem('nivelAcesso') === "gerencia"?false:true} variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} onClick={() => handleClickRow(params.row)} endIcon={<EditRoundedIcon   />}>
                 Editar
               </Button>              
               </>               
@@ -120,7 +120,7 @@ const TabelaColaboradores = () => {
             sortable: true,
             renderCell: (params) => (
               <a style={{textDecoration: 'none'}} href={params.row.link} target='blank'>
-              <Button variant='contained' sx={{cursor: 'pointer', margin: '0 auto'}} endIcon={<FontAwesomeIcon icon={faLink} />}>
+              <Button variant='outlined' sx={{cursor: 'pointer', margin: '0 auto'}} endIcon={<FontAwesomeIcon icon={faLink} />}>
                 Página do Colaborador
               </Button>              
               </a>               

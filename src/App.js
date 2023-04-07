@@ -163,7 +163,7 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
-      setUser(localStorage.getItem('token') !== null ? true : false)
+      setUser(sessionStorage.getItem('token') !== null ? true : false)
   }, [reloadData]);
 
   const handleDrawerOpen = () => {
@@ -175,12 +175,12 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('nome');
-    localStorage.removeItem('email');
-    localStorage.removeItem('expiry_time');
-    localStorage.removeItem('matricula');
-    localStorage.removeItem('nivelAcesso');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('nome');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('expiry_time');
+    sessionStorage.removeItem('matricula');
+    sessionStorage.removeItem('nivelAcesso');
     setUser(false);
     navigate(`${process.env.REACT_APP_PATH}`)
   }
@@ -272,7 +272,7 @@ export default function App() {
             <Box sx={{display: 'flex', justifyContent: 'end', width: '100%', height: '100%', alignItems: 'center'}}>
               {user && (
               <Box sx={{display: 'flex', alignItems: 'center', margin: '0 40px'}}>
-                <Typography>Olá, {(localStorage.getItem('nome')).split(" ")[0]}</Typography>
+                <Typography>Olá, {(sessionStorage.getItem('nome')).split(" ")[0]}</Typography>
                 <Tooltip title="Alterar Senha">
                   <IconButton onClick={handleClick} aria-label="fingerprint">
                     <Fingerprint />
@@ -457,7 +457,7 @@ export default function App() {
             </Link>
           </List>
           <Divider />          
-            {(user && localStorage.getItem('nivelAcesso') === "gerencia" ) && (
+            {(user && sessionStorage.getItem('nivelAcesso') === "gerencia" ) && (
             <Link to={`${process.env.REACT_APP_PATH}/cadastrar_usuario`} style={{ textDecoration: "none" }}>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -540,7 +540,7 @@ export default function App() {
           <Box sx={{margin: '10px', display: 'flex', flexDirection: 'column'}}>
           <Typography variant='h6' sx={{margin: '5px 0'}}>Alterar Senha</Typography>
           
-            <input type='hidden' {...register('matricula')} name='matricula' value={localStorage.getItem('matricula')} />
+            <input type='hidden' {...register('matricula')} name='matricula' value={sessionStorage.getItem('matricula')} />
             <TextField {...register('senha_atual')} name='senha_atual' sx={{margin: '5px 0'}} size='small' label='Senha Atual' type={showPassword ? 'text' : 'password'}/>
             <TextField {...register('nova_senha')} name='nova_senha' sx={{margin: '5px 0'}} size='small' label='Nova Senha' type={showPassword ? 'text' : 'password'}
                 onChange={(event) => setSenha(event.target.value)}   />

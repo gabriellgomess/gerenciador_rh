@@ -1,5 +1,5 @@
 const isAuth = () => {
-    return localStorage.getItem('token') !== null;
+    return sessionStorage.getItem('token') !== null;
 };
 
 export default isAuth;
