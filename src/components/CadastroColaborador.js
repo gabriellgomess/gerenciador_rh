@@ -365,1432 +365,179 @@ const CadastroColaborador = () => {
     <form style={styles.heightForm} onSubmit={handleSubmit(onSubmit)}>
       <Card>
         <CardContent>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <Box sx={{ width: "100%" }}>
-              {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
-                {/* <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab label="Dados Pessoais" {...a11yProps(0)} />
-                  <Tab label="Dados da Contratação" {...a11yProps(1)} />
-                  <Tab label="Dados Bancários" {...a11yProps(2)} />
-                  <Tab label="Escala" {...a11yProps(3)} />
-                  <Tab label="Benefícios" {...a11yProps(4)} />
-                  <Tab label="Dependentes" {...a11yProps(5)} />
-                </Tabs>
-              </Box>
-              <TabPanel
-                variant="div"
-                sx={{ display: "flex", flexWrap: "wrap" }}
-                value={value}
-                index={0}
-              > */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Dados Pessoais
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("matricula")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="matricula"
-                    label="Matrícula"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("nome")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="nome"
-                    label="Nome"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("data_nascimento")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="data_nascimento"
-                    label="Data de nascimento"
-                    variant="outlined"
-                    size="small"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <FormControl
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    component="fieldset"
-                  >
-                    {/* <FormLabel id="sexo">Gênero</FormLabel> */}
-                    <RadioGroup row aria-labelledby="sexo" name="sexo">
-                      <FormControlLabel
-                        name="sexo"
-                        {...register("sexo")}
-                        value="feminino"
-                        control={<Radio />}
-                        label="Feminino"
-                      />
-                      <FormControlLabel
-                        name="sexo"
-                        {...register("sexo")}
-                        value="masculino"
-                        control={<Radio />}
-                        label="Masculino"
-                      />
-                      <FormControlLabel
-                        name="sexo"
-                        {...register("sexo")}
-                        value="outro"
-                        control={<Radio />}
-                        label="Outro"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                  <TextField
-                    {...register("nome_mae")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "35%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="nome_mae"
-                    label="Nome da mãe"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("nome_pai")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "35%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="nome_pai"
-                    label="Nome do pai"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cor"
-                    options={raca}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("cor")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Raça / Cor"
-                      />
-                    )}
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="estado_civil"
-                    options={estado_civil}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("estado_civil")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Estado Civil"
-                      />
-                    )}
-                  />
-                  <TextField
-                    {...register("naturalidade")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="naturalidade"
-                    label="Naturalidade"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("grau_instrucao")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="grau_instrucao"
-                    label="Grau de instrução"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("graduacao")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="graduacao"
-                    label="Graduação"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                {/* ****************************************************************************** */}
-                <Divider />
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("cep")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cep"
-                    label="CEP"
-                    variant="outlined"
-                    size="small"
-                    onKeyUp={(event) => handleFormatCep(event)}
-                  />
-                  <TextField
-                    {...register("rua")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="rua"
-                    label="Rua"
-                    variant="outlined"
-                    size="small"
-                    value={endereco.logradouro || ""}
-                  />
-                  <TextField
-                    {...register("numero")}
-                    sx={{
-                      width: {
-                        xs: "30%",
-                        sm: "30%",
-                        md: "20%",
-                        lg: "10%",
-                        xl: "10%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="numero"
-                    label="Número"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("bairro")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="bairro"
-                    label="Bairro"
-                    variant="outlined"
-                    size="small"
-                    value={endereco.bairro || ""}
-                  />
-                  <TextField
-                    {...register("cidade")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cidade"
-                    label="Cidade"
-                    variant="outlined"
-                    size="small"
-                    value={endereco.localidade || ""}
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="estado"
-                    value={endereco.uf ? handleSetEstado(endereco.uf) : ""}
-                    options={estadosBrasileiros}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...register("estado")}
-                        {...params}
-                        label="Estado"
-                      />
-                    )}
-                  />
-                  <TextField
-                    {...register("residencia_propria")}
-                    sx={{
-                      width: {
-                        xs: "30%",
-                        sm: "30%",
-                        md: "20%",
-                        lg: "10%",
-                        xl: "10%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="residencia_propria"
-                    label="Residência Própria"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("residencia_adquirida_fgts")}
-                    sx={{
-                      width: {
-                        xs: "30%",
-                        sm: "30%",
-                        md: "20%",
-                        lg: "10%",
-                        xl: "10%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="residencia_adquirida_fgts"
-                    label="Adquirido com FGTS"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("email")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="email"
-                    label="E-mail"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("telefone")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="telefone"
-                    label="Telefone"
-                    variant="outlined"
-                    size="small"
-                    color={testPhone === true ? "success" : ""}
-                    onKeyUp={(event) => handleFormatPhone(event)}
-                  />
-                  <TextField
-                    {...register("celular")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="celular"
-                    label="Celular"
-                    variant="outlined"
-                    size="small"
-                    color={testPhone === true ? "success" : ""}
-                    onKeyUp={(event) => handleFormatPhone(event)}
-                  />
-                </Box>
-                {/* ****************************************************************************** */}
-                <Divider />
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("cpf")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cpf"
-                    label="CPF"
-                    variant="outlined"
-                    size="small"
-                    color={testCpfOrCnpj === true ? "success" : ""}
-                    onKeyUp={(event) => handleFormatCpf(event)}
-                  />
-                  <TextField
-                    {...register("rg")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="rg"
-                    label="RG"
-                    variant="outlined"
-                    size="small"
-                  />
-      
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "20%",
-                        sm: "20%",
-                        md: "10%",
-                        lg: "5%",
-                        xl: "5%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="uf_rg"
-                    options={uf}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("uf_rg")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="UF RG"
-                      />
-                    )}
-                  />
-                  <TextField
-                    {...register("orgao_rg")}
-                    sx={{
-                      width: {
-                        xs: "20%",
-                        sm: "20%",
-                        md: "10%",
-                        lg: "5%",
-                        xl: "5%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="orgao_rg"
-                    label="Orgão Emissor"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("data_expedicao")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="data_expedicao"
-                    label="Data da Emissão"
-                    variant="outlined"
-                    size="small"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <TextField
-                    {...register("pis")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="pis"
-                    label="PIS"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("aposentado")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="aposentado"
-                    label="Aposentado"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cnh")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cnh"
-                    label="CNH"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cnh_categoria")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cnh_categoria"
-                    label="Cat. Habilit"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cnh_validade")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cnh_validade"
-                    label="Validade CNH"
-                    variant="outlined"
-                    size="small"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <TextField
-                    {...register("hab_emissao")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="hab_emissao"
-                    label="Emissão CNH"
-                    variant="outlined"
-                    size="small"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
+          <Box sx={{width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center"}} >
+            <Box sx={{ width: "100%" }}>             
+                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dados Pessoais</Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px' }}>
+                  
+                    <TextField {...register("nome")} sx={{ width: {xs: "100%", sm: "100%", md: "66%", lg: "50%", xl: "50%", },  }} name="nome" label="Nome" variant="outlined" size="small" />
+                    <TextField {...register("data_nascimento")} sx={{width: {xs: "100%",sm: "100%",md: "20%",lg: "24%",xl: "24%",}, }} name="data_nascimento" label="Data de nascimento" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }} />
+                    <FormControl sx={{width: {xs: "100%",sm: "100%",md: "20%",lg: "24%",xl: "24%",}, }} component="fieldset" >                    
+                      <RadioGroup row aria-labelledby="sexo" name="sexo">
+                        <FormControlLabel name="sexo" {...register("sexo")} value="feminino" control={<Radio />} label="Feminino" />
+                        <FormControlLabel name="sexo" {...register("sexo")} value="masculino" control={<Radio />} label="Masculino" />
+                        <FormControlLabel name="sexo" {...register("sexo")} value="outro" control={<Radio />} label="Outro" />
+                      </RadioGroup>
+                    </FormControl>                                           
+                  
+                  <TextField {...register("nome_mae")} sx={{width: {xs: "100%",sm: "100%",md: "33%",lg: "35%",xl: "35%",}, }} name="nome_mae" label="Nome da mãe" variant="outlined" size="small"  />
+                  <TextField {...register("nome_pai")} sx={{width: {xs: "100%",sm: "100%",md: "33%",lg: "35%",xl: "35%",},  }} name="nome_pai" label="Nome do pai" variant="outlined" size="small" />
+                  <Autocomplete size="small" disablePortal sx={{width: {xs: "100%",sm: "100%",md: "33%",lg: "28%",  xl: "28%",}, }} name="cor" options={raca} renderInput={(params) => (
+                    <TextField {...register("cor")} variant="outlined" size="small" {...params} label="Raça / Cor" /> 
+                  )} />
 
-                  />
-                  <TextField
-                    {...register("titulo_eleitoral")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="titulo_eleitoral"
-                    label="Título Eleitoral"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("zona_eleitoral")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="zona_eleitoral"
-                    label="Zona Eleitoral"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("secao_eleitoral")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="secao_eleitoral"
-                    label="Sessão Eleitoral"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("reservista")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="reservista"
-                    label="Reservista"
-                    variant="outlined"
-                    size="small"
-                  />
+                  <Autocomplete size="small" disablePortal sx={{width: {xs: "100%",sm: "48%",md: "48%",lg: "25%",xl: "24%",}, }} name="estado_civil" options={estado_civil} renderInput={(params) => (   
+                  <TextField {...register("estado_civil")} variant="outlined" size="small" {...params}  label="Estado Civil"   /> 
+                  )} />
+                  <TextField {...register("naturalidade")} sx={{width: {xs: "100%",sm: "48%",md: "48%",lg: "25%",xl: "24%",}, }} name="naturalidade" label="Naturalidade" variant="outlined" size="small" />
+                  <TextField {...register("grau_instrucao")} sx={{width: {xs: "100%",sm: "48%",md: "48%",lg: "25%",xl: "24%",}, }} name="grau_instrucao" label="Grau de instrução" variant="outlined" size="small"  />
+                  <TextField {...register("graduacao")} sx={{width: {xs: "100%",sm: "48%",md: "48%",lg: "25%",xl: "24%",}, }} name="graduacao" label="Graduação" variant="outlined" size="small" />
+
+                
+                  <TextField {...register("cep")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="cep" label="CEP" variant="outlined" size="small" onKeyUp={(event) => handleFormatCep(event)}/>
+                  <TextField {...register("rua")} sx={{width: {xs: "100%",sm: "100%",md: "66%",lg: "50%",xl: "50%",} }} name="rua" label="Rua" variant="outlined" size="small" value={endereco.logradouro || ""} />
+                  <TextField {...register("numero")} sx={{width: {xs: "30%",sm: "30%",md: "20%",lg: "10%",xl: "10%",} }} name="numero" label="Número" variant="outlined" size="small" />
+
+
+                  <TextField {...register("bairro")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="bairro" label="Bairro" variant="outlined" size="small" value={endereco.bairro || ""}/>
+                  <TextField {...register("cidade")} sx={{width: {xs: "100%",sm: "100%",md: "66%",lg: "50%",xl: "50%",} }} name="cidade" label="Cidade" variant="outlined" size="small" value={endereco.localidade || ""}/>
+                  <Autocomplete size="small" disablePortal sx={{width: {  xs: "100%",  sm: "48%",  md: "30%",  lg: "20%",  xl: "20%",} }} name="estado" value={endereco.uf ? handleSetEstado(endereco.uf) : ""} options=     {estadosBrasileiros} renderInput={(params) => (
+                      <TextField variant="outlined" {...register("estado")} {...params} label="Estado" />
+                    )}/>
+
+                  <TextField {...register("residencia_propria")} sx={{width: {xs: "30%",sm: "30%",md: "20%",lg: "10%",xl: "10%",} }} name="residencia_propria" label="Residência Própria" variant="outlined" size="small"/>
+                  <TextField {...register("residencia_adquirida_fgts")} sx={{width: {xs: "30%",sm: "30%",md: "20%",lg: "10%",xl: "10%",} }} name="residencia_adquirida_fgts" label="Adquirido com FGTS" variant="outlined" size="small" />
+                  <TextField {...register("email")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="email" label="E-mail" variant="outlined" size="small" />
+                  <TextField {...register("telefone")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%", }}} name="telefone" label="Telefone" variant="outlined" size="small" color={testPhone === true ? "success" : ""} onKeyUp={(event) => handleFormatPhone(event)} />
+                  <TextField {...register("celular")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="celular" label="Celular" variant="outlined" size="small" color={testPhone === true ? "success" : ""} onKeyUp={(event) => handleFormatPhone(event)} />
+                
+                
+                  <TextField {...register("cpf")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="cpf" label="CPF" variant="outlined" size="small" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event) => handleFormatCpf(event)} />
+                  <TextField {...register("rg")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="rg" label="RG" variant="outlined" size="small" />
+                  <Autocomplete size="small" disablePortal sx={{width: {xs: "20%",sm: "20%",md: "10%",lg: "5%",xl: "5%",} }} name="uf_rg" options={uf} renderInput={(params) => (
+                      <TextField {...register("uf_rg")} variant="outlined" size="small" {...params} label="UF RG" />
+                  )}/>
+                  <TextField {...register("orgao_rg")} sx={{width: {xs: "20%",sm: "20%",md: "10%",lg: "5%",xl: "5%",} }} name="orgao_rg" label="Orgão Emissor" variant="outlined" size="small" />
+                  <TextField {...register("data_expedicao")} sx={{width: {  xs: "100%",  sm: "100%",  md: "48%",  lg: "20%",  xl: "20%",} }} name="data_expedicao" label="Data da Emissão" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }} />
+                  <TextField {...register("pis")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",} }} name="pis" label="PIS" variant="outlined" size="small" />
+
+
+                  <TextField {...register("aposentado")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="aposentado" label="Aposentado" variant="outlined" size="small" />
+                  <TextField {...register("cnh")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="cnh" label="CNH" variant="outlined" size="small"/>
+                  <TextField {...register("cnh_categoria")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="cnh_categoria" label="Cat. Habilit" variant="outlined" size="small" />
+                  <TextField {...register("cnh_validade")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",  xl: "20%",}}} name="cnh_validade" label="Validade CNH" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }}/>
+
+
+                  <TextField {...register("hab_emissao")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="hab_emissao" label="Emissão CNH" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }} />
+                  <TextField {...register("titulo_eleitoral")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="titulo_eleitoral" label="Título Eleitoral" variant="outlined" size="small" />
+                  <TextField {...register("zona_eleitoral")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="zona_eleitoral" label="Zona Eleitoral" variant="outlined" size="small" />
+                  <TextField {...register("secao_eleitoral")} sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="secao_eleitoral" label="Sessão Eleitoral" variant="outlined" size="small" />
+
+
+                  <TextField {...register("reservista")} sx={{width: {xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="reservista" label="Reservista" variant="outlined" size="small"/>
                 </Box>
-              {/* </TabPanel>
-              <TabPanel value={value} index={1}> */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Dados da Contratação
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("admissao")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="admissao"
-                    label="Data de admissão"
-                    variant="outlined"
-                    size="small"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cargo"
-                    options={cargos}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("cargo")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Cargo"
-                      />
-                    )}
-                  />
-                  <TextField                    
-                    {...register("cod_cargo")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cod_cargo"
-                    label="Código do Cargo"
-                    variant="outlined"
-                    size="small" />
-                  <TextField
-                    onKeyUp={(event) => handleFormatCurrency(event)}
-                    {...register("salario")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="salario"
-                    label="Salário"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("contrato_experiencia")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="contrato_experiencia"
-                    label="Contrato de Experiência"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="ccusto"
-                    options={ccusto}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("ccusto")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Centro de Custo"
-                      />
-                    )}
-                  />
-                  <TextField
-                      {...register("cod_ccusto")}
-                      sx={{
-                        width: {
-                          xs: "100%",
-                          sm: "100%",
-                          md: "48%",
-                          lg: "20%",
-                          xl: "20%",
-                        },
-                        margin: "5px",
-                      }}
-                      name="cod_ccusto"
-                      label="Código do Centro de Custo"
-                      variant="outlined"
-                      size="small"
-                   />
-                  <TextField
-                    {...register("registro")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="registro"
-                    label="Registro"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cbo")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cbo"
-                    label="CBO"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <FormControl
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "48%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    component="fieldset"
-                  >
-                    <FormLabel id="insalubridade">
-                      Adicional de insalubridade
-                    </FormLabel>
-                    <RadioGroup
-                      row
-                      aria-labelledby="insalubridade"
-                      name="insalubridade"
-                    >
-                      <FormControlLabel
-                        name="insalubridade"
-                        {...register("insalubridade")}
-                        value="sim"
-                        control={<Radio />}
-                        label="Sim"
-                      />
-                      <FormControlLabel
-                        name="insalubridade"
-                        {...register("insalubridade")}
-                        value="nao"
-                        control={<Radio />}
-                        label="Não"
-                      />
+
+                <Typography  sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dados da Contratação</Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px' }}>
+
+
+                  <TextField {...register("admissao")} sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"20%",xl:"20%",}}} name="admissao" label="Data de admissão" variant="outlined" size="small" type="date" InputLabelProps={{shrink: true }} />
+                  <Autocomplete size="small" disablePortal sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"50%",xl:"50%",}}} name="cargo" options={cargos} renderInput={(params) => (
+                      <TextField {...register("cargo")} variant="outlined" size="small" {...params} label="Cargo"/>
+                    )}/>
+                  <TextField {...register("cod_cargo")}sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"20%",xl:"20%",}}} name="cod_cargo" label="Código do Cargo" variant="outlined" size="small" />
+
+
+                  <TextField onKeyUp={(event) => handleFormatCurrency(event)} {...register("salario")} sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"20%",xl:"20%",}}} name="salario" label="Salário" variant="outlined" size="small"/>
+                  <TextField {...register("contrato_experiencia")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="contrato_experiencia" label="Contrato de Experiência" variant="outlined" size="small"/>
+                  <Autocomplete size="small" disablePortal sx={{width: {xs: "100%",sm: "48%",md: "30%",lg: "20%",xl: "20%",}}} name="ccusto" options={ccusto} renderInput={(params) => (
+                      <TextField {...register("ccusto")} variant="outlined" size="small" {...params} label="Centro de Custo" />
+                    )}/>
+                  <TextField {...register("cod_ccusto")} sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"20%",xl:"20%",}}} name="cod_ccusto" label="Código do Centro de Custo" variant="outlined" size="small"/>
+
+
+                  <TextField {...register("registro")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="registro" label="Registro" variant="outlined" size="small"/>
+                  <TextField {...register("cbo")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="cbo" label="CBO" variant="outlined" size="small"/>
+                  <FormControl sx={{width:{xs:"100%",sm:"100%",md:"48%",lg:"20%",xl:"20%",}}} component="fieldset">
+                    <FormLabel sx={{fontSize: '12px',margin: '0'}} id="insalubridade">Adicional de insalubridade</FormLabel>
+                    <RadioGroup sx={{padding: '0', margin: '0', height: '12px'}} row aria-labelledby="insalubridade" name="insalubridade">
+                      <FormControlLabel sx={{height: '20px'}} name="insalubridade" {...register("insalubridade")} value="sim" control={<Radio />} label="Sim"/>
+                      <FormControlLabel sx={{height: '20px'}} name="insalubridade" {...register("insalubridade")} value="nao" control={<Radio/>} label="Não"/>
                     </RadioGroup>
                   </FormControl>
-                  <TextField
-                    {...register("experiencia_anterior")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="experiencia_anterior"
-                    label="Experiência Anterior"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("tem_outro_emprego")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="tem_outro_emprego"
-                    label="Outro emprego"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("nome_outra_empresa")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="nome_outra_empresa"
-                    label="Nome da outra empresa"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("pcd")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="pcd"
-                    label="Portador de necessidades especiais "
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("necessidade_especial")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="necessidade_especial"
-                    label="Necessidade especial"
-                    variant="outlined"
-                    size="small"
-                  />
+                  <TextField {...register("experiencia_anterior")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="experiencia_anterior" label="Experiência Anterior" variant="outlined" size="small"/>
+
+
+                  <TextField {...register("tem_outro_emprego")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="tem_outro_emprego" label="Outro emprego" variant="outlined" size="small"/>
+                  <TextField {...register("nome_outra_empresa")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="nome_outra_empresa" label="Nome da outra empresa" variant="outlined" size="small"/>
+                  <TextField {...register("pcd")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="pcd" label="Portador de necessidades especiais " variant="outlined" size="small"/>
+                  <TextField {...register("necessidade_especial")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="necessidade_especial" label="Necessidade especial" variant="outlined" size="small"/>
                 </Box>
-              {/* </TabPanel>
-              <TabPanel
-                sx={{ display: "flex", flexWrap: "wrap" }}
-                value={value}
-                index={2}
-              > */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Dados Bancários
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("banco")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="banco"
-                    label="Banco"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("agencia")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="agencia"
-                    label="Agência"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("conta")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="conta"
-                    label="Conta"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="tipo_conta"
-                    options={tipoConta}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("tipo_conta")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Tipo de conta"
-                      />
-                    )}
-                  />
-                  <Autocomplete
-                    size="small"
-                    disablePortal
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="situacao"
-                    options={situacao}
-                    renderInput={(params) => (
-                      <TextField
-                        {...register("situacao")}
-                        variant="outlined"
-                        size="small"
-                        {...params}
-                        label="Situação"
-                      />
-                    )}
-                  />
-                  <TextField
-                    {...register("descAgencia")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="descAgencia"
-                    label="Descrição da agência"
-                    variant="outlined"
-                    size="small"
-                  />
+             
+                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom>Dados Bancários</Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px' }}>
+
+                  <TextField {...register("banco")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="banco" label="Banco" variant="outlined" size="small"/>
+                  <TextField {...register("agencia")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="agencia" label="Agência" variant="outlined" size="small"/>
+                  <TextField {...register("conta")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="conta" label="Conta" variant="outlined" size="small"/>
+                  <Autocomplete size="small" disablePortal sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="tipo_conta" options={tipoConta} renderInput={(params) => (
+                      <TextField {...register("tipo_conta")} variant="outlined" size="small" {...params} label="Tipo de conta"/>
+                    )}/>
+
+
+                  <Autocomplete size="small" disablePortal sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="situacao" options={situacao} renderInput={(params) => (
+                      <TextField {...register("situacao")} variant="outlined" size="small" {...params} label="Situação"/>
+                    )}/>
+                  <TextField {...register("descAgencia")} sx={{width:{xs:"100%",sm:"100%",md:"66%",lg:"50%",xl:"50%",}}} name="descAgencia" label="Descrição da agência" variant="outlined" size="small" />
+
                 </Box>
-              {/* </TabPanel>
-              <TabPanel value={value} index={3}> */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Escala
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("escala")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "100%",
-                        md: "66%",
-                        lg: "50%",
-                        xl: "50%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="escala"
-                    label="Escala"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cargaHoraria")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cargaHoraria"
-                    label="Carga Horária"
-                    variant="outlined"
-                    size="small"
-                  />
+             
+                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom>Escala</Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px' }}>
+
+                  <TextField {...register("escala")} sx={{width:{xs:"100%",sm:"100%",md:"66%",lg:"50%",xl:"50%",}}} name="escala" label="Escala" variant="outlined" size="small"/>
+                  <TextField {...register("cargaHoraria")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="cargaHoraria" label="Carga Horária" variant="outlined" size="small"/>
+
                 </Box>
-              {/* </TabPanel>
-              <TabPanel value={value} index={4}> */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Benefícios
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  <TextField
-                    {...register("linhaVT")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="linhaVT"
-                    label="Linha VT"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("quantidadeVT")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="quantidadeVT"
-                    label="Quantidade VT / dia"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("planoSaude")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="planoSaude"
-                    label="Plano de saúde"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("planoOdonto")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="planoOdonto"
-                    label="Plano Odonto"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("cestaBasica")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="cestaBasica"
-                    label="Cesta Básica"
-                    variant="outlined"
-                    size="small"
-                  />
-                  <TextField
-                    {...register("refeitorio")}
-                    sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "48%",
-                        md: "30%",
-                        lg: "20%",
-                        xl: "20%",
-                      },
-                      margin: "5px",
-                    }}
-                    name="refeitorio"
-                    label="Refeitório"
-                    variant="outlined"
-                    size="small"
-                  />
+              
+                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom>Benefícios</Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px' }}>
+
+                  <TextField {...register("linhaVT")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="linhaVT" label="Linha VT" variant="outlined" size="small"/>
+                  <TextField {...register("quantidadeVT")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="quantidadeVT" label="Quantidade VT / dia" variant="outlined" size="small" />
+                  <TextField {...register("planoSaude")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="planoSaude" label="Plano de saúde" variant="outlined" size="small"/>
+                  <TextField {...register("planoOdonto")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="planoOdonto" label="Plano Odonto" variant="outlined" size="small"/>
+
+
+                  <TextField {...register("cestaBasica")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="cestaBasica" label="Cesta Básica" variant="outlined" size="small"/>
+                  <TextField {...register("refeitorio")} sx={{width:{xs:"100%",sm:"48%",md:"30%",lg:"20%",xl:"20%",}}} name="refeitorio" label="Refeitório" variant="outlined" size="small"/>
                 </Box>
-              {/* </TabPanel>
-              <TabPanel value={value} index={5}> */}
-                <Typography
-                  sx={{ width: "100%" }}
-                  variant="h6"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  Dependentes
-                </Typography>
+             
+                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom>Dependentes</Typography>
                 <Box>
                   {fields.map((field, index) => (
                     <Grid key={field.id} container spacing={2}>
                       <Grid item xs={4}>
-                        <TextField
-                          {...register(`dependentes.${index}.nome`)}
-                          label="Nome"
-                          variant="outlined"
-                          fullWidth
-                          sx={{ margin: "5px" }}
-                          size="small"
-                        />
+                        <TextField {...register(`dependentes.${index}.nome`)} label="Nome" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small"/>
                       </Grid>
                       <Grid item xs={1}>
-                        <TextField
-                          {...register(`dependentes.${index}.data_nascimento`)}
-                          label="Data de nascimento"
-                          variant="outlined"
-                          fullWidth
-                          sx={{ margin: "5px" }}
-                          size="small"
-                          type="date"
-                        />
+                        <TextField {...register(`dependentes.${index}.data_nascimento`)} label="Data de nascimento" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small" type="date"/>
                       </Grid>
                       <Grid item xs={2}>
-                        <TextField
-                          {...register(`dependentes.${index}.cpf`)}
-                          label="CPF"
-                          variant="outlined"
-                          fullWidth
-                          sx={{ margin: "5px" }}
-                          size="small"
-                        />
+                        <TextField {...register(`dependentes.${index}.cpf`)} label="CPF" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small"/>
                       </Grid>
                       <Grid item xs={3}>
-                        <TextField
-                          {...register(`dependentes.${index}.tipo`)}
-                          label="Tipo"
-                          variant="outlined"
-                          fullWidth
-                          sx={{ margin: "5px" }}
-                          size="small"
-                        />
+                        <TextField {...register(`dependentes.${index}.tipo`)} label="Tipo" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small"/>
                       </Grid>
                       <Grid item xs={1}>
-                        <Fab
-                          sx={{ width: "40px", height: "40px" }}
-                          onClick={() => remove(index)}
-                          color="error"
-                          aria-label="edit"
-                        >
+                        <Fab sx={{ width: "40px", height: "40px" }} onClick={() => remove(index)} color="error" aria-label="edit">
                           <PersonRemoveAlt1Icon />
                         </Fab>
                       </Grid>
                     </Grid>
                   ))}
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "end",
-                    }}
-                  >
-                    <Fab
-                      color="primary"
-                      aria-label="add"
-                      onClick={() => append({ nome: "", data_nascimento: "", cpf: "", tipo: "" })}
-                    >
+                  <Box sx={{width:"100%",display:"flex",justifyContent:"end",}}>
+                    <Fab color="primary" aria-label="add" onClick={() => append({ nome: "", data_nascimento: "", cpf: "", tipo: "" })}>
                       <AddIcon />
                     </Fab>
                   </Box>

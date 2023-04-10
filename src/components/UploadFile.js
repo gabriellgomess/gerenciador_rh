@@ -39,11 +39,9 @@ const UploadFile = ({ cpf }) => {
   };
 
   const nomes = colaboradores
-    .map(
-      (colaborador) =>
-        `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, "")}`
-    )
-    .sort();
+  .filter(colaborador => colaborador.demissao === "0000-00-00")
+  .map(colaborador => `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, "")}`)
+  .sort();
   const handleInputChange = (event) => {
     const newFiles = [...files];
     const uploadedFiles = Array.from(event.target.files);
@@ -60,11 +58,12 @@ const UploadFile = ({ cpf }) => {
   };
 
   const { register, handleSubmit } = useForm();
-
+// ************************************************************************
+// ************************ BUSCAR ARQUIVOS *******************************
+// ************************************************************************
   const buscaArquivos = () => {
     if (selectedNome) {
-      axios
-        .post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=4`, {
+      axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=6`, {
           cpf: selectedNome.split(" - ")[1],
         })
         .then((res) => {
@@ -81,7 +80,9 @@ const UploadFile = ({ cpf }) => {
         });
     }
   };
-
+// ************************************************************************
+// ************************ ENVIAR ARQUIVOS *******************************
+// ************************************************************************
   const onSubmit = (data) => {
     const formData = new FormData();
     const nome = data.nome.split(" - ")[0];
@@ -93,10 +94,7 @@ const UploadFile = ({ cpf }) => {
       formData.append("file[]", file);
     });
 
-    axios
-      .post(
-        `${process.env.REACT_APP_URL}/api/handleClass.php?p=5`,
-        formData,
+    axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=5`,formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -125,10 +123,11 @@ const UploadFile = ({ cpf }) => {
       setArquivosUser([]);
     }
   }, [nomeInputValue]);
-
+// ************************************************************************
+// ************************ DELETAR ARQUIVOS ******************************
+// ************************************************************************
   const handleDelete = (file) => (event) => {
-    axios
-      .post(`${process.env.REACT_APP_URL}/delete_file.php`, {
+    axios.post(`${process.env.REACT_APP_URL}/api/handleClass.php?p=7`, {
         file: file,
         cpf: selectedNome.split(" - ")[1],
       })
@@ -145,6 +144,7 @@ const UploadFile = ({ cpf }) => {
     // abrir nova janela com o link
     window.open(link, "_blank");
   };
+  console.log("Arquivos User: ",arquivosUser);
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'space-evenly' }}>
       <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#f0f0f0'}}>
@@ -251,9 +251,9 @@ const UploadFile = ({ cpf }) => {
           }}
         >
           <Typography variant="h5" sx={{width: '100%'}}>Documentos enviados</Typography>
-          {arquivosUser.length > 0 ? (
+          {arquivosUser?.length > 0 ? (
             <>
-              {arquivosUser.map((arquivo, index) => {
+              {arquivosUser?.map((arquivo, index) => {
                 let extensao = arquivo.nome.split(".")[1];
                 // array de documentos por extensão
                 let docs = ["doc", "docx", "odt", "pdf", "xls", "xlsx", "ods"];
