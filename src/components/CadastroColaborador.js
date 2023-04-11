@@ -7,7 +7,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-// import UploadFile from './UploadFile';
+
+import { cargos, estadosBrasileiros, uf, ccusto, tipoConta, situacao, raca, estado_civil } from '../content-options.js';
+
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import {
@@ -34,6 +36,14 @@ import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import PersonRemoveAlt1Icon from "@mui/icons-material/PersonRemoveAlt1";
+import PersonIcon from '@mui/icons-material/Person';
+import HomeIcon from '@mui/icons-material/Home';
+import BadgeIcon from '@mui/icons-material/Badge';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ArticleIcon from '@mui/icons-material/Article';
+import SchoolIcon from '@mui/icons-material/School';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -124,127 +134,8 @@ const CadastroColaborador = () => {
       });
   };
 
-  const cargos = [
-    { label: "Enfermeiro (a)" },
-    { label: "Tecnico (a) de Enfermagem" },
-    { label: "Encarregado de Estoque" },
-    { label: "Farmaceutico (a)" },
-    { label: "Auxiliar de Higienização" },
-    { label: "Nutricionista" },
-    { label: "Diretor Executivo" },
-    { label: "Fisioterapeuta I" },
-    { label: "Aux. de Cozinha" },
-    { label: "Coordenador (a) de comunicação" },
-    { label: "Assistente Social" },
-    { label: "Assist. Administrativo (a)" },
-    { label: "Fisioterapeuta III" },
-    { label: "Medico Neurologista" },
-    { label: "Tecnico de manutenção" },
-    { label: "Médico Clínico" },
-    { label: "Auxiliar de Farmacia" },
-    { label: "Auxiliar de Cozinha" },
-    { label: "Psicologo(a)" },
-    { label: "Gerente de Atendimento" },
-    { label: "Analista Administrativo" },
-    { label: "Aux. de lavanderia" },
-    { label: "Fisioterapeuta II" },
-    { label: "Cozinheiro (a)" },
-    { label: "Encarregado de Lavanderia" },
-    { label: "Assistente de Relações Públicas" },
-    { label: "Coordenador de RH" },
-    { label: "Analista de Compras" },
-    { label: "Administrador(a) Financeiro" },
-    { label: "Motorista" },
-    { label: "Auxiliar de Dieta" },
-    { label: "Encarregado de Manutenção" },
-  ];
-  const estadosBrasileiros = [
-    { label: "Acre" },
-    { label: "Alagoas" },
-    { label: "Amapá" },
-    { label: "Amazonas" },
-    { label: "Bahia" },
-    { label: "Ceará" },
-    { label: "Distrito Federal" },
-    { label: "Espírito Santo" },
-    { label: "Goiás" },
-    { label: "Maranhão" },
-    { label: "Mato Grosso" },
-    { label: "Mato Grosso do Sul" },
-    { label: "Minas Gerais" },
-    { label: "Pará" },
-    { label: "Paraíba" },
-    { label: "Paraná" },
-    { label: "Pernambuco" },
-    { label: "Piauí" },
-    { label: "Rio de Janeiro" },
-    { label: "Rio Grande do Norte" },
-    { label: "Rio Grande do Sul" },
-    { label: "Rondônia" },
-    { label: "Roraima" },
-    { label: "Santa Catarina" },
-    { label: "São Paulo" },
-    { label: "Sergipe" },
-    { label: "Tocantins" },
-  ];
-  const uf = [
-    { label: "AC" },
-    { label: "AL" },
-    { label: "AP" },
-    { label: "AM" },
-    { label: "BA" },
-    { label: "CE" },
-    { label: "DF" },
-    { label: "ES" },
-    { label: "GO" },
-    { label: "MA" },
-    { label: "MT" },
-    { label: "MS" },
-    { label: "MG" },
-    { label: "PA" },
-    { label: "PB" },
-    { label: "PR" },
-    { label: "PE" },
-    { label: "PI" },
-    { label: "RJ" },
-    { label: "RN" },
-    { label: "RS" },
-    { label: "RO" },
-    { label: "RR" },
-    { label: "SC" },
-    { label: "SP" },
-    { label: "SE" },
-    { label: "TO" }  
-  ]
-  const ccusto = [
-    { label: "Clinica" },
-    { label: "Administrativo" },
-    { label: "Geral-Obra" },
-  ];
-  const tipoConta = [
-    { label: "Conta Corrente" },
-    { label: "Conta Salário" },
-    { label: "Conta Poupança" },
-  ];
-  const situacao = [
-    { label: "Ativo" },
-    { label: "Inativo" },
-    { label: "Pendente" },
-  ];
-  const raca = [
-    { label: "Branca" },
-    { label: "Preta" },
-    { label: "Parda" },
-    { label: "Amarela" },
-    { label: "Indigena" },
-  ];
-  const estado_civil = [
-    { label: "Solteiro(a)" },
-    { label: "Casado(a)" },
-    { label: "Divorciado(a)" },
-    { label: "Viúvo(a)" },
-    { label: "Separado(a)" },
-  ];
+  
+ 
   const [dependentes, setDependentes] = useState([]);
 
   const {
@@ -368,12 +259,12 @@ const CadastroColaborador = () => {
           <Box sx={{width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center"}} >
             <Box sx={{ width: "100%" }}>             
                 <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >CADASTRO DE COLABORADOR</Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '7px', justifyContent: 'center' }}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: '12px', justifyContent: 'center' }}>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px'}}>
+                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                            <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dados Pessoais</Typography>
-                            <TextField {...register("nome")} sx={{ width: '100%'}} name="nome" label="Nome" variant="outlined" size="small" />
+                            <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados Pessoais <PersonIcon /></Typography>
+                            <TextField {...register("nome")} sx={{ width: '100%'}} name="nome" label="Nome" variant="outlined" size="small" required />
                             <TextField {...register("data_nascimento")} sx={{width: '100%'}} name="data_nascimento" label="Data de nascimento" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }} />
                             <FormControl component="fieldset">
                             <FormLabel sx={{fontSize: '12px',margin: '0'}} id="insalubridade">Gênero</FormLabel>                    
@@ -383,7 +274,7 @@ const CadastroColaborador = () => {
                                 <FormControlLabel name="sexo" {...register("sexo")} value="outro" control={<Radio />} label="Outro" />
                               </RadioGroup>
                             </FormControl>
-                            <TextField {...register("cpf")} name="cpf" label="CPF" variant="outlined" size="small" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event) => handleFormatCpf(event)} />
+                            <TextField {...register("cpf")} name="cpf" label="CPF" variant="outlined" size="small" color={testCpfOrCnpj === true ? "success" : ""} onKeyUp={(event) => handleFormatCpf(event)} required />
  
                             <TextField {...register("nome_mae")}  ame="nome_mae" label="Nome da mãe" variant="outlined" size="small"  />
                             <TextField {...register("nome_pai")} name="nome_pai" label="Nome do pai" variant="outlined" size="small" />
@@ -397,9 +288,9 @@ const CadastroColaborador = () => {
                             )} />
                         </CardContent>
                     </Card>
-                    <Card sx={{width: '30%', minWidth: '380px'}}>
+                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                        <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Documentação</Typography>
+                        <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Documentação <ArticleIcon /></Typography>
                         <TextField {...register("rg")} name="rg" label="RG" variant="outlined" size="small" />
                             <Autocomplete size="small" disablePortal name="uf_rg" options={uf} renderInput={(params) => (
                                 <TextField {...register("uf_rg")} variant="outlined" size="small" {...params} label="UF RG" />
@@ -419,9 +310,9 @@ const CadastroColaborador = () => {
                     </Card>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px'}}>
+                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                            <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Contato e Endereço</Typography>                            
+                            <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Contato e Endereço <HomeIcon /></Typography>                            
                             <TextField {...register("telefone")} name="telefone" label="Telefone" variant="outlined" size="small" color={testPhone === true ? "success" : ""} onKeyUp={(event) => handleFormatPhone(event)} />
                             <TextField {...register("celular")} name="celular" label="Celular" variant="outlined" size="small" color={testPhone === true ? "success" : ""} onKeyUp={(event) => handleFormatPhone(event)} />
                             <TextField {...register("email")} name="email" label="E-mail" variant="outlined" size="small" />
@@ -430,7 +321,7 @@ const CadastroColaborador = () => {
                             <TextField {...register("numero")} name="numero" label="Número" variant="outlined" size="small" />
                             <TextField {...register("bairro")} name="bairro" label="Bairro" variant="outlined" size="small" value={endereco.bairro || ""}/>
                             <TextField {...register("cidade")} name="cidade" label="Cidade" variant="outlined" size="small" value={endereco.localidade || ""}/>
-                            <Autocomplete size="small" disablePortal name="estado" value={endereco.uf ? handleSetEstado(endereco.uf) : ""} options=     {estadosBrasileiros} renderInput={(params) => (
+                            <Autocomplete size="small" disablePortal name="estado" value={endereco.uf ? handleSetEstado(endereco.uf) : ""} options={estadosBrasileiros} renderInput={(params) => (
                                 <TextField variant="outlined" {...register("estado")} {...params} label="Estado" />
                               )}/>
                             <TextField {...register("residencia_propria")} name="residencia_propria" label="Residência Própria" variant="outlined" size="small"/>
@@ -440,9 +331,9 @@ const CadastroColaborador = () => {
 
                         </CardContent>
                     </Card>
-                    <Card sx={{width: '30%', minWidth: '380px'}}>
+                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                            <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Formação Acadêmica</Typography>
+                            <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Formação Acadêmica <SchoolIcon /></Typography>
                             <TextField {...register("grau_instrucao")} name="grau_instrucao" label="Grau de instrução" variant="outlined" size="small"  />
                             <TextField {...register("graduacao")} name="graduacao" label="Graduação" variant="outlined" size="small" />
                             <TextField {...register("registro")} name="registro" label="Registro" variant="outlined" size="small"/>
@@ -452,9 +343,9 @@ const CadastroColaborador = () => {
 
                         </CardContent>
                         </Card>
-                        <Card sx={{width: '30%', minWidth: '380px'}}>
+                        <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                             <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Experiência Profissional</Typography>
+                                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Experiência Profissional <WorkHistoryIcon /></Typography>
                                 <TextField {...register("experiencia_anterior")} name="experiencia_anterior" label="Experiência Anterior" variant="outlined" size="small"/>
                                 <TextField {...register("tem_outro_emprego")} name="tem_outro_emprego" label="Tem outro emprego?" variant="outlined" size="small"/>
                                 <TextField {...register("nome_outra_empresa")} name="nome_outra_empresa" label="Nome da outra empresa" variant="outlined" size="small"/>
@@ -467,9 +358,9 @@ const CadastroColaborador = () => {
                         </Card>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px'}}>
+                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                          <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dados do Contrato</Typography>
+                          <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados do Contrato <BadgeIcon /></Typography>
                           <TextField {...register("admissao")} name="admissao" label="Data de admissão" variant="outlined" size="small" type="date" InputLabelProps={{shrink: true }} />
                           <Autocomplete size="small" disablePortal name="cargo" options={cargos} renderInput={(params) => (
                               <TextField {...register("cargo")} variant="outlined" size="small" {...params} label="Cargo"/>
@@ -507,9 +398,9 @@ const CadastroColaborador = () => {
                       </Card>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                      <Card sx={{width: '30%', minWidth: '380px'}}>
+                      <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                          <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dados Bancários</Typography>
+                          <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Dados Bancários <AccountBalanceIcon /></Typography>
                           <TextField {...register("banco")} name="banco" label="Banco" variant="outlined" size="small"/>
                           <TextField {...register("agencia")} name="agencia" label="Agência" variant="outlined" size="small"/>
                           <TextField {...register("conta")} name="conta" label="Conta" variant="outlined" size="small"/>
@@ -529,15 +420,15 @@ const CadastroColaborador = () => {
             </Box>
             <Box sx={{width: '90%', margin: '30px auto'}}>
               <Card sx={{width: '100%'}}>
-                <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >Dependentes</Typography>
+                <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px', background: '#DCDCDC'}}>
+                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dependentes <FamilyRestroomIcon/></Typography>
                   {fields.map((field, index) => (
                     <Grid key={field.id} container spacing={2}>
                       <Grid item xs={4}>
                         <TextField {...register(`dependentes.${index}.nome`)} label="Nome" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small"/>
                       </Grid>
                       <Grid item xs={1}>
-                        <TextField {...register(`dependentes.${index}.data_nascimento`)} label="Data de nascimento" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small" type="date"/>
+                        <TextField {...register(`dependentes.${index}.data_nascimento`)} label="Data de nascimento" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small" type="date" InputLabelProps={{ shrink: true }}/>
                       </Grid>
                       <Grid item xs={2}>
                         <TextField {...register(`dependentes.${index}.cpf`)} label="CPF" variant="outlined" fullWidth sx={{ margin: "5px" }} size="small"/>
