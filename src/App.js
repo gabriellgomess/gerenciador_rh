@@ -73,13 +73,10 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  width: `0`,
-  [theme.breakpoints.down("xs")]: {
-    width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
   },
-  // [theme.breakpoints.up("sm")]: {
-  //   width: `calc(${theme.spacing(8)} + 1px)`,
-  // },
 });
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -276,11 +273,11 @@ export default function App() {
               {user && (
               <Box sx={{display: 'flex', alignItems: 'center', margin: '0 40px'}}>
                 <Typography>Olá, {(sessionStorage.getItem('nome')).split(" ")[0]}</Typography>
-                <Tooltip title="Alterar Senha">
+                {/* <Tooltip title="Alterar Senha">
                   <IconButton onClick={handleClick} aria-label="fingerprint">
                     <Fingerprint />
                   </IconButton>
-                </Tooltip>
+                </Tooltip> */}
               </Box>)}	
               <img width='200px' src={Logotipo} alt="" />
             </Box>            

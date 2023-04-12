@@ -37,7 +37,10 @@ export default function CadastrarUsuario() {
   const [showPassword, setShowPassword] = useState(false);
   const { colaboradores, setColaboradores } = useContext(ContextAPI);
 
-  const nomes = colaboradores.map((colaborador) =>`${colaborador.nome} - ${colaborador.matricula}`).sort();
+  const nomes = colaboradores
+  .filter(colaborador => colaborador.demissao === "0000-00-00")
+  .map(colaborador => `${colaborador.nome} - ${colaborador.cpf.replace(/[.-]/g, "")}`)
+  .sort();
 
   function validarSenhas() {
     if (senha.trim() !== confirmarSenha.trim()) {

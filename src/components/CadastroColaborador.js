@@ -254,14 +254,14 @@ const CadastroColaborador = () => {
 
   return (
     <form style={styles.heightForm} onSubmit={handleSubmit(onSubmit)}>
-      <Card>
-        <CardContent>
+      
+        
           <Box sx={{width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center"}} >
             <Box sx={{ width: "100%" }}>             
                 <Typography sx={{ width: "100%" }} variant="h6" color="text.primary" gutterBottom >CADASTRO DE COLABORADOR</Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: '12px', justifyContent: 'center' }}>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                    <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                             <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados Pessoais <PersonIcon /></Typography>
                             <TextField {...register("nome")} sx={{ width: '100%'}} name="nome" label="Nome" variant="outlined" size="small" required />
@@ -288,7 +288,7 @@ const CadastroColaborador = () => {
                             )} />
                         </CardContent>
                     </Card>
-                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                    <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                         <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Documentação <ArticleIcon /></Typography>
                         <TextField {...register("rg")} name="rg" label="RG" variant="outlined" size="small" />
@@ -310,7 +310,7 @@ const CadastroColaborador = () => {
                     </Card>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                    <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                             <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Contato e Endereço <HomeIcon /></Typography>                            
                             <TextField {...register("telefone")} name="telefone" label="Telefone" variant="outlined" size="small" color={testPhone === true ? "success" : ""} onKeyUp={(event) => handleFormatPhone(event)} />
@@ -331,7 +331,7 @@ const CadastroColaborador = () => {
 
                         </CardContent>
                     </Card>
-                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                    <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                             <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Formação Acadêmica <SchoolIcon /></Typography>
                             <TextField {...register("grau_instrucao")} name="grau_instrucao" label="Grau de instrução" variant="outlined" size="small"  />
@@ -343,7 +343,7 @@ const CadastroColaborador = () => {
 
                         </CardContent>
                         </Card>
-                        <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                        <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                             <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                                 <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Experiência Profissional <WorkHistoryIcon /></Typography>
                                 <TextField {...register("experiencia_anterior")} name="experiencia_anterior" label="Experiência Anterior" variant="outlined" size="small"/>
@@ -358,7 +358,7 @@ const CadastroColaborador = () => {
                         </Card>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                    <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                    <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                           <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados do Contrato <BadgeIcon /></Typography>
                           <TextField {...register("admissao")} name="admissao" label="Data de admissão" variant="outlined" size="small" type="date" InputLabelProps={{shrink: true }} />
@@ -398,7 +398,7 @@ const CadastroColaborador = () => {
                       </Card>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                      <Card sx={{width: '30%', minWidth: '380px', background: '#DCDCDC'}}>
+                      <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
                         <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                           <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Dados Bancários <AccountBalanceIcon /></Typography>
                           <TextField {...register("banco")} name="banco" label="Banco" variant="outlined" size="small"/>
@@ -419,8 +419,8 @@ const CadastroColaborador = () => {
 
             </Box>
             <Box sx={{width: '90%', margin: '30px auto'}}>
-              <Card sx={{width: '100%'}}>
-                <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px', background: '#DCDCDC'}}>
+              <Card elevation={3} sx={{width: '100%'}}>
+                <CardContent sx={{display: 'flex', flexDirection: 'column', gap: '8px', background: '#fff'}}>
                 <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dependentes <FamilyRestroomIcon/></Typography>
                   {fields.map((field, index) => (
                     <Grid key={field.id} container spacing={2}>
@@ -452,13 +452,13 @@ const CadastroColaborador = () => {
               </Card>
             </Box>
           </Box>
-        </CardContent>
+        
         <CardActions sx={{ display: "flex", justifyContent: "end" }}>
           <Button type="submit" variant="contained">
             Salvar
           </Button>
         </CardActions>
-      </Card>
+      
     </form>
   );
 };

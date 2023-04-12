@@ -147,7 +147,7 @@ const UploadFile = ({ cpf }) => {
   console.log("Arquivos User: ",arquivosUser);
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: 'space-evenly' }}>
-      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#f0f0f0'}}>
+      <Card elevation={3} sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#fff'}}>
         <form className="form-file" onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h5" sx={{ marginBottom: "20px" }}>
             Selecione um colaborador para enviar arquivos
@@ -236,7 +236,7 @@ const UploadFile = ({ cpf }) => {
         </form>
         
       </Card>
-      <Card sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#f0f0f0'}}>
+      <Card elevation={3} sx={{width: '100%', maxWidth: '750px', padding: '50px', marginTop: '40px', background: '#fff'}}>
         <Box
           sx={{
             margin: 3,
