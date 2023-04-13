@@ -267,7 +267,7 @@ const CadastroColaborador = () => {
                             <TextField {...register("nome")} sx={{ width: '100%'}} name="nome" label="Nome" variant="outlined" size="small" required />
                             <TextField {...register("data_nascimento")} sx={{width: '100%'}} name="data_nascimento" label="Data de nascimento" variant="outlined" size="small" type="date" InputLabelProps={{ shrink: true }} />
                             <FormControl component="fieldset">
-                            <FormLabel sx={{fontSize: '12px',margin: '0'}} id="insalubridade">Gênero</FormLabel>                    
+                            <FormLabel sx={{fontSize: '12px',margin: '0'}} id="genero">Gênero</FormLabel>                    
                               <RadioGroup row aria-labelledby="sexo" name="sexo">
                                 <FormControlLabel name="sexo" {...register("sexo")} value="feminino" control={<Radio />} label="Feminino" />
                                 <FormControlLabel name="sexo" {...register("sexo")} value="masculino" control={<Radio />} label="Masculino" />
@@ -338,9 +338,6 @@ const CadastroColaborador = () => {
                             <TextField {...register("graduacao")} name="graduacao" label="Graduação" variant="outlined" size="small" />
                             <TextField {...register("registro")} name="registro" label="Registro" variant="outlined" size="small"/>
 
-
-
-
                         </CardContent>
                         </Card>
                         <Card elevation={3} sx={{width: '30%', minWidth: '380px', background: '#fff'}}>
@@ -350,9 +347,6 @@ const CadastroColaborador = () => {
                                 <TextField {...register("tem_outro_emprego")} name="tem_outro_emprego" label="Tem outro emprego?" variant="outlined" size="small"/>
                                 <TextField {...register("nome_outra_empresa")} name="nome_outra_empresa" label="Nome da outra empresa" variant="outlined" size="small"/>
                                 <TextField {...register("aposentado")} name="aposentado" label="Aposentado" variant="outlined" size="small" />
-
-
-
 
                             </CardContent>
                         </Card>

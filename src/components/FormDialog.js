@@ -7,7 +7,25 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Autocomplete from '@mui/material/Autocomplete';
-import Divider from '@mui/material/Divider';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import PersonIcon from '@mui/icons-material/Person';
+import ArticleIcon from '@mui/icons-material/Article';
+import HomeIcon from '@mui/icons-material/Home';
+import SchoolIcon from '@mui/icons-material/School';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import BadgeIcon from '@mui/icons-material/Badge';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
+
+
 import axios from "axios";
 // import './FormDialog.css';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -309,92 +327,159 @@ console.log(props.dialog)
         open={props.open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        maxWidth="lg"
+        maxWidth="lg"        
       >
-        <DialogTitle sx={{display: 'flex', alignItems: 'center'}} id="form-dialog-title">Editar dados do colaborador <ManageAccountsIcon sx={{marginLeft: '10px'}} /></DialogTitle>
-        <DialogContent sx={{display: 'flex', flexWrap: 'wrap'}}>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '20%', lg: '10%', xl: '10%' }, margin: '5px'}} variant="standard" disabled margin="dense" id="matricula" label="Matricula" defaultValue={props.dialog.matricula} type="text" />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} variant="standard" autoFocus margin="dense" id="nome" label="Nome" defaultValue={props.dialog.nome} type="text" onChange={handleChangeValues} />
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cpf" label="CPF" variant="standard" defaultValue={props.dialog.cpf} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="pis" label="PIS" variant="standard" defaultValue={props.dialog.pis} onChange={handleChangeValues}/>  
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="rg" label="RG" variant="standard" defaultValue={props.dialog.rg} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="data_nascimento" label="Data de nascimento" variant="standard" type='date' defaultValue={props.dialog.data_nascimento} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="telefone" label="Telefone" variant="standard" defaultValue={props.dialog.telefone} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="celular" label="Celular" variant="standard" defaultValue={props.dialog.celular} onChange={handleChangeValues} onKeyUp={(event)=>handleFormatPhone(event)} onClick={(event)=>handleFormatPhone(event)}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="email" label="E-mail" variant="standard" defaultValue={props.dialog.email} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cep" label="CEP" variant="standard" defaultValue={props.dialog.cep} onKeyUp={(event) => handleFormatCep(event)} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} id="rua" label="Rua" variant="standard" defaultValue={props.dialog.rua?endereco.logradouro:''} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '30%', sm: '30%', md: '20%', lg: '10%', xl: '10%' } , margin: '5px'}} id="numero" label="Numero" variant="standard" defaultValue={props.dialog.numero} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="bairro" label="Bairro" variant="standard" defaultValue={props.dialog.bairro} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} id="cidade" label="Cidade" variant="standard" defaultValue={props.dialog.cidade} onChange={handleChangeValues}/>
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="estado" value={props.dialog.estado} options={estadosBrasileiros} 
-                        renderInput={(params) => <TextField variant="standard" {...params} label="Estado"  />} />
-            <Divider sx={{width: '100%', margin: '10px 0'}} />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' } , margin: '5px'}} id="salario" label="Salário" variant="standard" defaultValue={props.dialog.salario} onChange={handleChangeValues}/>            
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '48%', lg: '30%', xl: '30%' } , margin: '5px'}} id="cargo" value={props.dialog.cargo} options={cargos} 
-                        renderInput={(params) => <TextField variant="standard" {...params} label="Cargo"  />} />
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="registro" label="Registro" variant="standard" defaultValue={props.dialog.registro} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cbo" label="CBO" variant="standard" defaultValue={props.dialog.cbo} onChange={handleChangeValues}/>
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="ccusto" value={props.dialog.ccusto} options={ccusto} 
-                        renderInput={(params) => <TextField variant="standard" {...params} label="Centro de Custo"  />} />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} id="admissao" label="Data de admissão" variant="standard" type='date' defaultValue={props.dialog.admissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '48%', lg: '20%', xl: '20%' }, margin: '5px'}} id="demissao" label="Data de demissão" variant="standard" type='date' defaultValue={props.dialog.demissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
-            <Divider sx={{width: '100%', margin: '10px 0'}} />
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="agencia" label="Agência" variant="standard" defaultValue={props.dialog.agencia} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="conta" label="Conta" variant="standard" defaultValue={props.dialog.conta} onChange={handleChangeValues}/>
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="tipo_conta" value={props.dialog.tipoConta} options={tipoConta} 
-                        renderInput={(params) => <TextField variant="standard" {...params} label="Tipo de Conta"  />} />
-            <Autocomplete isOptionEqualToValue={(option, value) => option === value} disablePortal sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="situacao" value={props.dialog.situacao} options={situacao} 
-                        renderInput={(params) => <TextField variant="standard" {...params} label="Situação"  />} />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} id="descAgencia" label="Descrição da Agência" variant="standard" defaultValue={props.dialog.descAgencia} onChange={handleChangeValues}/>
-            <Divider sx={{width: '100%', margin: '10px 0'}} />
-            <TextField sx={{width: { xs: '100%', sm: '100%', md: '66%', lg: '50%', xl: '50%' }, margin: '5px'}} id="escala" label="Escala" variant="standard" defaultValue={props.dialog.escala} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '48%', lg: '48%', xl: '48%' } , margin: '5px'}} id="cargaHoraria" label="Carga Horária" variant="standard" defaultValue={props.dialog.cargaHoraria} onChange={handleChangeValues}/>
-            <Divider sx={{width: '100%', margin: '10px 0'}} />
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="linhaVT" label="Linha VT" variant="standard" defaultValue={props.dialog.linhaVT} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="quantidadeVT" label="Quantidade VT / dia" variant="standard" defaultValue={props.dialog.quantidadeVT} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="planoSaude" label="Plano de Saúde" variant="standard" defaultValue={props.dialog.planoSaude} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="planoOdonto" label="Plano Odonto" variant="standard" defaultValue={props.dialog.planoOdonto} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cestaBasica" label="Cesta Básica" variant="standard" defaultValue={props.dialog.cestaBasica} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="refeitorio" label="Refeitório" variant="standard" defaultValue={props.dialog.refeitorio} onChange={handleChangeValues}/>
+        <DialogTitle sx={{display: 'flex', alignItems: 'center', background: '#1565c0', color: '#fff'}} id="form-dialog-title">Editar dados do colaborador <ManageAccountsIcon sx={{marginLeft: '10px'}} /></DialogTitle>
+        <DialogContent sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px' }}>
+
+
+            <Card sx={{width: '100%', marginTop: '30px'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+              <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados Pessoais <PersonIcon /></Typography>
+                <Box sx={{width: '100%', display: 'flex', alignItems: 'center', gap: '12px'}}>
+                  <TextField sx={{width: '49%'}} size='small' variant="outlined" id="matricula" label="Matricula" defaultValue={props.dialog.matricula} type="text" disabled  />
+                  <FormControl component="fieldset">
+                    <FormLabel sx={{fontSize: '12px',margin: '0', height: '18px'}} id="genero">Gênero</FormLabel>                    
+                    <RadioGroup row aria-labelledby="sexo" name="sexo">
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="feminino" control={<Radio sx={{height: '25px'}} />} label="Feminino" />
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="masculino" control={<Radio sx={{height: '25px'}} />} label="Masculino" />
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="outro" control={<Radio sx={{height: '25px'}} />} label="Outro" />
+                    </RadioGroup>
+                  </FormControl>
+                </Box>                
+                <TextField size='small' variant="outlined" id="nome" label="Nome" sx={{width: '99%'}} autoFocus defaultValue={props.dialog.nome} type="text" onChange={handleChangeValues} />
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="data_nascimento" label="Data de nascimento" type='date' defaultValue={props.dialog.data_nascimento} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="cpf" label="CPF" defaultValue={props.dialog.cpf} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="nome_mae" label="Nome da Mãe" defaultValue={props.dialog.nome_mae} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="nome_pai" label="Nome do Pai" defaultValue={props.dialog.nome_pai} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="naturalidade" label="Naturalidade" defaultValue={props.dialog.naturalidade} onChange={handleChangeValues}/>                
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="estado_civil" label="Estado Civil" defaultValue={props.dialog.estado_civil} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="cor" label="Cor" defaultValue={props.dialog.cor} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+                  <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Documentação <ArticleIcon /></Typography>
+                  <TextField sx={{width: '49%'}} size='small' id="rg" label="RG" variant="outlined" defaultValue={props.dialog.rg} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="uf_rg" label="UF RG" variant="outlined" defaultValue={props.dialog.uf_rg} onChange={handleChangeValues}/>{/* *******INCLUIR******* */}
+                  <TextField sx={{width: '49%'}} size='small' id="orgao_rg" label="RG Órgão Emissor" variant="outlined" defaultValue={props.dialog.rg_orgao_emissor} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="data_expedicao" label="RG Data Emissão" variant="outlined" defaultValue={props.dialog.rg_data_emissao} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="pis" label="PIS" variant="outlined" defaultValue={props.dialog.pis} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="cnh" label="CNH" variant="outlined" defaultValue={props.dialog.cnh} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="cnh_categoria" label="CNH Categoria" variant="outlined" defaultValue={props.dialog.cnh_categoria} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="cnh_validade" label="CNH Validade" variant="outlined" defaultValue={props.dialog.cnh_validade} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="hab_emissao" label="CNH Emissão" variant="outlined" defaultValue={props.dialog.cnh_emissao} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="titulo_eleitoral" label="Título Eleitoral" variant="outlined" defaultValue={props.dialog.titulo_eleitoral} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="zona_eleitoral" label="Zona Eleitoral" variant="outlined" defaultValue={props.dialog.zona_eleitoral} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="secao_eleitoral" label="Seção Eleitoral" variant="outlined" defaultValue={props.dialog.secao_eleitoral} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="reservista" label="Reservista" variant="outlined" defaultValue={props.dialog.reservista} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Contato e Endereço <HomeIcon /></Typography>
+                <TextField sx={{width: '49%'}} size='small' id="telefone" label="Telefone" variant="outlined" defaultValue={props.dialog.telefone} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="celular" label="Celular" variant="outlined" defaultValue={props.dialog.celular} onChange={handleChangeValues} onKeyUp={(event)=>handleFormatPhone(event)} onClick={(event)=>handleFormatPhone(event)}/>
+                <TextField sx={{width: '49%'}} size='small' id="email" label="E-mail" variant="outlined" defaultValue={props.dialog.email} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="cep" label="CEP" variant="outlined" defaultValue={props.dialog.cep} onKeyUp={(event) => handleFormatCep(event)} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="rua" label="Rua" variant="outlined" defaultValue={props.dialog.rua} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="numero" label="Numero" variant="outlined" defaultValue={props.dialog.numero} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="bairro" label="Bairro" variant="outlined" defaultValue={props.dialog.bairro} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="cidade" label="Cidade" variant="outlined" defaultValue={props.dialog.cidade} onChange={handleChangeValues}/>
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="estado" defaultValue={props.dialog.estado} options={estadosBrasileiros} 
+                            renderInput={(params) => <TextField variant="outlined" {...params} label="Estado"  />} />
+                <TextField sx={{width: '49%'}} size='small'  id="residencia_propria" label="Residência Própria" variant="outlined" defaultValue={props.dialog.residencia_propria} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small'  id="residencia_adquirida_fgts" label="Adquirido FGTS" variant="outlined" defaultValue={props.dialog.residencia_adquirida_fgts} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados do Contrato <BadgeIcon /></Typography>
+                <TextField sx={{width: '49%'}} size='small'  id="admissao" label="Data de admissão" variant="outlined" type='date' defaultValue={props.dialog.admissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
+                <TextField sx={{width: '49%'}} size='small'  id="demissao" label="Data de demissão" variant="outlined" type='date' defaultValue={props.dialog.demissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal id="cargo" value={props.dialog.cargo} options={cargos} 
+                        renderInput={(params) => <TextField variant="outlined" {...params} label="Cargo"  />} />
+                <TextField sx={{width: '49%'}} size='small' id="cod_cargo" label="Código do Cargo" variant="outlined" defaultValue={props.dialog.cod_cargo} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+                <TextField sx={{width: '49%'}} size='small' id="salario" label="Salário" variant="outlined" defaultValue={props.dialog.salario} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small'  id="contrato_experiencia" label="Contrato Experiência" variant="outlined" defaultValue={props.dialog.contrato_experiencia} onChange={handleChangeValues}/>
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="ccusto" value={props.dialog.ccusto} options={ccusto} 
+                        renderInput={(params) => <TextField variant="outlined" {...params} label="Centro de Custo"  />} />
+                <TextField sx={{width: '49%'}} size='small' id="cod_ccusto" label="Código do Centro de Custo" variant="outlined" defaultValue={props.dialog.cod_ccusto} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+                <TextField sx={{width: '49%'}} size='small'  id="cbo" label="CBO" variant="outlined" defaultValue={props.dialog.cbo} onChange={handleChangeValues}/>
+                <FormControl component="fieldset">
+                  <FormLabel sx={{fontSize: '12px',margin: '0', height: '18px'}} id="insalubridade">Adicional de insalubridade</FormLabel>
+                  <RadioGroup row aria-labelledby="insalubridade" name="insalubridade">
+                    <FormControlLabel sx={{height: '25px'}} name="insalubridade" value="sim" control={<Radio sx={{height: '25px'}} />} label="Sim"/>  {/* *******INCLUIR******* */}
+                    <FormControlLabel sx={{height: '25px'}} name="insalubridade" value="nao" control={<Radio sx={{height: '25px'}}/>} label="Não"/>
+                  </RadioGroup>
+                </FormControl>
+                <TextField sx={{width: '49%'}} size='small' id="pcd" label="PCD" variant="outlined" defaultValue={props.dialog.pcd} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="necessidade_especial" label="Qual a necessidade especial?" variant="outlined" defaultValue={props.dialog.necessidade_especial} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="escala" label="Escala" variant="outlined" defaultValue={props.dialog.escala} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="cargaHoraria" label="Carga Horária" variant="outlined" defaultValue={props.dialog.cargaHoraria} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="linhaVT" label="Linha VT" variant="outlined" defaultValue={props.dialog.linhaVT} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="quantidadeVT" label="Quantidade VT / dia" variant="outlined" defaultValue={props.dialog.quantidadeVT} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="planoSaude" label="Plano de Saúde" variant="outlined" defaultValue={props.dialog.planoSaude} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="planoOdonto" label="Plano Odonto" variant="outlined" defaultValue={props.dialog.planoOdonto} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="cestaBasica" label="Cesta Básica" variant="outlined" defaultValue={props.dialog.cestaBasica} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="refeitorio" label="Refeitório" variant="outlined" defaultValue={props.dialog.refeitorio} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Dados Bancários <AccountBalanceIcon /></Typography>
+                <TextField sx={{width: '49%'}} size='small'  id="banco" label="Banco" variant="outlined" defaultValue={props.dialog.banco} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small'  id="agencia" label="Agência" variant="outlined" defaultValue={props.dialog.agencia} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small'  id="conta" label="Conta" variant="outlined" defaultValue={props.dialog.conta} onChange={handleChangeValues}/>
+                <Autocomplete sx={{width: '49%'}} size='small'  isOptionEqualToValue={(option, value) => option === value} disablePortal  id="tipo_conta" defaultValue={props.dialog.tipo_conta} options={tipoConta} 
+                            renderInput={(params) => <TextField variant="outlined" {...params} label="Tipo de Conta"  />} />
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="situacao" defaultValue={props.dialog.situacao} options={situacao} 
+                            renderInput={(params) => <TextField variant="outlined" {...params} label="Situação"  />} />
+                <TextField sx={{width: '49%'}} size='small'  id="descAgencia" label="Descrição da Agência" variant="outlined" defaultValue={props.dialog.descAgencia} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+              <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Formação Acadêmica <SchoolIcon /></Typography>
+                <TextField sx={{width:'49%'}} size='small' id="escolaridade" label="Escolaridade" variant="outlined" defaultValue={props.dialog.escolaridade} onChange={handleChangeValues}/>
+                <TextField sx={{width:'49%'}} size='small' id="graduacao" label="Graduação" variant="outlined" defaultValue={props.dialog.graduacao} onChange={handleChangeValues}/>
+                <TextField sx={{width:'49%'}} size='small' id="registro" label="Regsitro" variant="outlined" defaultValue={props.dialog.regsitro} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+              </CardContent>
+            </Card>
+
+
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+                <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Experiência Profissional <WorkHistoryIcon /></Typography>
+                <TextField sx={{width: '49%'}} size='small' id="experiencia_anterior" label="Experiência Anterior" variant="outlined" defaultValue={props.dialog.experiencia_anterior} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="tem_outro_emprego" label="Tem Outro Emprego" variant="outlined" defaultValue={props.dialog.tem_outro_emprego} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="nome_outra_empresa" label="Nome da outra Empresa" variant="outlined" defaultValue={props.dialog.nome_outra_empresa} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="aposentado" label="Aposentado" variant="outlined" defaultValue={props.dialog.aposentado} onChange={handleChangeValues}/>
+              </CardContent>
+            </Card>
+            <Card sx={{width: '100%'}}>
+              <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
+              <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dependentes <FamilyRestroomIcon/></Typography>
+
+              </CardContent>
+            </Card>
             
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="sexo" label="Sexo" variant="standard" defaultValue={props.dialog.sexo} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_mae" label="Nome da Mãe" variant="standard" defaultValue={props.dialog.nome_mae} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_pai" label="Nome do Pai" variant="standard" defaultValue={props.dialog.nome_pai} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cor" label="Cor" variant="standard" defaultValue={props.dialog.cor} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="estado_civil" label="Estado Civil" variant="standard" defaultValue={props.dialog.estado_civil} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="naturalidade" label="Naturalidade" variant="standard" defaultValue={props.dialog.naturalidade} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="escolaridade" label="Escolaridade" variant="standard" defaultValue={props.dialog.escolaridade} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="graduacao" label="Graduação" variant="standard" defaultValue={props.dialog.graduacao} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="residencia_propria" label="Residência Própria" variant="standard" defaultValue={props.dialog.residencia_propria} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="residencia_adquirida_fgts" label="Adquirido FGTS" variant="standard" defaultValue={props.dialog.residencia_adquirida_fgts} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="orgao_rg" label="RG Órgão Emissor" variant="standard" defaultValue={props.dialog.rg_orgao_emissor} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="data_expedicao" label="RG Data Emissão" variant="standard" defaultValue={props.dialog.rg_data_emissao} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="aposentado" label="Aposentado" variant="standard" defaultValue={props.dialog.aposentado} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh" label="CNH" variant="standard" defaultValue={props.dialog.cnh} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh_categoria" label="CNH Categoria" variant="standard" defaultValue={props.dialog.cnh_categoria} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="cnh_validade" label="CNH Validade" variant="standard" defaultValue={props.dialog.cnh_validade} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="hab_emissao" label="CNH Emissão" variant="standard" defaultValue={props.dialog.cnh_emissao} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="titulo_eleitoral" label="Título Eleitoral" variant="standard" defaultValue={props.dialog.titulo_eleitoral} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="zona_eleitoral" label="Zona Eleitoral" variant="standard" defaultValue={props.dialog.zona_eleitoral} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="secao_eleitoral" label="Seção Eleitoral" variant="standard" defaultValue={props.dialog.secao_eleitoral} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="reservista" label="Reservista" variant="standard" defaultValue={props.dialog.reservista} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="contrato_experiencia" label="Contrato Experiência" variant="standard" defaultValue={props.dialog.contrato_experiencia} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="insalubridade" label="Insalubridade" variant="standard" defaultValue={props.dialog.insalubridade} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="experiencia_anterior" label="Experiência Anterior" variant="standard" defaultValue={props.dialog.experiencia_anterior} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="tem_outro_emprego" label="Tem Outro Emprego" variant="standard" defaultValue={props.dialog.tem_outro_emprego} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="nome_outra_empresa" label="Nome da outra Empresa" variant="standard" defaultValue={props.dialog.nome_outra_empresa} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="pcd" label="PCD" variant="standard" defaultValue={props.dialog.pcd} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="necessidade_especial" label="Qual a necessidade especial" variant="standard" defaultValue={props.dialog.necessidade_especial} onChange={handleChangeValues}/>
-            <TextField sx={{width: { xs: '100%', sm: '48%', md: '30%', lg: '20%', xl: '20%' } , margin: '5px'}} id="banco" label="Banco" variant="standard" defaultValue={props.dialog.banco} onChange={handleChangeValues}/>
-
-
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} variant="outlined" color="primary">
             Cancelar
           </Button>          
-          <Button color="primary" onClick={() => handleEditClient()}>
+          <Button color="primary" variant="contained" onClick={() => handleEditClient()}>
             Salvar
           </Button>
         </DialogActions>
