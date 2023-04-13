@@ -94,7 +94,7 @@ const TabelaColaboradores = () => {
           hide: isSmallScreen,
           renderCell: (params) => (
             <>
-            {params.row.demissao === '0000-00-00' || params.row.demissao === '' ? <Tooltip title="Contrato ativo"><CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/></Tooltip> : <Tooltip title={`Contrato encerrado em ${(params.row.demissao)?.split('-').reverse().join('/')}`}><NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/></Tooltip>}            
+            {params.row.demissao === '0000-00-00' || params.row.demissao === '' || params.row.demissao == null ? <Tooltip title="Contrato ativo"><CheckCircleOutlineRoundedIcon sx={{color:'#388e3c', margin: '0 auto'}}/></Tooltip> : <Tooltip title={`Contrato encerrado em ${(params.row.demissao)?.split('-').reverse().join('/')}`}><NotInterestedRoundedIcon sx={{color:'#d32f2f', margin: '0 auto'}}/></Tooltip>}            
             </>             
           ),
         },

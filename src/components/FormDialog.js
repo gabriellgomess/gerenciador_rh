@@ -16,6 +16,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
 import PersonIcon from '@mui/icons-material/Person';
 import ArticleIcon from '@mui/icons-material/Article';
 import HomeIcon from '@mui/icons-material/Home';
@@ -48,14 +52,13 @@ export default function FormDialog(props) {
 
 // No carregamento do componente, seta os valores do cliente para o estado
 useEffect(() => {
-  // Valores a serem editados:
-  // admissao, agencia, aposentado, bairro, banco, cargaHoraria, cargo, cbo, ccusto, celular, cep, cestaBasica, cidade, cnh, cnh_categoria, cnh_validade, cod_cargo, cod_ccusto, cod_esocial, conta, contrato_experiencia, cor, cpf, data_expedicao, data_nascimento, demissao, descAgencia, email, escala, estado, estado_civil, experiencia_anterior, graduacao, grau_instrucao, hab_emissao, id, insalubridade, linhaVT, matricula, motivo_demissao, naturalidade, necessidade_especial, nome, nome_mae, nome_outra_empresa, nome_pai, numero, orgao_rg, pcd, pis, planoOdonto, planoSaude, quantidadeVT, refeitorio, registro, reservista, residencia_adquirida_fgts, residencia_propria, rg, rua, salario, secao_eleitoral, sexo, situacao, telefone, tem_outro_emprego, tipo_conta, titulo_eleitoral, uf_rg, zona_eleitoral.
     setEditValues({
       id: props.dialog.id,
       admissao: props.dialog.admissao,
-      demissao: props.dialog.demissao,
       agencia: props.dialog.agencia,
+      aposentado: props.dialog.aposentado,
       bairro: props.dialog.bairro,
+      banco: props.dialog.banco,
       cargaHoraria: props.dialog.cargaHoraria,
       cargo: props.dialog.cargo,
       cbo: props.dialog.cbo,
@@ -64,12 +67,19 @@ useEffect(() => {
       cep: props.dialog.cep,
       cestaBasica: props.dialog.cestaBasica,
       cidade: props.dialog.cidade,
+      cnh: props.dialog.cnh,
+      cnh_categoria: props.dialog.cnh_categoria,
+      cnh_validade: props.dialog.cnh_validade,
+      cod_cargo: props.dialog.cod_cargo,
+      cod_ccusto: props.dialog.cod_ccusto,
+      cod_esocial: props.dialog.cod_esocial,
       conta: props.dialog.conta,
       contrato_experiencia: props.dialog.contrato_experiencia,
       cor: props.dialog.cor,
       cpf: props.dialog.cpf,
       data_expedicao: props.dialog.data_expedicao,
       data_nascimento: props.dialog.data_nascimento,
+      demissao: props.dialog.demissao,
       descAgencia: props.dialog.descAgencia,
       email: props.dialog.email,
       escala: props.dialog.escala,
@@ -112,7 +122,7 @@ useEffect(() => {
       tipo_conta: props.dialog.tipo_conta,
       titulo_eleitoral: props.dialog.titulo_eleitoral,
       uf_rg: props.dialog.uf_rg,
-      zona_eleitoral: props.dialog.zona_eleitoral,      
+      zona_eleitoral: props.dialog.zona_eleitoral   
 
     });
     
@@ -123,6 +133,7 @@ const handleChangeValues = (values) => {
     ...prevValues,
     [values.target.id]: values.target.value,
   }));
+  console.table(editValues)
 };
 
   const handleClose = () => {
@@ -135,9 +146,10 @@ const handleChangeValues = (values) => {
     axios.put(`${process.env.REACT_APP_URL}/api/handleClass.php?p=4`, {
       id: editValues.id,
       admissao: editValues.admissao,
-      demissao: editValues.demissao,
       agencia: editValues.agencia,
+      aposentado: editValues.aposentado,
       bairro: editValues.bairro,
+      banco: editValues.banco,
       cargaHoraria: editValues.cargaHoraria,
       cargo: editValues.cargo,
       cbo: editValues.cbo,
@@ -146,12 +158,19 @@ const handleChangeValues = (values) => {
       cep: editValues.cep,
       cestaBasica: editValues.cestaBasica,
       cidade: editValues.cidade,
+      cnh: editValues.cnh,
+      cnh_categoria: editValues.cnh_categoria,
+      cnh_validade: editValues.cnh_validade,
+      cod_cargo: editValues.cod_cargo,
+      cod_ccusto: editValues.cod_ccusto,
+      cod_esocial: editValues.cod_esocial,
       conta: editValues.conta,
       contrato_experiencia: editValues.contrato_experiencia,
       cor: editValues.cor,
       cpf: editValues.cpf,
       data_expedicao: editValues.data_expedicao,
       data_nascimento: editValues.data_nascimento,
+      demissao: editValues.demissao,
       descAgencia: editValues.descAgencia,
       email: editValues.email,
       escala: editValues.escala,
@@ -194,7 +213,7 @@ const handleChangeValues = (values) => {
       tipo_conta: editValues.tipo_conta,
       titulo_eleitoral: editValues.titulo_eleitoral,
       uf_rg: editValues.uf_rg,
-      zona_eleitoral: editValues.zona_eleitoral,      
+      zona_eleitoral: editValues.zona_eleitoral         
     }).then(() => {
       props.setColaboradores(
         props.colaboradores?.map((value) => {
@@ -202,9 +221,10 @@ const handleChangeValues = (values) => {
             ? {
               id: editValues.id,
               admissao: editValues.admissao,
-              demissao: editValues.demissao,
               agencia: editValues.agencia,
+              aposentado: editValues.aposentado,
               bairro: editValues.bairro,
+              banco: editValues.banco,
               cargaHoraria: editValues.cargaHoraria,
               cargo: editValues.cargo,
               cbo: editValues.cbo,
@@ -213,12 +233,19 @@ const handleChangeValues = (values) => {
               cep: editValues.cep,
               cestaBasica: editValues.cestaBasica,
               cidade: editValues.cidade,
+              cnh: editValues.cnh,
+              cnh_categoria: editValues.cnh_categoria,
+              cnh_validade: editValues.cnh_validade,
+              cod_cargo: editValues.cod_cargo,
+              cod_ccusto: editValues.cod_ccusto,
+              cod_esocial: editValues.cod_esocial,
               conta: editValues.conta,
               contrato_experiencia: editValues.contrato_experiencia,
               cor: editValues.cor,
               cpf: editValues.cpf,
               data_expedicao: editValues.data_expedicao,
               data_nascimento: editValues.data_nascimento,
+              demissao: editValues.demissao,
               descAgencia: editValues.descAgencia,
               email: editValues.email,
               escala: editValues.escala,
@@ -261,7 +288,7 @@ const handleChangeValues = (values) => {
               tipo_conta: editValues.tipo_conta,
               titulo_eleitoral: editValues.titulo_eleitoral,
               uf_rg: editValues.uf_rg,
-              zona_eleitoral: editValues.zona_eleitoral,   
+              zona_eleitoral: editValues.zona_eleitoral   
               }
             : value;
         })
@@ -295,10 +322,10 @@ const handleChangeValues = (values) => {
     axios
       .get(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => {
-        console.log(response.data);
+        
         setEndereco(response.data);
         // setClientes(response.data.data)
-        console.log(endereco);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -320,7 +347,7 @@ const tipoConta = [
 const situacao = [
     {label: 'Ativo'}, {label: 'Inativo'}, {label: 'Pendente'},
 ]
-console.log(props.dialog)
+
   return (
     <div>
       <Dialog
@@ -340,20 +367,31 @@ console.log(props.dialog)
                   <TextField sx={{width: '49%'}} size='small' variant="outlined" id="matricula" label="Matricula" defaultValue={props.dialog.matricula} type="text" disabled  />
                   <FormControl component="fieldset">
                     <FormLabel sx={{fontSize: '12px',margin: '0', height: '18px'}} id="genero">Gênero</FormLabel>                    
-                    <RadioGroup row aria-labelledby="sexo" name="sexo">
-                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="feminino" control={<Radio sx={{height: '25px'}} />} label="Feminino" />
-                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="masculino" control={<Radio sx={{height: '25px'}} />} label="Masculino" />
-                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="outro" control={<Radio sx={{height: '25px'}} />} label="Outro" />
+                    <RadioGroup row aria-labelledby="sexo" name="sexo" defaultValue={props.dialog.sexo} onChange={handleChangeValues}>
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="feminino" control={<Radio id='sexo' sx={{height: '25px'}} />} label="Feminino" />
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="masculino" control={<Radio id='sexo' sx={{height: '25px'}} />} label="Masculino" />
+                      <FormControlLabel sx={{height: '25px'}} name="sexo" value="outro" control={<Radio id='sexo' sx={{height: '25px'}} />} label="Outro" />
                     </RadioGroup>
                   </FormControl>
+
                 </Box>                
-                <TextField size='small' variant="outlined" id="nome" label="Nome" sx={{width: '99%'}} autoFocus defaultValue={props.dialog.nome} type="text" onChange={handleChangeValues} />
+                <TextField sx={{width: '99%'}} size='small' variant="outlined" id="nome" label="Nome" autoFocus defaultValue={props.dialog.nome} type="text" onChange={handleChangeValues} />
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="data_nascimento" label="Data de nascimento" type='date' defaultValue={props.dialog.data_nascimento} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="cpf" label="CPF" defaultValue={props.dialog.cpf} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="nome_mae" label="Nome da Mãe" defaultValue={props.dialog.nome_mae} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="nome_pai" label="Nome do Pai" defaultValue={props.dialog.nome_pai} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="naturalidade" label="Naturalidade" defaultValue={props.dialog.naturalidade} onChange={handleChangeValues}/>                
-                <TextField sx={{width: '49%'}} size='small' variant="outlined" id="estado_civil" label="Estado Civil" defaultValue={props.dialog.estado_civil} onChange={handleChangeValues}/>
+                {/* <TextField sx={{width: '49%'}} size='small' variant="outlined" id="estado_civil" label="Estado Civil" defaultValue={props.dialog.estado_civil} onChange={handleChangeValues}/> */}
+                <FormControl sx={{width: '49%'}}>
+                  <InputLabel id="estado-civil-label">Estado Civil</InputLabel>
+                  <Select size='small' labelId="estado-civil-label" id="estado_civil" name="estado_civil" defaultValue={props.dialog.estado_civil} label="Estado Civil" onChange={handleChangeValues} InputLabelProps={{ shrink: true }}>
+                    <MenuItem value='Solteiro(a)'>Solteiro(a)</MenuItem>
+                    <MenuItem value='Casado(a)'>Casado(a)</MenuItem>
+                    <MenuItem value='Divorciado(a)'>Divorciado(a)</MenuItem>
+                    <MenuItem value='Viúvo(a)'>Viúvo(a)</MenuItem>
+                    <MenuItem value='Separado(a)'>Separado(a) judicialmente</MenuItem>
+                  </Select>
+                </FormControl>
                 <TextField sx={{width: '49%'}} size='small' variant="outlined" id="cor" label="Cor" defaultValue={props.dialog.cor} onChange={handleChangeValues}/>
               </CardContent>
             </Card>
@@ -363,14 +401,14 @@ console.log(props.dialog)
               <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
                   <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Documentação <ArticleIcon /></Typography>
                   <TextField sx={{width: '49%'}} size='small' id="rg" label="RG" variant="outlined" defaultValue={props.dialog.rg} onChange={handleChangeValues}/>
-                  <TextField sx={{width: '49%'}} size='small' id="uf_rg" label="UF RG" variant="outlined" defaultValue={props.dialog.uf_rg} onChange={handleChangeValues}/>{/* *******INCLUIR******* */}
-                  <TextField sx={{width: '49%'}} size='small' id="orgao_rg" label="RG Órgão Emissor" variant="outlined" defaultValue={props.dialog.rg_orgao_emissor} onChange={handleChangeValues}/>
-                  <TextField sx={{width: '49%'}} size='small' id="data_expedicao" label="RG Data Emissão" variant="outlined" defaultValue={props.dialog.rg_data_emissao} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="uf_rg" label="UF RG" variant="outlined" defaultValue={props.dialog.uf_rg} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="orgao_rg" label="RG Órgão Emissor" variant="outlined" defaultValue={props.dialog.orgao_rg} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="data_expedicao" label="RG Data Emissão" variant="outlined" defaultValue={props.dialog.data_expedicao} type='date' onChange={handleChangeValues}  InputLabelProps={{ shrink: true }}/>
                   <TextField sx={{width: '49%'}} size='small' id="pis" label="PIS" variant="outlined" defaultValue={props.dialog.pis} onChange={handleChangeValues}/>
                   <TextField sx={{width: '49%'}} size='small' id="cnh" label="CNH" variant="outlined" defaultValue={props.dialog.cnh} onChange={handleChangeValues}/>
                   <TextField sx={{width: '49%'}} size='small' id="cnh_categoria" label="CNH Categoria" variant="outlined" defaultValue={props.dialog.cnh_categoria} onChange={handleChangeValues}/>
-                  <TextField sx={{width: '49%'}} size='small' id="cnh_validade" label="CNH Validade" variant="outlined" defaultValue={props.dialog.cnh_validade} onChange={handleChangeValues}/>
-                  <TextField sx={{width: '49%'}} size='small' id="hab_emissao" label="CNH Emissão" variant="outlined" defaultValue={props.dialog.cnh_emissao} onChange={handleChangeValues}/>
+                  <TextField sx={{width: '49%'}} size='small' id="cnh_validade" label="CNH Validade" variant="outlined" defaultValue={props.dialog.cnh_validade} type='date' onChange={handleChangeValues} InputLabelProps={{ shrink: true }}/>
+                  <TextField sx={{width: '49%'}} size='small' id="hab_emissao" label="CNH Emissão" variant="outlined" defaultValue={props.dialog.hab_emissao} type='date' onChange={handleChangeValues} InputLabelProps={{ shrink: true }}/>
                   <TextField sx={{width: '49%'}} size='small' id="titulo_eleitoral" label="Título Eleitoral" variant="outlined" defaultValue={props.dialog.titulo_eleitoral} onChange={handleChangeValues}/>
                   <TextField sx={{width: '49%'}} size='small' id="zona_eleitoral" label="Zona Eleitoral" variant="outlined" defaultValue={props.dialog.zona_eleitoral} onChange={handleChangeValues}/>
                   <TextField sx={{width: '49%'}} size='small' id="secao_eleitoral" label="Seção Eleitoral" variant="outlined" defaultValue={props.dialog.secao_eleitoral} onChange={handleChangeValues}/>
@@ -382,7 +420,7 @@ console.log(props.dialog)
             <Card sx={{width: '100%'}}>
               <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
                 <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center'}} variant="h6" color="text.primary" gutterBottom >Contato e Endereço <HomeIcon /></Typography>
-                <TextField sx={{width: '49%'}} size='small' id="telefone" label="Telefone" variant="outlined" defaultValue={props.dialog.telefone} onChange={handleChangeValues}/>
+                <TextField sx={{width: '49%'}} size='small' id="telefone" label="Telefone" variant="outlined" defaultValue={props.dialog.telefone} onChange={handleChangeValues} onKeyUp={(event) => handleFormatPhone(event)}/>
                 <TextField sx={{width: '49%'}} size='small' id="celular" label="Celular" variant="outlined" defaultValue={props.dialog.celular} onChange={handleChangeValues} onKeyUp={(event)=>handleFormatPhone(event)} onClick={(event)=>handleFormatPhone(event)}/>
                 <TextField sx={{width: '49%'}} size='small' id="email" label="E-mail" variant="outlined" defaultValue={props.dialog.email} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' id="cep" label="CEP" variant="outlined" defaultValue={props.dialog.cep} onKeyUp={(event) => handleFormatCep(event)} onChange={handleChangeValues}/>
@@ -390,7 +428,7 @@ console.log(props.dialog)
                 <TextField sx={{width: '49%'}} size='small' id="numero" label="Numero" variant="outlined" defaultValue={props.dialog.numero} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' id="bairro" label="Bairro" variant="outlined" defaultValue={props.dialog.bairro} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small' id="cidade" label="Cidade" variant="outlined" defaultValue={props.dialog.cidade} onChange={handleChangeValues}/>
-                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="estado" defaultValue={props.dialog.estado} options={estadosBrasileiros} 
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="estado" onChange={handleChangeValues} defaultValue={props.dialog.estado} options={estadosBrasileiros} 
                             renderInput={(params) => <TextField variant="outlined" {...params} label="Estado"  />} />
                 <TextField sx={{width: '49%'}} size='small'  id="residencia_propria" label="Residência Própria" variant="outlined" defaultValue={props.dialog.residencia_propria} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small'  id="residencia_adquirida_fgts" label="Adquirido FGTS" variant="outlined" defaultValue={props.dialog.residencia_adquirida_fgts} onChange={handleChangeValues}/>
@@ -403,19 +441,20 @@ console.log(props.dialog)
                 <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Dados do Contrato <BadgeIcon /></Typography>
                 <TextField sx={{width: '49%'}} size='small'  id="admissao" label="Data de admissão" variant="outlined" type='date' defaultValue={props.dialog.admissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
                 <TextField sx={{width: '49%'}} size='small'  id="demissao" label="Data de demissão" variant="outlined" type='date' defaultValue={props.dialog.demissao} onChange={handleChangeValues} InputLabelProps={{ shrink: true }} />
-                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal id="cargo" value={props.dialog.cargo} options={cargos} 
+                <TextField sx={{width: '99%'}} size='small' id='motivo_demissao' label='Motivo da Demissão' variant='outlined' defaultValue={props.dialog.motivo_demissao} onChange={handleChangeValues}></TextField>
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal id="cargo" onChange={handleChangeValues} value={props.dialog.cargo} options={cargos} 
                         renderInput={(params) => <TextField variant="outlined" {...params} label="Cargo"  />} />
-                <TextField sx={{width: '49%'}} size='small' id="cod_cargo" label="Código do Cargo" variant="outlined" defaultValue={props.dialog.cod_cargo} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+                <TextField sx={{width: '49%'}} size='small' id="cod_cargo" label="Código do Cargo" variant="outlined" defaultValue={props.dialog.cod_cargo} onChange={handleChangeValues}/> 
                 <TextField sx={{width: '49%'}} size='small' id="salario" label="Salário" variant="outlined" defaultValue={props.dialog.salario} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small'  id="contrato_experiencia" label="Contrato Experiência" variant="outlined" defaultValue={props.dialog.contrato_experiencia} onChange={handleChangeValues}/>
-                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="ccusto" value={props.dialog.ccusto} options={ccusto} 
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="ccusto" onChange={handleChangeValues} value={props.dialog.ccusto} options={ccusto} 
                         renderInput={(params) => <TextField variant="outlined" {...params} label="Centro de Custo"  />} />
-                <TextField sx={{width: '49%'}} size='small' id="cod_ccusto" label="Código do Centro de Custo" variant="outlined" defaultValue={props.dialog.cod_ccusto} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+                <TextField sx={{width: '49%'}} size='small' id="cod_ccusto" label="Código do Centro de Custo" variant="outlined" defaultValue={props.dialog.cod_ccusto} onChange={handleChangeValues}/> 
                 <TextField sx={{width: '49%'}} size='small'  id="cbo" label="CBO" variant="outlined" defaultValue={props.dialog.cbo} onChange={handleChangeValues}/>
                 <FormControl component="fieldset">
                   <FormLabel sx={{fontSize: '12px',margin: '0', height: '18px'}} id="insalubridade">Adicional de insalubridade</FormLabel>
-                  <RadioGroup row aria-labelledby="insalubridade" name="insalubridade">
-                    <FormControlLabel sx={{height: '25px'}} name="insalubridade" value="sim" control={<Radio sx={{height: '25px'}} />} label="Sim"/>  {/* *******INCLUIR******* */}
+                  <RadioGroup row aria-labelledby="insalubridade" name="insalubridade" id="insalubridade" onChange={handleChangeValues} defaultValue={props.dialog.insalubridade}>
+                    <FormControlLabel sx={{height: '25px'}} name="insalubridade" value="sim" control={<Radio sx={{height: '25px'}} />} label="Sim"/>  
                     <FormControlLabel sx={{height: '25px'}} name="insalubridade" value="nao" control={<Radio sx={{height: '25px'}}/>} label="Não"/>
                   </RadioGroup>
                 </FormControl>
@@ -439,9 +478,9 @@ console.log(props.dialog)
                 <TextField sx={{width: '49%'}} size='small'  id="banco" label="Banco" variant="outlined" defaultValue={props.dialog.banco} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small'  id="agencia" label="Agência" variant="outlined" defaultValue={props.dialog.agencia} onChange={handleChangeValues}/>
                 <TextField sx={{width: '49%'}} size='small'  id="conta" label="Conta" variant="outlined" defaultValue={props.dialog.conta} onChange={handleChangeValues}/>
-                <Autocomplete sx={{width: '49%'}} size='small'  isOptionEqualToValue={(option, value) => option === value} disablePortal  id="tipo_conta" defaultValue={props.dialog.tipo_conta} options={tipoConta} 
+                <Autocomplete sx={{width: '49%'}} size='small'  isOptionEqualToValue={(option, value) => option === value} disablePortal  id="tipo_conta" onChange={handleChangeValues} defaultValue={props.dialog.tipo_conta} options={tipoConta} 
                             renderInput={(params) => <TextField variant="outlined" {...params} label="Tipo de Conta"  />} />
-                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="situacao" defaultValue={props.dialog.situacao} options={situacao} 
+                <Autocomplete sx={{width: '49%'}} size='small' isOptionEqualToValue={(option, value) => option === value} disablePortal  id="situacao" onChange={handleChangeValues} defaultValue={props.dialog.situacao} options={situacao} 
                             renderInput={(params) => <TextField variant="outlined" {...params} label="Situação"  />} />
                 <TextField sx={{width: '49%'}} size='small'  id="descAgencia" label="Descrição da Agência" variant="outlined" defaultValue={props.dialog.descAgencia} onChange={handleChangeValues}/>
               </CardContent>
@@ -451,9 +490,9 @@ console.log(props.dialog)
             <Card sx={{width: '100%'}}>
               <CardContent sx={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
               <Typography sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="h6" color="text.primary" gutterBottom >Formação Acadêmica <SchoolIcon /></Typography>
-                <TextField sx={{width:'49%'}} size='small' id="escolaridade" label="Escolaridade" variant="outlined" defaultValue={props.dialog.escolaridade} onChange={handleChangeValues}/>
+                <TextField sx={{width:'49%'}} size='small' id="escolaridade" label="Escolaridade" variant="outlined" defaultValue={props.dialog.grau_instrucao} onChange={handleChangeValues}/>
                 <TextField sx={{width:'49%'}} size='small' id="graduacao" label="Graduação" variant="outlined" defaultValue={props.dialog.graduacao} onChange={handleChangeValues}/>
-                <TextField sx={{width:'49%'}} size='small' id="registro" label="Regsitro" variant="outlined" defaultValue={props.dialog.regsitro} onChange={handleChangeValues}/> {/* *******INCLUIR******* */}
+                <TextField sx={{width:'49%'}} size='small' id="registro" label="Regsitro" variant="outlined" defaultValue={props.dialog.registro} onChange={handleChangeValues}/> 
               </CardContent>
             </Card>
 

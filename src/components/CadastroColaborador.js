@@ -384,8 +384,6 @@ const CadastroColaborador = () => {
                           <TextField {...register("quantidadeVT")} name="quantidadeVT" label="Quantidade VT / dia" variant="outlined" size="small" />
                           <TextField {...register("planoSaude")} name="planoSaude" label="Plano de saúde" variant="outlined" size="small"/>
                           <TextField {...register("planoOdonto")} name="planoOdonto" label="Plano Odonto" variant="outlined" size="small"/>
-
-
                           <TextField {...register("cestaBasica")} name="cestaBasica" label="Cesta Básica" variant="outlined" size="small"/>
                           <TextField {...register("refeitorio")} name="refeitorio" label="Refeitório" variant="outlined" size="small"/>
                         </CardContent>

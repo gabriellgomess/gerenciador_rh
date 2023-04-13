@@ -56,6 +56,8 @@ import PrivateRoute from "./components/PrivateRoute";
 
 import env from "react-dotenv";
 
+console.warn = () => {};
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
